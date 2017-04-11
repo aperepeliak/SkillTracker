@@ -27,7 +27,7 @@ namespace ST.DAL
             Developers  = new DeveloperRepo(_db);
         }
 
-        public void       Save()      => _db.SaveChanges();
+        public void       Save()      =>       _db.SaveChanges();
         public async Task SaveAsync() => await _db.SaveChangesAsync();
     }
 }
