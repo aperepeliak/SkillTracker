@@ -33,7 +33,7 @@ namespace ST.DAL.Migrations
                 var userManager = new UserManager<ApplicationUser>(userStore);
 
                 userManager.Create(user, "password");
-                userManager.AddToRole(user.Id, "admin");
+                userManager.AddToRole(user.Id, SecurityRoles.Admin);
             }
         }
     }

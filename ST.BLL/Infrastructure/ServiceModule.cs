@@ -6,7 +6,7 @@ namespace BusinessLayer.Infrastructure
     {
         public override void Load()
         {
-            Kernel.Bind(x => x.FromAssembliesMatching("Data.AdoNet.dll")
+            Kernel.Bind(x => x.FromAssembliesMatching("ST.DAL.dll")
                             .SelectAllClasses()
                             .BindAllInterfaces());
         }
