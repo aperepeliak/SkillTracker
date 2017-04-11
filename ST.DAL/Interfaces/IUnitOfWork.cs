@@ -1,10 +1,11 @@
 ﻿using ST.DAL.Identity;
 using ST.DAL.Models;
+using System;
 using System.Threading.Tasks;
 
 namespace ST.DAL.Interfaces
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
         ApplicationUserManager UserManager  { get; }
         ApplicationRoleManager RoleManager  { get; }

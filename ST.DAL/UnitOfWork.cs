@@ -4,6 +4,7 @@ using ST.DAL.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using ST.DAL.Models;
 using ST.DAL.Repos;
+using System;
 
 namespace ST.DAL
 {
@@ -33,5 +34,25 @@ namespace ST.DAL
 
         public void       Save()      =>       _db.SaveChanges();
         public async Task SaveAsync() => await _db.SaveChangesAsync();
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private bool disposed = false;
+        public virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                if (disposing)
+                {
+                    UserManager.Dispose();
+                    RoleManager.Dispose();
+                }
+                disposed = true;
+            }
+        }
     }
 }

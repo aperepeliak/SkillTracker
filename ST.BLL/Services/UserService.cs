@@ -110,5 +110,10 @@ namespace ST.BLL.Services
                         message: "User not found", prop: "");
             }
         }
+
+        public void Dispose()
+        {
+            _db.Dispose();
+        }
     }
 }
