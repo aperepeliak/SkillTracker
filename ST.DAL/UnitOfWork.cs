@@ -15,6 +15,8 @@ namespace ST.DAL
         public ApplicationRoleManager RoleManager  { get; private set; }
         public IManagerRepo           Managers     { get; private set; }
         public IDeveloperRepo         Developers   { get; private set; }
+        public IRepo<Skill>           Skills       { get; private set; }
+        public IRepo<Category>        Categories   { get; private set; }
 
         public UnitOfWork(ApplicationContext db)
         {
@@ -25,6 +27,8 @@ namespace ST.DAL
 
             Managers    = new ManagerRepo  (_db);
             Developers  = new DeveloperRepo(_db);
+            Skills      = new SkillRepo    (_db);
+            Categories  = new CategoryRepo (_db);
         }
 
         public void       Save()      =>       _db.SaveChanges();

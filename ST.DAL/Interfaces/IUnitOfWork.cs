@@ -1,4 +1,5 @@
 ﻿using ST.DAL.Identity;
+using ST.DAL.Models;
 using System.Threading.Tasks;
 
 namespace ST.DAL.Interfaces
@@ -9,6 +10,8 @@ namespace ST.DAL.Interfaces
         ApplicationRoleManager RoleManager  { get; }
         IManagerRepo           Managers     { get; }
         IDeveloperRepo         Developers   { get; }
+        IRepo<Skill>           Skills       { get; }
+        IRepo<Category>        Categories   { get; }
 
         Task SaveAsync();
         void Save();
