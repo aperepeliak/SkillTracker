@@ -3,10 +3,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 using ST.BLL.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Web.Mvc;
 
 [assembly: OwinStartup(typeof(ST.WebUI.App_Start.Startup))]
 
@@ -14,11 +11,7 @@ namespace ST.WebUI.App_Start
 {
     public class Startup
     {
-        private IUserService _service;
-        public Startup(IUserService service)
-        {
-            _service = service;
-        }
+        IUserService _userService = DependencyResolver.Current.GetService<IUserService>();
 
         public void Configuration(IAppBuilder app)
         {
@@ -32,7 +25,7 @@ namespace ST.WebUI.App_Start
 
         private IUserService CreateUserService()
         {
-            return _service;
+            return _userService;
         }
     }
 }
