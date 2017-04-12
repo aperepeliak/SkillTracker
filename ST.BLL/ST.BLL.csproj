@@ -63,6 +63,7 @@
     <Compile Include="DTOs\SkillDto.cs" />
     <Compile Include="DTOs\UserDto.cs" />
     <Compile Include="Infrastructure\OperationDetails.cs" />
+    <Compile Include="Infrastructure\SecurityRoles.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

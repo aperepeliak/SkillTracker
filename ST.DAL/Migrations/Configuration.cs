@@ -3,6 +3,7 @@ namespace ST.DAL.Migrations
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using ST.DAL.Models;
+    using ST.DAL.Identity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
