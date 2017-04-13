@@ -67,9 +67,9 @@
     <Compile Include="Interfaces\IRepo.cs" />
     <Compile Include="Interfaces\ISkillRepo.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
-    <Compile Include="Migrations\201704111444271_InitialModel.cs" />
-    <Compile Include="Migrations\201704111444271_InitialModel.Designer.cs">
-      <DependentUpon>201704111444271_InitialModel.cs</DependentUpon>
+    <Compile Include="Migrations\201704131846125_InitialModel.cs" />
+    <Compile Include="Migrations\201704131846125_InitialModel.Designer.cs">
+      <DependentUpon>201704131846125_InitialModel.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationRole.cs" />
@@ -91,8 +91,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201704111444271_InitialModel.resx">
-      <DependentUpon>201704111444271_InitialModel.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201704131846125_InitialModel.resx">
+      <DependentUpon>201704131846125_InitialModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

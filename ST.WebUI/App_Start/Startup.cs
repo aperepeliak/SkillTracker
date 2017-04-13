@@ -11,11 +11,11 @@ namespace ST.WebUI.App_Start
 {
     public class Startup
     {
-        IUserService _userService = DependencyResolver.Current.GetService<IUserService>();
+        //IUserService _userService = DependencyResolver.Current.GetService<IUserService>();
 
         public void Configuration(IAppBuilder app)
         {
-            app.CreatePerOwinContext<IUserService>(CreateUserService);
+            app.CreatePerOwinContext<IUserService>(() => DependencyResolver.Current.GetService<IUserService>());
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
@@ -23,9 +23,9 @@ namespace ST.WebUI.App_Start
             });
         }
 
-        private IUserService CreateUserService()
-        {
-            return _userService;
-        }
+        //private IUserService CreateUserService()
+        //{
+        //    return _userService;
+        //}
     }
 }
