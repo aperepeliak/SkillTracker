@@ -76,9 +76,13 @@ namespace ST.BLL.Services
             ApplicationUser user = await _db.UserManager.FindAsync(userDto.Email, userDto.Password);
 
             if (user != null)
+            {
                 claim = await _db.UserManager.CreateIdentityAsync(user,
                     DefaultAuthenticationTypes.ApplicationCookie);
 
+                claim.AddClaim(new Claim("FirstName", user.FirstName));
+            }
+                
             return claim;
         }
 
@@ -99,7 +103,6 @@ namespace ST.BLL.Services
                     return new OperationDetails(succedeed: false,
                         message: result.Errors.FirstOrDefault(), prop: "");
                 }
-
             }
             else
             {

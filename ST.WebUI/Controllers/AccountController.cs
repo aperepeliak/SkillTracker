@@ -4,9 +4,6 @@ using Microsoft.Owin.Security;
 using ST.BLL.DTOs;
 using ST.BLL.Interfaces;
 using ST.WebUI.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -22,10 +19,7 @@ namespace ST.WebUI.Controllers
         public IAuthenticationManager AuthenticationManager 
             => HttpContext.GetOwinContext().Authentication;
 
-        public ActionResult Login()
-        {
-            return View();
-        }
+        public ActionResult Login() => View();
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -54,7 +48,7 @@ namespace ST.WebUI.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult Logout()
+        public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
             return RedirectToAction("Index", "Home");
@@ -83,18 +77,25 @@ namespace ST.WebUI.Controllers
                        : SecurityRoles.Manager
             };
 
-            OperationDetails operationDetails = await UserService.Create(userDto);
+            var operationDetails = await UserService.Create(userDto);
 
             if (operationDetails.Succedeed)
-                return View("SuccessRegister");
+            {
+                var claim = await UserService.Authenticate(userDto);
+                AuthenticationManager.SignIn(new AuthenticationProperties
+                {
+                    IsPersistent = true
+                }, claim);
+
+                return RedirectToAction("Index", "Home");
+            }                
             else
             {
                 ModelState.AddModelError(operationDetails.Property,
                                          operationDetails.Message);
 
                 return View(viewModel);
-            }
-                
+            }              
         }
     }
 }
