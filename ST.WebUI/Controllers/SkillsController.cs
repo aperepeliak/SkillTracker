@@ -1,4 +1,4 @@
-﻿using BusinessLayer.Infrastructure;
+﻿using ST.BLL.Infrastructure;
 using ST.BLL.DTOs;
 using ST.BLL.Interfaces;
 using ST.WebUI.ViewModels;
@@ -122,7 +122,7 @@ namespace ST.WebUI.Controllers
             return RedirectToAction("Skills", "Skills");
         }
 
-        [HttpDelete]
+        [HttpPost]
         public ActionResult Delete(int id)
         {
             var skill = _skillService.GetById(id);

@@ -1,4 +1,4 @@
-﻿namespace BusinessLayer.Infrastructure
+﻿namespace ST.BLL.Infrastructure
 {
     public static class SecurityRoles
     {

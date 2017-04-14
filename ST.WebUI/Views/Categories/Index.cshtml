@@ -1,0 +1,89 @@
+﻿@model IEnumerable<ST.WebUI.ViewModels.CategoryViewModel>
+
+@{
+    ViewBag.Title = "Categories";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="col-md-9 col-md-offset-1">
+
+    <h2>Categories</h2>
+
+    <div class="controls">
+        <div>
+            @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-info" })
+        </div>
+    </div>
+
+    <table class="table table-bordered table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>Actions</th>
+        </tr>
+
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => category.Name)
+                </td>
+                <td>
+                    <a class="edit" href="@Url.Action("Edit", new { id = category.Id })">
+                        <span class="glyphicon glyphicon-edit"></span> |
+                    </a>
+                    <a href="#">
+                        <span data-category-id="@category.Id" class="glyphicon glyphicon-trash delete"></span>
+                    </a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(function () {
+            $("span.delete").click(function (e) {
+                e.preventDefault();
+                var element = $(e.target);
+                var categoryId = element.attr("data-category-id");
+                var categoryName = element.closest('td').prev().text().trim();
+
+                bootbox.confirm({
+                    message: "Are you sure you want to delete <strong>" + categoryName + "</strong> category?",
+                    buttons: {
+                        cancel: {
+                            label: 'No',
+                            className: 'btn-default'
+                        },
+                        confirm: {
+                            label: 'Yes',
+                            className: 'btn-danger'
+                        }
+                    },
+                    callback: function (result) {
+                        if (!result) return;
+
+                        $.ajax({
+                            url: "/categories/delete/" + categoryId,
+                            method: "POST"
+                        })
+                            .done(function () {
+                                element.closest('tr')
+                                    .fadeOut(function () {
+                                        $(this).remove();
+                                    })
+                            })
+                            .fail(function () {
+                                alert("Error!");
+                            })
+                    }
+                });
+            });
+        });
+    </script>
+}

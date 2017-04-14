@@ -12,7 +12,7 @@ namespace ST.WebUI.App_Start
     using Ninject.Web.Common;
     using Ninject.Extensions.Conventions;
     using Ninject.Modules;
-    using BusinessLayer.Infrastructure;
+    using ST.BLL.Infrastructure;
 
     public static class NinjectWebCommon
     {

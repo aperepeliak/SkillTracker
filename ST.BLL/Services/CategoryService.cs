@@ -3,6 +3,7 @@ using ST.BLL.DTOs;
 using ST.BLL.Interfaces;
 using ST.DAL.Interfaces;
 using System.Linq;
+using ST.DAL.Models;
 
 namespace ST.BLL.Services
 {
@@ -12,6 +13,16 @@ namespace ST.BLL.Services
         public CategoryService(IUnitOfWork db)
         {
             _db = db;
+        }
+
+        public void Add(CategoryDto categoryDto)
+        {
+            _db.Categories.Add(new Category
+            {
+                Name = categoryDto.Name
+            });
+
+            _db.Save();
         }
 
         public IEnumerable<CategoryDto> GetAll()
@@ -30,9 +41,31 @@ namespace ST.BLL.Services
 
             return new CategoryDto
             {
-                Id   = category.Id,
+                Id = category.Id,
                 Name = category.Name
             };
+        }
+
+        public void Remove(CategoryDto categoryDto)
+        {
+            var category = _db.Categories.GetById(categoryDto.Id);
+
+            if (category != null)
+            {
+                _db.Categories.Delete(category);
+                _db.Save();
+            }
+        }
+
+        public void Update(CategoryDto categoryDto)
+        {
+            var category = _db.Categories.GetById(categoryDto.Id);
+
+            if (category != null)
+            {
+                category.Name = categoryDto.Name;
+                _db.Save();
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Ninject.Extensions.Conventions;
 
-namespace BusinessLayer.Infrastructure
+namespace ST.BLL.Infrastructure
 {
     public class ServiceModule : Ninject.Modules.NinjectModule
     {

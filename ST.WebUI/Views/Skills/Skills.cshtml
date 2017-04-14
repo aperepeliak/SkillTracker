@@ -61,7 +61,6 @@
                     </td>
                 </tr>
             }
-
         </table>
     </div>
     @Html.PagedListPager((IPagedList)Model.Skills,
@@ -92,10 +91,10 @@
                     },
                     callback: function (result) {
                         if (!result) return;
-
+                        
                         $.ajax({
                             url: "/skills/delete/" + skillId,
-                            method: "DELETE"
+                            method: "POST"
                         })
                             .done(function () {
                                 element.closest('tr')

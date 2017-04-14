@@ -1,4 +1,4 @@
-﻿using BusinessLayer.Infrastructure;
+﻿using ST.BLL.Infrastructure;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ST.BLL.DTOs;
