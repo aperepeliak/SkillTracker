@@ -13,10 +13,10 @@ namespace ST.DAL.Repos
             _db = db;
         }
 
-        public void     Add(Category entity)    => _db.Categories.Add(entity);
-        public void     Delete(Category entity) => _db.Entry(entity).State = 
-                                                       EntityState.Deleted;
-        public Category GetById(int id)         => _db.Categories.Find(id);
-        public IEnumerable<Category> GetAll()   => _db.Categories;
+        public void Add(Category entity)      => _db.Categories.Add(entity);
+        public void Delete(Category entity)   => _db.Entry(entity).State = 
+                                                     EntityState.Deleted;
+        public Category GetById(int id)       => _db.Categories.Find(id);
+        public IEnumerable<Category> GetAll() => _db.Categories;
     }
 }

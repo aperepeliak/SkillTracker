@@ -1,0 +1,114 @@
+﻿@using X.PagedList.Mvc;
+@using X.PagedList;
+@model ST.WebUI.ViewModels.SkillsViewModel
+
+@{
+    ViewBag.Title = "Skills";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="col-md-9 col-md-offset-1">
+
+    <h2>Skills</h2>
+
+    <div class="controls">
+        <div>
+            @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-info" })
+        </div>
+        <div>
+            <div id="category-dropdown" class="dropdown pull-left">
+                <button id="dLabel" class="btn btn-default" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    @Model.SelectedCategoryName
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dLabel">
+                    <li><a href="/skills/skills/">All</a></li>
+                    @foreach (var category in Model.Categories)
+                    {
+                        <li>
+                            <a href="/skills/skills?categoryId=@category.Id">@category.Name</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="skills">
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>Skill</th>
+                <th>Category</th>
+                <th>Actions</th>
+            </tr>
+
+            @foreach (var skill in Model.Skills)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => skill.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => skill.CategoryName)
+                    </td>
+                    <td>
+                        <a class="edit" href="@Url.Action("Edit", new { id = skill.Id })">
+                            <span class="glyphicon glyphicon-edit"></span> |
+                        </a>
+                        <a href="#">
+                            <span data-skill-id="@skill.Id" class="glyphicon glyphicon-trash delete"></span>
+                        </a>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+    @Html.PagedListPager((IPagedList)Model.Skills,
+    page => Url.Action("Skills", new { categoryId = Model.SelectedCategoryId, page }))
+</div>
+
+@section Scripts
+{
+    <script>
+        $(function () {
+            $("span.delete").click(function (e) {
+                e.preventDefault();
+                var element = $(e.target);
+                var skillId = element.attr("data-skill-id");
+                var skillName = element.closest('td').prev().prev().text().trim();
+
+                bootbox.confirm({
+                    message: "Are you sure you want to delete <strong>" + skillName + "</strong> skill?",
+                    buttons: {
+                        cancel: {
+                            label: 'No',
+                            className: 'btn-default'
+                        },
+                        confirm: {
+                            label: 'Yes',
+                            className: 'btn-danger'
+                        }
+                    },
+                    callback: function (result) {
+                        if (!result) return;
+
+                        $.ajax({
+                            url: "/skills/delete/" + skillId,
+                            method: "DELETE"
+                        })
+                            .done(function () {
+                                element.closest('tr')
+                                    .fadeOut(function () {
+                                        $(this).remove();
+                                    })
+                            })
+                            .fail(function () {
+                                alert("Error!");
+                            })
+                    }
+                });
+            });
+        });
+    </script>
+}
