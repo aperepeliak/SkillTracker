@@ -59,6 +59,7 @@
     <Compile Include="EntityConfigs\DeveloperConfig.cs" />
     <Compile Include="EntityConfigs\ManagerConfig.cs" />
     <Compile Include="EntityConfigs\SkillConfig.cs" />
+    <Compile Include="EntityConfigs\SkillRatingConfig.cs" />
     <Compile Include="Identity\ApplicationRoleManager.cs" />
     <Compile Include="Identity\ApplicationUserManager.cs" />
     <Compile Include="Interfaces\ICategoryRepo.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Models\Manager.cs" />
     <Compile Include="Identity\SecurityRoles.cs" />
     <Compile Include="Models\Skill.cs" />
+    <Compile Include="Models\SkillRating.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repos\CategoryRepo.cs" />
     <Compile Include="Repos\DeveloperRepo.cs" />

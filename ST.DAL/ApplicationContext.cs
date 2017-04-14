@@ -9,10 +9,11 @@ namespace ST.DAL
     {
         public ApplicationContext() : base("SkillTrackerDb") { }
 
-        public DbSet<Manager>   Managers   { get; set; }
-        public DbSet<Developer> Developers { get; set; }
-        public DbSet<Skill>     Skills     { get; set; }
-        public DbSet<Category>  Categories { get; set; }
+        public DbSet<Manager>     Managers     { get; set; }
+        public DbSet<Developer>   Developers   { get; set; }
+        public DbSet<Skill>       Skills       { get; set; }
+        public DbSet<Category>    Categories   { get; set; }
+        public DbSet<SkillRating> SkillRatings { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

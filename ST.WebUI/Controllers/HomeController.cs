@@ -9,18 +9,15 @@ namespace ST.WebUI.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Profile()
         {
-            ViewBag.Message = "Your application description page.";
+            var developerViewModel = new DeveloperViewModel
+            {
 
-            return View();
-        }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
+            };
 
-            return View();
+            return View(developerViewModel);
         }
     }
 }
