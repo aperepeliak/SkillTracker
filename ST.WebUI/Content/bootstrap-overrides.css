@@ -1,0 +1,24 @@
+﻿table a:not(.btn), .table a:not(.btn) {
+    text-decoration: none;
+}
+
+.btn-default {
+    color: #040404;
+    background-color: #fff;
+    border-color: #222222;
+}
+
+    .btn-default:hover {
+        color: #fff;
+        background-color: #040404;
+        border-color: #040404;
+    }
+
+.form-control:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.field-validation-error > span {
+    color: red;
+}

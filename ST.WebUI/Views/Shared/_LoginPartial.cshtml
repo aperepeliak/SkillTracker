@@ -1,7 +1,4 @@
-﻿@using Microsoft.AspNet.Identity
-@using System.Security.Claims;
-
-
+﻿@using System.Security.Claims;
 
 @if (Request.IsAuthenticated)
 {
@@ -11,7 +8,7 @@
  
         <ul class="nav navbar-nav navbar-right">
             <li>    
-                @Html.ActionLink("Hello " + ((ClaimsIdentity)User.Identity).FindFirst("FirstName").Value + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                <a href="#">Hello @(((ClaimsIdentity)User.Identity).FindFirst("FirstName").Value)!</a>
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
         </ul>
