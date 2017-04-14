@@ -17,9 +17,9 @@ namespace ST.DAL.Migrations
         protected override void Seed(ApplicationContext context)
         {
             context.Roles.AddOrUpdate(r => r.Name,
-                new IdentityRole { Name = SecurityRoles.Admin },
-                new IdentityRole { Name = SecurityRoles.Manager },
-                new IdentityRole { Name = SecurityRoles.Developer });
+                new ApplicationRole { Name = SecurityRoles.Admin },
+                new ApplicationRole { Name = SecurityRoles.Manager },
+                new ApplicationRole { Name = SecurityRoles.Developer });
 
             if (!context.Users.Any(u => u.UserName == "admin@domain.com"))
             {

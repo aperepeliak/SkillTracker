@@ -28,8 +28,7 @@
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     @if (Request.IsAuthenticated && User.IsInRole(SecurityRoles.Admin))
                     {
-                        <li>@Html.ActionLink("Dashboard", "Skills", "Skills")
-                        </li>
+                        <li>@Html.ActionLink("Dashboard", "Skills", "Skills")</li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")

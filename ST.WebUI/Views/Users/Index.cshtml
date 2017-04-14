@@ -1,0 +1,94 @@
+﻿@using X.PagedList.Mvc;
+@using X.PagedList;
+@model IEnumerable<ST.WebUI.ViewModels.UserViewModel>
+
+@{
+    ViewBag.Title = "Users";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="col-md-9 col-md-offset-1">
+
+    <h2>Registered Users</h2>
+    <br />
+    <table class="table table-bordered table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Role)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role)
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", null, new { @class= "delete-user" })
+                </td>
+            </tr>
+        }
+
+    </table>
+    @Html.PagedListPager((IPagedList)Model,
+    page => Url.Action("Users", new { page }))
+</div>
+
+@section Scripts
+{
+    <script>
+        $(function () {
+            $(".delete-user").click(function (e) {
+                e.preventDefault();
+                var element = $(e.target);
+                var userEmail = element.closest('td').prev().prev().text().trim();
+                var userName = element.closest('td').prev().prev().prev().text().trim();
+
+                bootbox.confirm({
+                    message: "Are you sure you want to delete <strong>" + userName + "</strong> user?",
+                    buttons: {
+                        cancel: {
+                            label: 'No',
+                            className: 'btn-default'
+                        },
+                        confirm: {
+                            label: 'Yes',
+                            className: 'btn-danger'
+                        }
+                    },
+                    callback: function (result) {
+                        if (!result) return;
+
+                        $.ajax({
+                            url: "/users/delete/?email=" + userEmail,
+                            method: "POST"
+                        })
+                            .done(function () {
+                                element.closest('tr')
+                                    .fadeOut(function () {
+                                        $(this).remove();
+                                    })
+                            })
+                            .fail(function () {
+                                alert("Error!");
+                            })
+                    }
+                });
+            });
+        });
+    </script>
+    }
