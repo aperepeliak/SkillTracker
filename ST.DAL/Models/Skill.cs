@@ -1,4 +1,6 @@
-﻿namespace ST.DAL.Models
+﻿using System.Collections.Generic;
+
+namespace ST.DAL.Models
 {
     public class Skill
     {
@@ -7,5 +9,11 @@
         public int CategoryId { get; set; }
 
         public Category Category { get; set; }
+        public ICollection<SkillRating> SkillRatings { get; set; }
+
+        public Skill()
+        {
+            SkillRatings = new List<SkillRating>();
+        }
     }
 }

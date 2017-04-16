@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using Microsoft.AspNet.Identity;
+using ST.WebUI.ViewModels;
+using System.Web.Mvc;
 
 namespace ST.WebUI.Controllers
 {
@@ -9,11 +11,14 @@ namespace ST.WebUI.Controllers
             return View();
         }
 
-        public ActionResult Profile()
+        public ActionResult DeveloperProfile()
         {
+            string user = User.Identity.GetUserId();
+            var skillRatings = 
+
             var developerViewModel = new DeveloperViewModel
             {
-
+                FirstName = user
 
             };
 

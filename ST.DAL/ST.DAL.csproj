@@ -62,15 +62,18 @@
     <Compile Include="EntityConfigs\SkillRatingConfig.cs" />
     <Compile Include="Identity\ApplicationRoleManager.cs" />
     <Compile Include="Identity\ApplicationUserManager.cs" />
-    <Compile Include="Interfaces\ICategoryRepo.cs" />
     <Compile Include="Interfaces\IDeveloperRepo.cs" />
     <Compile Include="Interfaces\IManagerRepo.cs" />
     <Compile Include="Interfaces\IRepo.cs" />
-    <Compile Include="Interfaces\ISkillRepo.cs" />
+    <Compile Include="Interfaces\ISkillRatingRepo.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Migrations\201704131846125_InitialModel.cs" />
     <Compile Include="Migrations\201704131846125_InitialModel.Designer.cs">
       <DependentUpon>201704131846125_InitialModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704160902132_AddSkillRatings.cs" />
+    <Compile Include="Migrations\201704160902132_AddSkillRatings.Designer.cs">
+      <DependentUpon>201704160902132_AddSkillRatings.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationRole.cs" />
@@ -85,6 +88,7 @@
     <Compile Include="Repos\CategoryRepo.cs" />
     <Compile Include="Repos\DeveloperRepo.cs" />
     <Compile Include="Repos\ManagerRepo.cs" />
+    <Compile Include="Repos\SkillRatingRepo.cs" />
     <Compile Include="Repos\SkillRepo.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
@@ -95,6 +99,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201704131846125_InitialModel.resx">
       <DependentUpon>201704131846125_InitialModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704160902132_AddSkillRatings.resx">
+      <DependentUpon>201704160902132_AddSkillRatings.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

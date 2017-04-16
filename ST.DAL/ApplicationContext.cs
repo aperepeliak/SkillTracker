@@ -22,6 +22,7 @@ namespace ST.DAL
             modelBuilder.Configurations.Add(new ApplicationUserConfig());
             modelBuilder.Configurations.Add(new DeveloperConfig());
             modelBuilder.Configurations.Add(new ManagerConfig());
+            modelBuilder.Configurations.Add(new SkillRatingConfig());
 
             base.OnModelCreating(modelBuilder);
         }

@@ -18,6 +18,7 @@ namespace ST.DAL
         public IDeveloperRepo         Developers   { get; private set; }
         public IRepo<Skill>           Skills       { get; private set; }
         public IRepo<Category>        Categories   { get; private set; }
+        public ISkillRatingRepo       SkillRatings { get; private set; }
 
         public UnitOfWork(ApplicationContext db)
         {

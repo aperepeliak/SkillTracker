@@ -8,6 +8,6 @@ namespace ST.WebUI.ViewModels
         public string LastName { get; set; }
         public string Email { get; set; }
 
-        IEnumerable<SkillRatingDto> SkillRatings { get; set; }
+        //IEnumerable<SkillRatingDto> SkillRatings { get; set; }
     }
 }

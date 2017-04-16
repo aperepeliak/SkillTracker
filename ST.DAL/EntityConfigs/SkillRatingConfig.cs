@@ -10,11 +10,7 @@ namespace ST.DAL.EntityConfigs
             Property(s => s.Rating)
                 .IsRequired();
 
-            Property(s => s.SkillId)
-                .IsRequired();
-
-            Property(s => s.DeveloperId)
-                .IsRequired();
+            HasKey(s => new { s.SkillId, s.DeveloperId });
         }
     }
 }

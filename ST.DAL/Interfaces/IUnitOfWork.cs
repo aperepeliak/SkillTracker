@@ -13,6 +13,7 @@ namespace ST.DAL.Interfaces
         IDeveloperRepo         Developers   { get; }
         IRepo<Skill>           Skills       { get; }
         IRepo<Category>        Categories   { get; }
+        ISkillRatingRepo       SkillRatings { get; }
 
         Task SaveAsync();
         void Save();
