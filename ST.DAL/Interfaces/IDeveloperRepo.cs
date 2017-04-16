@@ -5,5 +5,6 @@ namespace ST.DAL.Interfaces
     public interface IDeveloperRepo
     {
         void Create(Developer entity);
+        Developer GetById(string id);
     }
 }
