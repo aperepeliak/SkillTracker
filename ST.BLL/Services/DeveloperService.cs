@@ -16,10 +16,16 @@ namespace ST.BLL.Services
 
         public IEnumerable<SkillRatingDto> GetSkillRatingsById(string id)
         {
-            return _db.Developers.GetById(id).SkillRatings.Select(s =>  new SkillRatingDto
+            return _db.Developers.GetById(id).SkillRatings.Select(s => new SkillRatingDto
             {
-                
-            })
+                DeveloperId = s.DeveloperId,
+                SkillId = s.SkillId,
+                SkillName = _db.Skills.GetById(s.SkillId).Name,
+                CategoryName = _db.Categories.GetById(
+                                             _db.Skills.GetById(s.SkillId).CategoryId)
+                                             .Name,
+                Rating = s.Rating
+            });
         }
     }
 }

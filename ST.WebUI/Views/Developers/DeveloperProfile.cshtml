@@ -1,0 +1,45 @@
+﻿@model ST.WebUI.ViewModels.DeveloperViewModel
+@{
+    ViewBag.Title = "DeveloperProfile";
+}
+
+<div class="row" id="add-skill-form">
+    <div class="col-md-3 form-group">
+        <label for="sel1">Select category:</label>
+        <select class="form-control" id="sel1">
+        </select>
+    </div>
+    <div class="col-md-3 form-group">
+        <label for="sel1">Select skill:</label>
+        <select class="form-control" id="sel1">
+        </select>
+    </div>
+    <div class="col-md-2 form-group">
+        <label>Rating: </label>
+        <input class="form-control" type="number" name="name" min="1" max="5" value="" />
+    </div>
+    <div class="col-md-3 form-group">
+        <input  type="submit" class="btn btn-default" name="Add" value="Add" />
+    </div>
+</div>
+
+
+
+<p>@Model.FirstName @Model.LastName</p>
+<p>@Model.Email</p>
+
+@foreach (var item in Model.SkillRatings)
+{
+    <div>@item.CategoryName | @item.SkillName | @item.Rating</div>
+    <br />
+}
+
+@section Scripts 
+{
+    <script>
+        $(function () {
+
+        })
+    </script>
+}
+

@@ -154,6 +154,25 @@ namespace ST.BLL.Services
             return userDto;
         }
 
+        public UserDto GetUserById(string id)
+        {
+            UserDto userDto = null;
+
+            var user = _db.UserManager.Users.Where(u => u.Id == id).FirstOrDefault();
+
+            if (user != null)
+            {
+                userDto = new UserDto
+                {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email
+                };
+            }
+
+            return userDto;
+        }
+
         public void Dispose() => _db.Dispose();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using ST.BLL.Infrastructure;
 using ST.BLL.Interfaces;
+using ST.WebUI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,22 +14,27 @@ namespace ST.WebUI.Controllers
     public class DevelopersController : Controller
     {
         private IDeveloperService _devService;
+        private IUserService _userService;
 
-        public DevelopersController(IDeveloperService devService)
+        public DevelopersController(IDeveloperService devService, IUserService userService)
         {
             _devService = devService;
+            _userService = userService;
         }
 
         public ActionResult DeveloperProfile()
         {
-            string user = User.Identity.GetUserId();
+            string userId = User.Identity.GetUserId();
 
-            var skillRatings = _userService.Get
+            var user = _userService.GetUserById(userId);
+            var userSkillRatings = _devService.GetSkillRatingsById(userId);
 
             var developerViewModel = new DeveloperViewModel
             {
-                FirstName = user
-
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                SkillRatings = userSkillRatings
             };
 
             return View(developerViewModel);

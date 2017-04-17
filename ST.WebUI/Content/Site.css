@@ -35,3 +35,13 @@ textarea {
   font-size: 19px;
   font-weight: 300;
 }
+#add-skill-form {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #555;
+}
+#add-skill-form div input.btn {
+  margin-top: 24px;
+  align-self: flex-end;
+}

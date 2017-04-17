@@ -15,5 +15,6 @@ namespace ST.BLL.Interfaces
 
         IEnumerable<UserDto>   GetAll();
         UserDto                GetUserByEmail(string email);
+        UserDto                GetUserById(string id);
     }
 }

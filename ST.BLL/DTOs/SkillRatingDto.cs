@@ -2,9 +2,14 @@
 {
     public class SkillRatingDto
     {
-        public int    SkillId { get; set; }
-        public int    ManagerId { get; set; }
-        public string SkillName { get; set; }
-        public int Rating { get; set; }
+        public string DeveloperId { get; set; }
+        public int    SkillId     { get; set; }
+
+        public string SkillName   { get; set; }
+        public string CategoryName { get; set; }
+
+        public int    Rating      { get; set; }
+
+
     }
 }
