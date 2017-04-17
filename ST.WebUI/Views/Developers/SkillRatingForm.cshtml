@@ -1,0 +1,56 @@
+﻿@model ST.WebUI.ViewModels.SkillRatingFormViewModel
+@{
+    ViewBag.Title = "SkillRatingForm";
+}
+
+<h2>Add a Skill</h2>
+
+@using (Html.BeginForm("Create", "Developers"))
+{
+    @Html.AntiForgeryToken()
+  
+    <div class="form-group">
+        @Html.LabelFor(m => m.Categories)
+        @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categories, "Id", "Name"), "", new { @class = "form-control categories" })
+        @Html.ValidationMessageFor(m => m.CategoryId)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Skills)
+        @Html.DropDownListFor(m => m.SkillId, new SelectList(Model.Skills, "Id", "Name"), "", new { @class = "form-control skills" })
+        @Html.ValidationMessageFor(m => m.SkillId)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Rating)
+        @Html.TextBoxFor(model => model.Rating, new { @class = "form-control", type ="number", min="0", max="100" })
+        @Html.ValidationMessageFor(m => m.Rating)
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+
+@section scripts
+{
+    <script>
+        $(function () {
+            $(".categories").on("change", function (e) {
+                var categoryId = $(e.target).find(":selected").val();
+                var skills = $(".skills");
+                alert(categoryId);
+                $.ajax({
+                    url: "/api/skills/" + categoryId,
+                    method: "POST"
+                })
+                    .done(function (response) {
+                        skills.empty();
+                        $.each(response, function (index, item) {
+                            console.log(item);
+                        });
+                    })
+                    .fail(function () {
+                        alert("Error.");
+                    })
+            });
+        })
+    </script>
+
+    @Scripts.Render("~/bundles/jqueryval")
+}

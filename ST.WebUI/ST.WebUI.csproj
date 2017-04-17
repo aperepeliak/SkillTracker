@@ -208,6 +208,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\SkillRatingsController.cs" />
+    <Compile Include="Controllers\Api\SkillsController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\DevelopersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -223,6 +224,7 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="ViewModels\SkillFormViewModel.cs" />
+    <Compile Include="ViewModels\SkillRatingFormViewModel.cs" />
     <Compile Include="ViewModels\SkillsViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
   </ItemGroup>
@@ -298,9 +300,11 @@
     <Content Include="Views\Categories\Index.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Developers\DeveloperProfile.cshtml" />
+    <Content Include="Views\Developers\SkillRatingForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Scripts\app\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

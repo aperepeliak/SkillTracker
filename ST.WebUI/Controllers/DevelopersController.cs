@@ -15,11 +15,13 @@ namespace ST.WebUI.Controllers
     {
         private IDeveloperService _devService;
         private IUserService _userService;
+        private ICategoryService _categoryService;
 
-        public DevelopersController(IDeveloperService devService, IUserService userService)
+        public DevelopersController(IDeveloperService devService, IUserService userService, ICategoryService categoryService)
         {
             _devService = devService;
             _userService = userService;
+            _categoryService = categoryService;
         }
 
         public ActionResult DeveloperProfile()
@@ -38,6 +40,16 @@ namespace ST.WebUI.Controllers
             };
 
             return View(developerViewModel);
+        }
+
+        public ActionResult Create()
+        {
+            var viewModel = new SkillRatingFormViewModel
+            {
+                Categories = _categoryService.GetAll()
+            };
+
+            return View("SkillRatingForm", viewModel);
         }
     }
 }
