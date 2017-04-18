@@ -72,6 +72,8 @@ h1 small {
   position: absolute;
 }
 .skill-ratings .category-group .skills-group .skills-item section .skills-item-name {
+  display: inline-block;
+  width: 150px;
   font-size: 16px;
   margin-right: 10px;
 }
@@ -87,8 +89,20 @@ h1 small {
   margin-left: 5px;
   color: #ff0039;
 }
+.skill-ratings .category-group .skills-group .skills-item section .glyphicon-ok {
+  margin-left: 5px;
+  color: #3fb618;
+}
 .skill-ratings .category-group .skills-group .skills-item:hover section .actions {
   display: inline;
   right: -50px;
   cursor: pointer;
+}
+.skill-ratings .category-group .skills-group .skills-item:hover section .glyphicon-ok {
+  cursor: pointer;
+}
+.skill-ratings .category-group .skills-group .skills-item .edit-rating {
+  display: inline;
+  height: 28px;
+  width: 70px;
 }

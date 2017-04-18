@@ -14,10 +14,9 @@
             <ul class="skills-group">
                 @foreach (var skill in entry.Value)
                 {
-                    <li class="skills-item"
-                        data-skill-rating="@skill.Rating"
-                        data-skill-id="@skill.SkillId"
-                        data-skill-name="@skill.SkillName">
+                    <li class="skills-item" data-skill-rating="@skill.Rating"
+                                            data-skill-id="@skill.SkillId"
+                                            data-skill-name="@skill.SkillName">
 
                         <section>
                             <span class="skills-item-name">@skill.SkillName</span>
@@ -40,13 +39,7 @@
 {
     <script>
         $(function () {
-            var skillItems = $(".skills-item");
-            $.each(skillItems, function (index, item) {
-                var rating = $(this).attr("data-skill-rating")
-                for (var i = 0; i < rating; i++) {
-                    $(item).find("section").append("<span class='glyphicon glyphicon-star' aria-hidden='true'></span>");
-                }
-            })
+            drawRatings();
 
             $(".skills-item-delete").on("click", function (e) {
                 var element = $(e.target);
@@ -84,8 +77,53 @@
                             })
                     }
                 });
-            })
-        })
+            });
+
+            $(".skills-item-edit").on("click", function (e) {
+                var element = $(e.target);
+                var skillItem = element.closest("li");
+                skillItem.find(".glyphicon-star").remove();
+
+                var actions = skillItem.find('.actions');
+
+                actions.toggleClass('actions').css('display', 'none');
+
+                var rating = skillItem.attr("data-skill-rating");
+
+                var editor = $(`<input class="form-control edit-rating" type="number" value="${rating}" min="1" max="5" />`);
+                
+                var acceptChangesEl = $('<span class="skills-item-update glyphicon glyphicon-ok"></span>');
+                skillItem.find("section").append(editor).append(acceptChangesEl);
+
+                editor.focus();
+                
+                $(".edit-rating").on("blur", function (e) {
+                    var element = $(e.target);
+                    var parentEl = element.closest("li");
+                    actions.toggleClass('actions').css('display', '');
+                    element.remove();
+                    acceptChangesEl.remove();
+
+                    var rating = parentEl.attr("data-skill-rating");
+                    for (var i = 0; i < rating; i++) {
+                        parentEl.find("section").append("<span class='glyphicon glyphicon-star'></span>");
+                    }
+                });
+
+                // TODO: working on edit event
+                $(".skills-item-update").on()
+            });
+
+            function drawRatings() {
+                var skillItems = $(".skills-item");
+                $.each(skillItems, function (index, item) {
+                    var rating = $(this).attr("data-skill-rating")
+                    for (var i = 0; i < rating; i++) {
+                        $(item).find("section").append("<span class='glyphicon glyphicon-star'></span>");
+                    }
+                });
+            }
+        });
     </script>
 }
 
