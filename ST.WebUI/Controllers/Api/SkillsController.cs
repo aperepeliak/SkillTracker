@@ -1,4 +1,5 @@
-﻿using ST.BLL.Interfaces;
+﻿using ST.BLL.DTOs;
+using ST.BLL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,11 +18,9 @@ namespace ST.WebUI.Controllers.Api
         }
 
         [HttpPost]
-        public IHttpActionResult GetSkillsByCategory(int id)
+        public IEnumerable<SkillDto> GetSkillsByCategory(int id)
         {
-            var skills = _skillService.GetByCategory(id);
-
-            return Content(HttpStatusCode.OK, skills);
+            return _skillService.GetByCategory(id);
         }
     }
 }

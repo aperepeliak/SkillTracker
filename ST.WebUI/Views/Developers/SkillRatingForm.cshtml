@@ -21,10 +21,10 @@
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Rating)
-        @Html.TextBoxFor(model => model.Rating, new { @class = "form-control", type ="number", min="0", max="100" })
+        @Html.TextBoxFor(model => model.Rating, new { @class = "form-control", type ="number", min="1", max="5" })
         @Html.ValidationMessageFor(m => m.Rating)
     </div>
-    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit" class="btn btn-primary">Add</button>
 }
 
 @section scripts
@@ -34,15 +34,16 @@
             $(".categories").on("change", function (e) {
                 var categoryId = $(e.target).find(":selected").val();
                 var skills = $(".skills");
-                alert(categoryId);
                 $.ajax({
                     url: "/api/skills/" + categoryId,
                     method: "POST"
                 })
                     .done(function (response) {
                         skills.empty();
+                        
                         $.each(response, function (index, item) {
-                            console.log(item);
+                            var option = `<option value="${item.Id}">${item.Name}</option>`;
+                            skills.append(option);
                         });
                     })
                     .fail(function () {
