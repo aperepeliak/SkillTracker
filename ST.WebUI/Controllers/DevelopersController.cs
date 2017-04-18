@@ -30,7 +30,7 @@ namespace ST.WebUI.Controllers
             string userId = User.Identity.GetUserId();
 
             var user = _userService.GetUserById(userId);
-            var userSkillRatings = _devService.GetSkillRatingsById(userId);
+            var userSkillRatings = _devService.GetSkillRatings(userId);
 
             var developerViewModel = new DeveloperViewModel
             {

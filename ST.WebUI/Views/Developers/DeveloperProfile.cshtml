@@ -3,26 +3,45 @@
     ViewBag.Title = "DeveloperProfile";
 }
 
-@Html.ActionLink("Add Skill", "Create", null, new { @class = "btn btn-info" })
+<h1>@Model.FirstName @Model.LastName <small>@Model.Email</small></h1>
 
 
+<div class="skill-ratings">
+    @foreach (var entry in Model.SkillRatings)
+    {
+        <ul class="category-group">
+            <li class="category-group-item">@entry.Key</li>
+            <ul class="skills-group">
+                @foreach (var skill in entry.Value)
+                {
+                    <li class="skills-item" data-skill-rating="@skill.Rating">
+                        <section class="skills-item-info">
+                            <span class="skills-item-name">@skill.SkillName</span>
+                            <div class="actions">
+                                <span class="skills-item-delete glyphicon glyphicon-trash"></span>
+                                <span class="skills-item-edit glyphicon glyphicon-pencil"></span>
+                            </div>
+                        </section>
+                    </li>
+                }
+            </ul>
+        </ul>
+    }
+</div>
 
+@Html.ActionLink("Add new Skill", "Create", null, new { @class = "btn btn-info" })
 
-
-<p>@Model.FirstName @Model.LastName</p>
-<p>@Model.Email</p>
-
-@foreach (var item in Model.SkillRatings)
-{
-    <div>@item.CategoryName | @item.SkillName | @item.Rating</div>
-    <br />
-}
-
-@section Scripts 
+@section Scripts
 {
     <script>
         $(function () {
-
+            var skillItems = $(".skills-item");
+            $.each(skillItems, function (index, item) {
+                var rating = $(this).attr("data-skill-rating")
+                for (var i = 0; i < rating; i++) {
+                    $(item).find("section").append("<span class='glyphicon glyphicon-star' aria-hidden='true'></span>");
+                }
+            })
         })
     </script>
 }

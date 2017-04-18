@@ -57,3 +57,71 @@ textarea {
         align-self: flex-end;
     }
 }
+
+h1 small {
+    font-weight:300;
+}
+
+.skill-ratings {
+    margin: 40px 0;
+
+    .category-group {
+        margin: 20px 0;
+
+        .category-group-item {
+            font-size: 24px;
+            font-weight: 300;
+            margin: 10px 0;
+        }
+
+        .skills-group {
+
+            .skills-item {
+                position: relative;
+                margin: 10px 0;
+
+
+                section {
+                    display: inline-block;
+                    position: relative;
+
+                    .actions {
+                        display: none;
+                        position: absolute;
+                    }
+
+                    .skills-item-name {
+                        font-size: 16px;
+                        margin-right: 10px;
+                    }
+
+                    .glyphicon-star {
+                        margin-left: 5px;
+                        color: gold;
+                    }
+
+                    .glyphicon-pencil {
+                        margin-left: 5px;
+                        color: #3fb618;
+                    }
+
+                    .glyphicon-trash {
+                        margin-left: 5px;
+                        color: #ff0039;
+                    }
+                }
+
+                &:hover {
+
+                    section {
+                        .actions {
+                            display: inline;
+                            right: -50px;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -15,7 +15,7 @@ namespace ST.BLL.Services
             _db = db;
         }
 
-        public IEnumerable<SkillRatingDto> GetSkillRatingsById(string id)
+        public IDictionary<string, List<SkillRatingDto>> GetSkillRatings(string id)
         {
             return _db.Developers.GetById(id).SkillRatings.Select(s => new SkillRatingDto
             {
@@ -26,7 +26,10 @@ namespace ST.BLL.Services
                                              _db.Skills.GetById(s.SkillId).CategoryId)
                                              .Name,
                 Rating = s.Rating
-            });
+            })
+            .OrderBy(s => s.CategoryName)
+            .GroupBy(s => s.CategoryName)
+            .ToDictionary(g => g.Key, g => g.ToList());
         }
 
         public void AddSkillRating(SkillRatingDto dto)

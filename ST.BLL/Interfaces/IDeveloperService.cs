@@ -5,7 +5,7 @@ namespace ST.BLL.Interfaces
 {
     public interface IDeveloperService
     {
-        IEnumerable<SkillRatingDto> GetSkillRatingsById(string id);
+        IDictionary<string, List<SkillRatingDto>> GetSkillRatings(string id);
         void AddSkillRating(SkillRatingDto dto);
     }
 }

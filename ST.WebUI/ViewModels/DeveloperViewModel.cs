@@ -9,6 +9,6 @@ namespace ST.WebUI.ViewModels
         public string LastName { get; set; }
         public string Email { get; set; }
 
-        public IEnumerable<SkillRatingDto> SkillRatings { get; set; }
+        public IDictionary<string, List<SkillRatingDto>> SkillRatings { get; set; }
     }
 }
