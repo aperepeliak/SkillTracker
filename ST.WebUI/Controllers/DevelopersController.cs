@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using ST.BLL.DTOs;
 using ST.BLL.Infrastructure;
 using ST.BLL.Interfaces;
 using ST.WebUI.ViewModels;
@@ -50,6 +51,29 @@ namespace ST.WebUI.Controllers
             };
 
             return View("SkillRatingForm", viewModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(SkillRatingFormViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                viewModel.Categories = _categoryService.GetAll();
+                return View("SkillRatingForm", viewModel);
+            }
+
+            var skillRatingDto = new SkillRatingDto
+            {
+                DeveloperId = User.Identity.GetUserId(),
+                SkillId = viewModel.SkillId,
+                Rating = viewModel.Rating,
+            };
+
+            _devService.AddSkillRating(skillRatingDto);
+
+            return RedirectToAction("DeveloperProfile", "Developers");
         }
     }
 }

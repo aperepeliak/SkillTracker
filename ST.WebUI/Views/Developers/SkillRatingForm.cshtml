@@ -10,7 +10,7 @@
     @Html.AntiForgeryToken()
   
     <div class="form-group">
-        @Html.LabelFor(m => m.Categories)
+        @Html.LabelFor(m => m.CategoryId)
         @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categories, "Id", "Name"), "", new { @class = "form-control categories" })
         @Html.ValidationMessageFor(m => m.CategoryId)
     </div>

@@ -27,10 +27,11 @@ namespace ST.DAL
             UserManager = new ApplicationUserManager(new UserStore<ApplicationUser>(_db));
             RoleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(_db));
 
-            Managers    = new ManagerRepo  (_db);
-            Developers  = new DeveloperRepo(_db);
-            Skills      = new SkillRepo    (_db);
-            Categories  = new CategoryRepo (_db);
+            Managers     = new ManagerRepo    (_db);
+            Developers   = new DeveloperRepo  (_db);
+            Skills       = new SkillRepo      (_db);
+            Categories   = new CategoryRepo   (_db);
+            SkillRatings = new SkillRatingRepo(_db);
         }
 
         public void       Save()      =>       _db.SaveChanges();

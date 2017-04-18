@@ -6,5 +6,6 @@ namespace ST.BLL.Interfaces
     public interface IDeveloperService
     {
         IEnumerable<SkillRatingDto> GetSkillRatingsById(string id);
+        void AddSkillRating(SkillRatingDto dto);
     }
 }

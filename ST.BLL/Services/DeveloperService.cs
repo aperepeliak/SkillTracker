@@ -3,6 +3,7 @@ using System.Linq;
 using ST.BLL.DTOs;
 using ST.DAL.Interfaces;
 using System.Collections.Generic;
+using ST.DAL.Models;
 
 namespace ST.BLL.Services
 {
@@ -26,6 +27,18 @@ namespace ST.BLL.Services
                                              .Name,
                 Rating = s.Rating
             });
+        }
+
+        public void AddSkillRating(SkillRatingDto dto)
+        {
+            _db.SkillRatings.Add(new SkillRating
+            {
+                DeveloperId = dto.DeveloperId,
+                SkillId = dto.SkillId,
+                Rating = dto.Rating
+            });
+
+            _db.Save();
         }
     }
 }
