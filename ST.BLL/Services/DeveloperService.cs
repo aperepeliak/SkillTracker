@@ -4,6 +4,7 @@ using ST.BLL.DTOs;
 using ST.DAL.Interfaces;
 using System.Collections.Generic;
 using ST.DAL.Models;
+using System;
 
 namespace ST.BLL.Services
 {
@@ -28,6 +29,7 @@ namespace ST.BLL.Services
                 Rating = s.Rating
             })
             .OrderBy(s => s.CategoryName)
+            .ThenByDescending(s => s.Rating)
             .GroupBy(s => s.CategoryName)
             .ToDictionary(g => g.Key, g => g.ToList());
         }
@@ -42,6 +44,35 @@ namespace ST.BLL.Services
             });
 
             _db.Save();
+        }
+
+        public SkillRatingDto GetSkillRating(string developerId, int skillId)
+        {
+            SkillRatingDto dto = null;
+            var skillRating = _db.SkillRatings.Get(developerId, skillId);
+
+            if (skillRating != null)
+            {
+                dto = new SkillRatingDto
+                {
+                    DeveloperId = skillRating.DeveloperId,
+                    SkillId = skillRating.SkillId,
+                    Rating = skillRating.Rating
+                };
+            }
+
+            return dto;
+        }
+
+        public void Delete(SkillRatingDto dto)
+        {
+            var skillRating = _db.SkillRatings.Get(dto.DeveloperId, dto.SkillId);
+
+            if (skillRating != null)
+            {
+                _db.SkillRatings.Delete(skillRating);
+                _db.Save();
+            }            
         }
     }
 }

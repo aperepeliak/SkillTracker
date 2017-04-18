@@ -14,14 +14,19 @@
             <ul class="skills-group">
                 @foreach (var skill in entry.Value)
                 {
-                    <li class="skills-item" data-skill-rating="@skill.Rating">
-                        <section class="skills-item-info">
+                    <li class="skills-item"
+                        data-skill-rating="@skill.Rating"
+                        data-skill-id="@skill.SkillId"
+                        data-skill-name="@skill.SkillName">
+
+                        <section>
                             <span class="skills-item-name">@skill.SkillName</span>
                             <div class="actions">
                                 <span class="skills-item-delete glyphicon glyphicon-trash"></span>
                                 <span class="skills-item-edit glyphicon glyphicon-pencil"></span>
                             </div>
                         </section>
+
                     </li>
                 }
             </ul>
@@ -41,6 +46,44 @@
                 for (var i = 0; i < rating; i++) {
                     $(item).find("section").append("<span class='glyphicon glyphicon-star' aria-hidden='true'></span>");
                 }
+            })
+
+            $(".skills-item-delete").on("click", function (e) {
+                var element = $(e.target);
+                var skillName = element.closest('li').attr("data-skill-name");
+                var skillId = element.closest('li').attr("data-skill-id");
+                console.log(skillName);
+                console.log(skillId);
+                bootbox.confirm({
+                    message: "Are you sure you want to delete <strong>" + skillName + "</strong> skill?",
+                    buttons: {
+                        cancel: {
+                            label: 'No',
+                            className: 'btn-default'
+                        },
+                        confirm: {
+                            label: 'Yes',
+                            className: 'btn-danger'
+                        }
+                    },
+                    callback: function (result) {
+                        if (!result) return;
+
+                        $.ajax({
+                            url: "/api/skillratings/" + skillId,
+                            method: "POST"
+                        })
+                            .done(function () {
+                                element.closest('li')
+                                    .fadeOut(function () {
+                                        $(this).remove();
+                                    })
+                            })
+                            .fail(function () {
+                                alert("Error!");
+                            })
+                    }
+                });
             })
         })
     </script>

@@ -7,5 +7,7 @@ namespace ST.BLL.Interfaces
     {
         IDictionary<string, List<SkillRatingDto>> GetSkillRatings(string id);
         void AddSkillRating(SkillRatingDto dto);
+        SkillRatingDto GetSkillRating(string developerId, int skillId);
+        void Delete(SkillRatingDto dto);
     }
 }
