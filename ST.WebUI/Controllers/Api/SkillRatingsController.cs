@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using ST.BLL.DTOs;
 using ST.BLL.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,16 @@ namespace ST.WebUI.Controllers.Api
                 return NotFound();
 
             _devService.Delete(dto);
+
+            return Ok();
+        }
+
+        [HttpPost]
+        public IHttpActionResult Update(SkillRatingDto dto)
+        {
+            var developerId = User.Identity.GetUserId();
+
+            _devService.UpdateSkillRating(developerId, dto.SkillId, dto.Rating);
 
             return Ok();
         }

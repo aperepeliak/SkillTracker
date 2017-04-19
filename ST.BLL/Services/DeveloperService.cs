@@ -74,5 +74,16 @@ namespace ST.BLL.Services
                 _db.Save();
             }            
         }
+
+        public void UpdateSkillRating(string developerId, int skillId, int newRating)
+        {
+            var skillRating = _db.SkillRatings.Get(developerId, skillId);
+
+            if (skillRating != null)
+            {
+                skillRating.Rating = newRating;
+                _db.Save();
+            }
+        }
     }
 }

@@ -9,5 +9,6 @@ namespace ST.BLL.Interfaces
         void AddSkillRating(SkillRatingDto dto);
         SkillRatingDto GetSkillRating(string developerId, int skillId);
         void Delete(SkillRatingDto dto);
+        void UpdateSkillRating(string developerId, int skillId, int newRating);
     }
 }
