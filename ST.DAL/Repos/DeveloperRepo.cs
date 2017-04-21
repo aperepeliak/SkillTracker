@@ -25,6 +25,8 @@ namespace ST.DAL.Repos
         {
            return _db.Developers
                 .Include(d => d.SkillRatings)
+                .Include(d => d.SkillRatings.Select(s => s.Skill))
+                .Include(d => d.SkillRatings.Select(s => s.Skill.Category))
                 .Include(d => d.User);
         }
 

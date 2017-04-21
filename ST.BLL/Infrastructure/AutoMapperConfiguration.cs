@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using ST.BLL.DTOs;
+using ST.DAL.Models;
 
 namespace ST.BLL.Infrastructure
 {
@@ -8,13 +10,18 @@ namespace ST.BLL.Infrastructure
         {
             Mapper.Initialize(x =>
             {
-                x.AddProfile<MyMappings>();
+                x.AddProfile<MappingDtoProfile>();
             });
         }
     }
 
-    public class MyMappings : Profile
+    public class MappingDtoProfile : Profile
     {
-        
+        public MappingDtoProfile()
+        {
+            Mapper.CreateMap<SkillRating, SkillRatingDto>();
+            //Mapper.CreateMap<Developer, DeveloperDto>()
+            //    .ForMember(dto => dto.SkillRatings, m => m.MapFrom())
+        }      
     }
 }

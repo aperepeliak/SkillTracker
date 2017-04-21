@@ -5,6 +5,7 @@ using ST.DAL.Interfaces;
 using System.Collections.Generic;
 using ST.DAL.Models;
 using System;
+using AutoMapper;
 
 namespace ST.BLL.Services
 {
@@ -102,12 +103,14 @@ namespace ST.BLL.Services
                             d.SkillRatings.Any(s => s.Skill.Name == searchTerm));
             }
 
+            //return selectedDevs.Select(Mapper.Map<Developer, DeveloperDto>);
+
             return selectedDevs.Select(d => new DeveloperDto
             {
                 Email = d.User.Email,
                 FirstName = d.User.FirstName,
                 LastName = d.User.LastName,
-                SkillRatings = _db.SkillRatings.GetForDeveloper(d.DeveloperId)
+                SkillRatings = d.SkillRatings
                                 .Select(s => new SkillRatingDto
                                 {
                                     CategoryName = s.Skill.Category.Name,
@@ -121,13 +124,33 @@ namespace ST.BLL.Services
                                 .GroupBy(s => s.CategoryName)
                                 .ToDictionary(g => g.Key, g => g.ToList())
             });
+
+            //return selectedDevs.Select(d => new DeveloperDto
+            //{
+            //    Email = d.User.Email,
+            //    FirstName = d.User.FirstName,
+            //    LastName = d.User.LastName,
+            //    SkillRatings = _db.SkillRatings.GetForDeveloper(d.DeveloperId)
+            //                    .Select(s => new SkillRatingDto
+            //                    {
+            //                        CategoryName = s.Skill.Category.Name,
+            //                        DeveloperId = s.DeveloperId,
+            //                        Rating = s.Rating,
+            //                        SkillId = s.SkillId,
+            //                        SkillName = s.Skill.Name
+            //                    })
+            //                    .OrderBy(s => s.CategoryName)
+            //                    .ThenByDescending(s => s.Rating)
+            //                    .GroupBy(s => s.CategoryName)
+            //                    .ToDictionary(g => g.Key, g => g.ToList())
+            //});
         }
 
         public DeveloperDto GetDeveloper(string id)
         {
             Developer developer = _db.Developers.GetById(id);
 
-
+            return null;
         }
     }
 }
