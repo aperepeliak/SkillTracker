@@ -8,7 +8,9 @@ namespace ST.BLL.Interfaces
         IDictionary<string, List<SkillRatingDto>> GetSkillRatings(string id);
         void AddSkillRating(SkillRatingDto dto);
         SkillRatingDto GetSkillRating(string developerId, int skillId);
-        void Delete(SkillRatingDto dto);
+        void DeleteSkillRating(SkillRatingDto dto);
         void UpdateSkillRating(string developerId, int skillId, int newRating);
+        IEnumerable<DeveloperDto> SearchByTerm(string searchTerm);
+        DeveloperDto GetDeveloper(string id);
     }
 }

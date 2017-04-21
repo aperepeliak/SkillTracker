@@ -26,7 +26,7 @@ namespace ST.WebUI.Controllers.Api
             if (dto == null)
                 return NotFound();
 
-            _devService.Delete(dto);
+            _devService.DeleteSkillRating(dto);
 
             return Ok();
         }

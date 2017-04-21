@@ -30,9 +30,14 @@
                         {
                             <li>@Html.ActionLink("Dashboard", "Skills", "Skills")</li>
                         }
-                        else
+                        else if(User.IsInRole(SecurityRoles.Developer))
                         {
                             <li>@Html.ActionLink("My Profile", "DeveloperProfile", "Developers")</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("New Report", "CreateReport", "Managers")</li>
+                            <li>@Html.ActionLink("Search", "Search", "Managers")</li>
                         }
                     }
                     

@@ -18,20 +18,19 @@ namespace ST.BLL.Services
 
         public IDictionary<string, List<SkillRatingDto>> GetSkillRatings(string id)
         {
-            return _db.Developers.GetById(id).SkillRatings.Select(s => new SkillRatingDto
-            {
-                DeveloperId = s.DeveloperId,
-                SkillId = s.SkillId,
-                SkillName = _db.Skills.GetById(s.SkillId).Name,
-                CategoryName = _db.Categories.GetById(
-                                             _db.Skills.GetById(s.SkillId).CategoryId)
-                                             .Name,
-                Rating = s.Rating
-            })
-            .OrderBy(s => s.CategoryName)
-            .ThenByDescending(s => s.Rating)
-            .GroupBy(s => s.CategoryName)
-            .ToDictionary(g => g.Key, g => g.ToList());
+            return _db.SkillRatings.GetForDeveloper(id)
+                .Select(s => new SkillRatingDto
+                {
+                    CategoryName = s.Skill.Category.Name,
+                    DeveloperId = s.DeveloperId,
+                    Rating = s.Rating,
+                    SkillId = s.SkillId,
+                    SkillName = s.Skill.Name
+                })
+                .OrderBy(s => s.CategoryName)
+                .ThenByDescending(s => s.Rating)
+                .GroupBy(s => s.CategoryName)
+                .ToDictionary(g => g.Key, g => g.ToList());
         }
 
         public void AddSkillRating(SkillRatingDto dto)
@@ -64,7 +63,7 @@ namespace ST.BLL.Services
             return dto;
         }
 
-        public void Delete(SkillRatingDto dto)
+        public void DeleteSkillRating(SkillRatingDto dto)
         {
             var skillRating = _db.SkillRatings.Get(dto.DeveloperId, dto.SkillId);
 
@@ -72,7 +71,7 @@ namespace ST.BLL.Services
             {
                 _db.SkillRatings.Delete(skillRating);
                 _db.Save();
-            }            
+            }
         }
 
         public void UpdateSkillRating(string developerId, int skillId, int newRating)
@@ -84,6 +83,51 @@ namespace ST.BLL.Services
                 skillRating.Rating = newRating;
                 _db.Save();
             }
+        }
+
+        public IEnumerable<DeveloperDto> SearchByTerm(string searchTerm)
+        {
+            IEnumerable<Developer> selectedDevs = null;
+
+            if (string.IsNullOrWhiteSpace(searchTerm))
+            {
+                selectedDevs = _db.Developers.GetAll();
+            }
+            else
+            {
+                selectedDevs = _db.Developers.GetAll()
+                .Where(d => d.User.Email == searchTerm ||
+                            d.User.FirstName == searchTerm ||
+                            d.User.LastName == searchTerm ||
+                            d.SkillRatings.Any(s => s.Skill.Name == searchTerm));
+            }
+
+            return selectedDevs.Select(d => new DeveloperDto
+            {
+                Email = d.User.Email,
+                FirstName = d.User.FirstName,
+                LastName = d.User.LastName,
+                SkillRatings = _db.SkillRatings.GetForDeveloper(d.DeveloperId)
+                                .Select(s => new SkillRatingDto
+                                {
+                                    CategoryName = s.Skill.Category.Name,
+                                    DeveloperId = s.DeveloperId,
+                                    Rating = s.Rating,
+                                    SkillId = s.SkillId,
+                                    SkillName = s.Skill.Name
+                                })
+                                .OrderBy(s => s.CategoryName)
+                                .ThenByDescending(s => s.Rating)
+                                .GroupBy(s => s.CategoryName)
+                                .ToDictionary(g => g.Key, g => g.ToList())
+            });
+        }
+
+        public DeveloperDto GetDeveloper(string id)
+        {
+            Developer developer = _db.Developers.GetById(id);
+
+
         }
     }
 }

@@ -3,6 +3,7 @@ using ST.DAL.Models;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System;
 
 namespace ST.DAL.Repos
 {
@@ -18,6 +19,13 @@ namespace ST.DAL.Repos
         {
             _db.Developers.Add(entity);
             _db.SaveChanges();
+        }
+
+        public IEnumerable<Developer> GetAll()
+        {
+           return _db.Developers
+                .Include(d => d.SkillRatings)
+                .Include(d => d.User);
         }
 
         public Developer GetById(string id)

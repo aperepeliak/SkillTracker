@@ -3,6 +3,7 @@ using ST.DAL.Interfaces;
 using ST.DAL.Models;
 using System.Linq;
 using System.Data.Entity;
+using System.Collections.Generic;
 
 namespace ST.DAL.Repos
 {
@@ -28,6 +29,14 @@ namespace ST.DAL.Repos
         {
             return _db.SkillRatings.SingleOrDefault(s => s.DeveloperId == developerId && 
                                                   s.SkillId == skillId);
+        }
+
+        public IEnumerable<SkillRating> GetForDeveloper(string developerId)
+        {
+            return _db.SkillRatings
+                .Include(s => s.Skill)
+                .Include(s => s.Skill.Category)
+                .Where(s => s.DeveloperId == developerId);
         }
     }
 }

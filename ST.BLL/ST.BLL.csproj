@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.1.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -60,9 +63,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTOs\CategoryDto.cs" />
+    <Compile Include="DTOs\DeveloperDto.cs" />
     <Compile Include="DTOs\SkillDto.cs" />
     <Compile Include="DTOs\SkillRatingDto.cs" />
     <Compile Include="DTOs\UserDto.cs" />
+    <Compile Include="Infrastructure\AutoMapperConfiguration.cs" />
     <Compile Include="Infrastructure\OperationDetails.cs" />
     <Compile Include="Infrastructure\SecurityRoles.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
