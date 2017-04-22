@@ -16,6 +16,7 @@ namespace ST.WebUI
                 cfg.AddProfile<MappingDtoProfile>();
                 cfg.AddProfile<MappingVMProfile>();
             });
+
             GlobalConfiguration.Configure(WebApiConfig.Register);
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

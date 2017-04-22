@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using ST.BLL.DTOs;
+using ST.WebUI.ViewModels;
 
 namespace ST.WebUI
 {
@@ -6,7 +8,7 @@ namespace ST.WebUI
     {
         public MappingVMProfile()
         {
-
+            Mapper.CreateMap<DeveloperDto, DeveloperViewModel>();
         }
     }
 }

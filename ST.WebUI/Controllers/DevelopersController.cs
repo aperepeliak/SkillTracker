@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
 using ST.BLL.DTOs;
 using ST.BLL.Infrastructure;
 using ST.BLL.Interfaces;
@@ -27,19 +28,9 @@ namespace ST.WebUI.Controllers
 
         public ActionResult DeveloperProfile()
         {
-            string userId = User.Identity.GetUserId();
-
-            var user = _userService.GetUserById(userId);
-            var userSkillRatings = _devService.GetSkillRatings(userId);
-
-            var developerViewModel = new DeveloperViewModel
-            {
-                Email = user.Email,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                SkillRatings = userSkillRatings
-            };
-
+            var developerViewModel = Mapper.Map<DeveloperDto, DeveloperViewModel>(
+                _devService.GetDeveloper(User.Identity.GetUserId()));
+            
             return View(developerViewModel);
         }
 

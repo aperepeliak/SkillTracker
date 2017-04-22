@@ -9,7 +9,5 @@
         public string CategoryName { get; set; }
 
         public int    Rating      { get; set; }
-
-
     }
 }

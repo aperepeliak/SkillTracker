@@ -23,17 +23,19 @@ namespace ST.DAL.Repos
 
         public IEnumerable<Developer> GetAll()
         {
-           return _db.Developers
-                .Include(d => d.SkillRatings)
-                .Include(d => d.SkillRatings.Select(s => s.Skill))
-                .Include(d => d.SkillRatings.Select(s => s.Skill.Category))
-                .Include(d => d.User);
+            return _db.Developers
+                 .Include(d => d.SkillRatings)
+                 .Include(d => d.SkillRatings.Select(s => s.Skill))
+                 .Include(d => d.SkillRatings.Select(s => s.Skill.Category))
+                 .Include(d => d.User);
         }
 
         public Developer GetById(string id)
         {
             return _db.Developers
                 .Include(d => d.SkillRatings)
+                .Include(d => d.SkillRatings.Select(s => s.Skill))
+                .Include(d => d.SkillRatings.Select(s => s.Skill.Category))
                 .Include(d => d.User)
                 .SingleOrDefault(d => d.DeveloperId == id);              
         }

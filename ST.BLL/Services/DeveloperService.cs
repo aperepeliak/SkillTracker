@@ -150,7 +150,7 @@ namespace ST.BLL.Services
         {
             Developer developer = _db.Developers.GetById(id);
 
-            return null;
+            return Mapper.Map<DeveloperDto>(developer);
         }
     }
 }
