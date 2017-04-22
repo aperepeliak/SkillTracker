@@ -4,6 +4,7 @@ using ST.BLL.Interfaces;
 using ST.DAL.Interfaces;
 using System.Linq;
 using ST.DAL.Models;
+using AutoMapper;
 
 namespace ST.BLL.Services
 {
@@ -15,51 +16,27 @@ namespace ST.BLL.Services
             _db = db;
         }
 
-        public void Add(SkillDto skillDto)
+        public void Add(SkillDto dto)
         {
-            _db.Skills.Add(new Skill
-            {
-                Name       = skillDto.Name,
-                CategoryId = skillDto.CategoryId
-            });
-
+            _db.Skills.Add(Mapper.Map<Skill>(dto));
             _db.Save();
         }
 
         public IEnumerable<SkillDto> GetAll()
         {
-            return _db.Skills.GetAll().Select(s => new SkillDto
-            {
-                Id           = s.Id,
-                Name         = s.Name,
-                CategoryId   = s.CategoryId,
-                CategoryName = s.Category.Name
-            });
+            return _db.Skills.GetAll().Select(Mapper.Map<Skill, SkillDto>);
         }
 
         public IEnumerable<SkillDto> GetByCategory(int categoryId)
         {
             return _db.Skills.GetAll()
                 .Where(s => s.CategoryId == categoryId)
-                .Select(s => new SkillDto
-                {
-                    Id           = s.Id,
-                    Name         = s.Name,
-                    CategoryId   = s.CategoryId,
-                    CategoryName = s.Category.Name
-                });
+                .Select(Mapper.Map<Skill, SkillDto>);
         }
 
         public SkillDto GetById(int id)
         {
-            var skill = _db.Skills.GetById(id);
-
-            return new SkillDto
-            {
-                Id = skill.Id,
-                Name = skill.Name,
-                CategoryId = skill.CategoryId
-            };
+            return Mapper.Map<SkillDto>(_db.Skills.GetById(id));
         }
 
         public void Remove(SkillDto skillDto)

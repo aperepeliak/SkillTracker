@@ -9,6 +9,11 @@ namespace ST.BLL.Infrastructure
     {
         public MappingDtoProfile()
         {
+            Mapper.CreateMap<Skill, SkillDto>()
+                .ForMember(dto => dto.CategoryName, m => m.MapFrom(s => s.Category.Name));
+
+            Mapper.CreateMap<SkillDto, Skill>();
+
             Mapper.CreateMap<Category, CategoryDto>().ReverseMap();
 
             Mapper.CreateMap<SkillRatingDto, SkillRating>();
