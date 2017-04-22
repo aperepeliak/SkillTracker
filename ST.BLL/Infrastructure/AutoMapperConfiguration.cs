@@ -13,6 +13,7 @@ namespace ST.BLL.Infrastructure
                 .ForMember(dto => dto.CategoryName, m => m.MapFrom(sr => sr.Skill.Category.Name))
                 .ForMember(dto => dto.SkillName, m => m.MapFrom(sr => sr.Skill.Name));
 
+            Mapper.CreateMap<SkillRatingDto, SkillRating>();
 
             Mapper.CreateMap<Developer, DeveloperDto>()
                 .ForMember(dto => dto.Email, m => m.MapFrom(d => d.User.Email))

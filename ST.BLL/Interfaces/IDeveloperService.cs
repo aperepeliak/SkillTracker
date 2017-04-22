@@ -5,7 +5,6 @@ namespace ST.BLL.Interfaces
 {
     public interface IDeveloperService
     {
-        IDictionary<string, List<SkillRatingDto>> GetSkillRatings(string id);
         void AddSkillRating(SkillRatingDto dto);
         SkillRatingDto GetSkillRating(string developerId, int skillId);
         void DeleteSkillRating(SkillRatingDto dto);

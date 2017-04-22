@@ -17,49 +17,20 @@ namespace ST.BLL.Services
             _db = db;
         }
 
-        public IDictionary<string, List<SkillRatingDto>> GetSkillRatings(string id)
-        {
-            return _db.SkillRatings.GetForDeveloper(id)
-                .Select(s => new SkillRatingDto
-                {
-                    CategoryName = s.Skill.Category.Name,
-                    DeveloperId = s.DeveloperId,
-                    Rating = s.Rating,
-                    SkillId = s.SkillId,
-                    SkillName = s.Skill.Name
-                })
-                .OrderBy(s => s.CategoryName)
-                .ThenByDescending(s => s.Rating)
-                .GroupBy(s => s.CategoryName)
-                .ToDictionary(g => g.Key, g => g.ToList());
-        }
-
         public void AddSkillRating(SkillRatingDto dto)
         {
-            _db.SkillRatings.Add(new SkillRating
-            {
-                DeveloperId = dto.DeveloperId,
-                SkillId = dto.SkillId,
-                Rating = dto.Rating
-            });
-
+            _db.SkillRatings.Add(Mapper.Map<SkillRating>(dto));
             _db.Save();
         }
 
         public SkillRatingDto GetSkillRating(string developerId, int skillId)
         {
             SkillRatingDto dto = null;
+
             var skillRating = _db.SkillRatings.Get(developerId, skillId);
 
             if (skillRating != null)
-            {
-                dto = new SkillRatingDto
-                {
-                    DeveloperId = skillRating.DeveloperId,
-                    SkillId = skillRating.SkillId,
-                    Rating = skillRating.Rating
-                };
-            }
+                dto = Mapper.Map<SkillRatingDto>(skillRating);
 
             return dto;
         }
@@ -103,27 +74,27 @@ namespace ST.BLL.Services
                             d.SkillRatings.Any(s => s.Skill.Name == searchTerm));
             }
 
-            //return selectedDevs.Select(Mapper.Map<Developer, DeveloperDto>);
+            return selectedDevs.Select(Mapper.Map<Developer, DeveloperDto>);
 
-            return selectedDevs.Select(d => new DeveloperDto
-            {
-                Email = d.User.Email,
-                FirstName = d.User.FirstName,
-                LastName = d.User.LastName,
-                SkillRatings = d.SkillRatings
-                                .Select(s => new SkillRatingDto
-                                {
-                                    CategoryName = s.Skill.Category.Name,
-                                    DeveloperId = s.DeveloperId,
-                                    Rating = s.Rating,
-                                    SkillId = s.SkillId,
-                                    SkillName = s.Skill.Name
-                                })
-                                .OrderBy(s => s.CategoryName)
-                                .ThenByDescending(s => s.Rating)
-                                .GroupBy(s => s.CategoryName)
-                                .ToDictionary(g => g.Key, g => g.ToList())
-            });
+            //return selectedDevs.Select(d => new DeveloperDto
+            //{
+            //    Email = d.User.Email,
+            //    FirstName = d.User.FirstName,
+            //    LastName = d.User.LastName,
+            //    SkillRatings = d.SkillRatings
+            //                    .Select(s => new SkillRatingDto
+            //                    {
+            //                        CategoryName = s.Skill.Category.Name,
+            //                        DeveloperId = s.DeveloperId,
+            //                        Rating = s.Rating,
+            //                        SkillId = s.SkillId,
+            //                        SkillName = s.Skill.Name
+            //                    })
+            //                    .OrderBy(s => s.CategoryName)
+            //                    .ThenByDescending(s => s.Rating)
+            //                    .GroupBy(s => s.CategoryName)
+            //                    .ToDictionary(g => g.Key, g => g.ToList())
+            //});
 
             //return selectedDevs.Select(d => new DeveloperDto
             //{

@@ -16,13 +16,11 @@ namespace ST.WebUI.Controllers
     public class DevelopersController : Controller
     {
         private IDeveloperService _devService;
-        private IUserService _userService;
         private ICategoryService _categoryService;
 
-        public DevelopersController(IDeveloperService devService, IUserService userService, ICategoryService categoryService)
+        public DevelopersController(IDeveloperService devService, ICategoryService categoryService)
         {
             _devService = devService;
-            _userService = userService;
             _categoryService = categoryService;
         }
 
