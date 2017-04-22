@@ -4,6 +4,7 @@ using ST.BLL.Interfaces;
 using ST.DAL.Interfaces;
 using System.Linq;
 using ST.DAL.Models;
+using AutoMapper;
 
 namespace ST.BLL.Services
 {
@@ -15,35 +16,23 @@ namespace ST.BLL.Services
             _db = db;
         }
 
-        public void Add(CategoryDto categoryDto)
+        public void Add(CategoryDto dto)
         {
-            _db.Categories.Add(new Category
-            {
-                Name = categoryDto.Name
-            });
-
+            _db.Categories.Add(Mapper.Map<Category>(dto));
             _db.Save();
         }
 
         public IEnumerable<CategoryDto> GetAll()
         {
-            return _db.Categories.GetAll()
-                                 .Select(c => new CategoryDto
-                                 {
-                                     Id = c.Id,
-                                     Name = c.Name
-                                 });
+            return _db.Categories
+                      .GetAll()
+                      .Select(Mapper.Map<Category, CategoryDto>);
         }
 
         public CategoryDto GetById(int id)
         {
             var category = _db.Categories.GetById(id);
-
-            return new CategoryDto
-            {
-                Id = category.Id,
-                Name = category.Name
-            };
+            return Mapper.Map<CategoryDto>(category);
         }
 
         public void Remove(CategoryDto categoryDto)
