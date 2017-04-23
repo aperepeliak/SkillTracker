@@ -18,7 +18,8 @@ namespace ST.WebUI.Controllers
         private IDeveloperService _devService;
         private ICategoryService _categoryService;
 
-        public DevelopersController(IDeveloperService devService, ICategoryService categoryService)
+        public DevelopersController(IDeveloperService devService, 
+            ICategoryService categoryService)
         {
             _devService = devService;
             _categoryService = categoryService;
