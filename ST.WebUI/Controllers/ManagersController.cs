@@ -1,4 +1,6 @@
-﻿using ST.BLL.Infrastructure;
+﻿using AutoMapper;
+using ST.BLL.DTOs;
+using ST.BLL.Infrastructure;
 using ST.BLL.Interfaces;
 using ST.WebUI.ViewModels;
 using System;
@@ -18,31 +20,17 @@ namespace ST.WebUI.Controllers
             _devService = devService;
         }
 
-        //public ActionResult Search(string searchTerm = null)
-        //{
-        //    var selectedDevs = _devService.SearchByTerm(searchTerm);
+        public ActionResult Search(string searchTerm = null)
+        {
+            var selectedDevs = _devService.SearchByTerm(searchTerm);
 
-        //    //var viewModel = new DevelopersViewModel
-        //    //{
-        //    //    SearchTerm = searchTerm,
-        //    //    Developers = selectedDevs.Select(d => new DeveloperViewModel
-        //    //    {
-        //    //        Email        = d.Email,
-        //    //        FirstName    = d.FirstName,
-        //    //        LastName     = d.LastName,
-        //    //        SkillRatings = d.SkillRatings.Select(s => new )
-        //    //    });
-        //    //}
+            var viewModel = new DevelopersViewModel
+            {
+                SearchTerm = searchTerm,
+                Developers = selectedDevs.Select(Mapper.Map<DeveloperDto, DeveloperViewModel>)
+            };
 
-        //    //var viewModel = selectedDevs.Select(d => new DeveloperViewModel
-        //    //{
-        //    //    Email = selectedDevs.Email,
-        //    //    FirstName = selectedDevs.FirstName,
-        //    //    LastName = selectedDevs.LastName,
-        //    //    SkillRatings = selectedDevs.SkillRatings
-        //    //});
-
-        //    return View(viewModel);
-        //}
+            return View(viewModel);
+        }
     }
 }

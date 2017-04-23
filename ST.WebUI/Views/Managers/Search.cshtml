@@ -1,0 +1,13 @@
+﻿@model ST.WebUI.ViewModels.DevelopersViewModel
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search</h2>
+
+<p>Search term = @Model.SearchTerm</p>
+
+@foreach (var developer in Model.Developers)
+{
+    <p>@developer.Email</p>
+}

@@ -313,11 +313,11 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Developers\DeveloperProfile.cshtml" />
     <Content Include="Views\Developers\SkillRatingForm.cshtml" />
+    <Content Include="Views\Managers\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\app\" />
-    <Folder Include="Views\Managers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
