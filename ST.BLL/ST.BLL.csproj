@@ -68,6 +68,7 @@
     <Compile Include="DTOs\SkillRatingDto.cs" />
     <Compile Include="DTOs\UserDto.cs" />
     <Compile Include="Infrastructure\AutoMapperConfiguration.cs" />
+    <Compile Include="Infrastructure\Extensions\StringExtensions.cs" />
     <Compile Include="Infrastructure\OperationDetails.cs" />
     <Compile Include="Infrastructure\SecurityRoles.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />

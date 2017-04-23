@@ -5,6 +5,8 @@ using ST.DAL.Interfaces;
 using System.Collections.Generic;
 using ST.DAL.Models;
 using AutoMapper;
+using System;
+using ST.BLL.Infrastructure.Extensions;
 
 namespace ST.BLL.Services
 {
@@ -67,10 +69,12 @@ namespace ST.BLL.Services
             else
             {
                 selectedDevs = _db.Developers.GetAll()
-                .Where(d => d.User.Email.Contains(searchTerm) ||
-                            d.User.FirstName.Contains(searchTerm) ||
-                            d.User.LastName.Contains(searchTerm) ||
-                            d.SkillRatings.Any(s => s.Skill.Name.Contains(searchTerm)));
+                .Where(d => 
+                 d.User.Email.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)      ||
+                 d.User.FirstName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)  ||
+                 d.User.LastName.Contains (searchTerm, StringComparison.OrdinalIgnoreCase)  ||
+                 d.SkillRatings.Any(s => s.Skill.Name
+                                    .Contains(searchTerm, StringComparison.OrdinalIgnoreCase)));
             }
 
             return selectedDevs.Select(Mapper.Map<Developer, DeveloperDto>);

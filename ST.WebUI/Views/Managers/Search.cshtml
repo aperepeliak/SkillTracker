@@ -3,11 +3,46 @@
     ViewBag.Title = "Search";
 }
 
-<h2>Search</h2>
-
-<p>Search term = @Model.SearchTerm</p>
-
-@foreach (var developer in Model.Developers)
+@using (Html.BeginForm("Search", "Managers"))
 {
-    <p>@developer.Email</p>
+    <div class="form-group">
+        <div id="searchDevs" class="input-group">
+            @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control" })
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-search"></i>
+            </span>
+        </div>
+    </div>
+}
+
+@if (!Model.Developers.Any())
+{
+    <p>Sorry! No matches found :(</p>
+}
+else
+{
+    foreach (var developer in Model.Developers)
+    {
+        <div class="dev-description">
+            <h3>
+                @Html.ActionLink(@developer.FirstName + " " + @developer.LastName, 
+                                "Profile", 
+                                new { id = developer.Email }) 
+                <small>@developer.Email</small>
+            </h3>
+            <div>
+                @foreach (var entry in developer.SkillRatings)
+                {
+                    <p>
+                        <strong>@entry.Key:</strong>
+                        @foreach (var skill in entry.Value)
+                        {
+                            <span>@skill.SkillName (@skill.Rating/5)</span>
+                        }
+                    </p>
+                }
+            </div>
+        </div>
+        <hr />
+    }
 }
