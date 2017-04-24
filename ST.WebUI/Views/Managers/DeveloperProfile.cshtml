@@ -1,0 +1,48 @@
+﻿@model ST.WebUI.ViewModels.DeveloperViewModel
+@{
+    ViewBag.Title = "DeveloperProfile";
+}
+
+<h1>@Model.FirstName @Model.LastName <small>@Model.Email</small></h1>
+
+
+<div class="skill-ratings">
+    @foreach (var entry in Model.SkillRatings)
+    {
+        <ul class="category-group">
+            <li class="category-group-item">@entry.Key</li>
+            <ul class="skills-group">
+                @foreach (var skill in entry.Value)
+                {
+                    <li class="skills-item" data-skill-rating="@skill.Rating"
+                        data-skill-id="@skill.SkillId"
+                        data-skill-name="@skill.SkillName">
+
+                        <section>
+                            <span class="skills-item-name">@skill.SkillName</span>
+                        </section>
+
+                    </li>
+                }
+            </ul>
+        </ul>
+    }
+</div>
+
+
+@section scripts 
+    {
+        <script>
+            $(function () {
+                    var skillItems = $(".skills-item");
+                    $.each(skillItems, function (index, item) {
+                        var rating = $(this).attr("data-skill-rating")
+                        for (var i = 0; i < rating; i++) {
+                            $(item).find("section").append("<span class='glyphicon glyphicon-star'></span>");
+                        }
+                    });
+            });
+        </script>
+    }
+
+

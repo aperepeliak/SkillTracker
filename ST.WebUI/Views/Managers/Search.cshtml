@@ -27,9 +27,9 @@ else
     {
         <div class="dev-description">
             <h3>
-                @Html.ActionLink(@developer.FirstName + " " + @developer.LastName,
-                                "Profile",
-                                new { id = developer.Email })
+                <a href="/managers/developerprofile?email=@developer.Email">
+                    @developer.FirstName @developer.LastName
+                </a>
                 <small>@developer.Email</small>
             </h3>
             <div>

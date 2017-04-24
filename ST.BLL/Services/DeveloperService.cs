@@ -84,5 +84,10 @@ namespace ST.BLL.Services
         {
             return Mapper.Map<DeveloperDto>(_db.Developers.GetById(id));
         }
+
+        public DeveloperDto GetDeveloperByEmail(string email)
+        {
+            return Mapper.Map<DeveloperDto>(_db.Developers.GetByEmail(email));
+        }
     }
 }

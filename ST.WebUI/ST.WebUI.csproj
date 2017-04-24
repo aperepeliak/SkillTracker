@@ -314,6 +314,7 @@
     <Content Include="Views\Developers\DeveloperProfile.cshtml" />
     <Content Include="Views\Developers\SkillRatingForm.cshtml" />
     <Content Include="Views\Managers\Search.cshtml" />
+    <Content Include="Views\Managers\DeveloperProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

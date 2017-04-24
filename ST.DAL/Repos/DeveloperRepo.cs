@@ -30,6 +30,16 @@ namespace ST.DAL.Repos
                  .Include(d => d.User);
         }
 
+        public Developer GetByEmail(string email)
+        {
+            return _db.Developers
+                .Include(d => d.SkillRatings)
+                .Include(d => d.SkillRatings.Select(s => s.Skill))
+                .Include(d => d.SkillRatings.Select(s => s.Skill.Category))
+                .Include(d => d.User)
+                .SingleOrDefault(d => d.User.Email == email);
+        }
+
         public Developer GetById(string id)
         {
             return _db.Developers

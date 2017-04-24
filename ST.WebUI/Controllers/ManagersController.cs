@@ -36,5 +36,13 @@ namespace ST.WebUI.Controllers
 
             return View(viewModel);
         }
+
+        public ActionResult DeveloperProfile(string email)
+        {
+            var developerViewModel = Mapper.Map<DeveloperDto, DeveloperViewModel>
+                                            (_devService.GetDeveloperByEmail(email));
+
+            return View(developerViewModel);
+        }
     }
 }

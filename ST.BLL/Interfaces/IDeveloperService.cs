@@ -11,5 +11,6 @@ namespace ST.BLL.Interfaces
         void UpdateSkillRating(string developerId, int skillId, int newRating);
         IEnumerable<DeveloperDto> SearchByTerm(string searchTerm);
         DeveloperDto GetDeveloper(string id);
+        DeveloperDto GetDeveloperByEmail(string email);
     }
 }
