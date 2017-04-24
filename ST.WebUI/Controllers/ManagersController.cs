@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using X.PagedList;
 
 namespace ST.WebUI.Controllers
 {
@@ -20,14 +21,17 @@ namespace ST.WebUI.Controllers
             _devService = devService;
         }
 
-        public ActionResult Search(string searchTerm = null)
+        public ActionResult Search(string searchTerm = null, int page = 1)
         {
+            int numberOfItemsPerPage = 4;
             var selectedDevs = _devService.SearchByTerm(searchTerm);
 
             var viewModel = new DevelopersViewModel
             {
                 SearchTerm = searchTerm,
-                Developers = selectedDevs.Select(Mapper.Map<DeveloperDto, DeveloperViewModel>)
+                Developers = selectedDevs.
+                                Select(Mapper.Map<DeveloperDto, DeveloperViewModel>)
+                                .ToPagedList(page, numberOfItemsPerPage)
             };
 
             return View(viewModel);

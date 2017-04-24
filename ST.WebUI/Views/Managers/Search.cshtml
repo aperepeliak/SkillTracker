@@ -1,9 +1,11 @@
-﻿@model ST.WebUI.ViewModels.DevelopersViewModel
+﻿@using X.PagedList.Mvc;
+@using X.PagedList;
+@model ST.WebUI.ViewModels.DevelopersViewModel
 @{
     ViewBag.Title = "Search";
 }
 
-@using (Html.BeginForm("Search", "Managers"))
+@using (Html.BeginForm("Search", "Managers", FormMethod.Get))
 {
     <div class="form-group">
         <div id="searchDevs" class="input-group">
@@ -25,9 +27,9 @@ else
     {
         <div class="dev-description">
             <h3>
-                @Html.ActionLink(@developer.FirstName + " " + @developer.LastName, 
-                                "Profile", 
-                                new { id = developer.Email }) 
+                @Html.ActionLink(@developer.FirstName + " " + @developer.LastName,
+                                "Profile",
+                                new { id = developer.Email })
                 <small>@developer.Email</small>
             </h3>
             <div>
@@ -46,3 +48,6 @@ else
         <hr />
     }
 }
+
+@Html.PagedListPager((IPagedList)Model.Developers,
+    page => Url.Action("Search", new { Model.SearchTerm, page }))
