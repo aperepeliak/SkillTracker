@@ -5,7 +5,10 @@
 <div class="jumbotron">
     <h1>Welcome to Skill Tracker</h1>
     <p class="lead">A place where professionals meet professionals.</p>
-    <p><a href="/Account/Register" class="btn btn-success btn-lg">Register &raquo;</a></p>
+    @if(!User.Identity.IsAuthenticated)
+    {
+        <p><a href="/Account/Register" class="btn btn-success btn-lg">Register &raquo;</a></p>
+    }
 </div>
 
 <div class="row">

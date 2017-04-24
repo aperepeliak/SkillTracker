@@ -22,3 +22,8 @@
 .field-validation-error > span {
     color: red;
 }
+
+.dropdown-menu { 
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}

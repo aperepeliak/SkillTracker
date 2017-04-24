@@ -29,17 +29,23 @@
                         {
                             <li>@Html.ActionLink("Dashboard", "Skills", "Skills")</li>
                         }
-                        else if(User.IsInRole(SecurityRoles.Developer))
+                        else if (User.IsInRole(SecurityRoles.Developer))
                         {
                             <li>@Html.ActionLink("My Profile", "DeveloperProfile", "Developers")</li>
                         }
                         else
                         {
-                            <li>@Html.ActionLink("New Report", "CreateReport", "Managers")</li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("My Reports", "ListReports", "Managers")</li>
+                                    <li>@Html.ActionLink("New Report", "CreateReport", "Managers")</li>
+                                </ul>
+                            </li>
                             <li>@Html.ActionLink("Search", "Search", "Managers")</li>
                         }
                     }
-                    
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
