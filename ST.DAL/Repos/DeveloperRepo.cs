@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System;
+using System.Linq.Expressions;
 
 namespace ST.DAL.Repos
 {
@@ -48,6 +49,17 @@ namespace ST.DAL.Repos
                 .Include(d => d.SkillRatings.Select(s => s.Skill.Category))
                 .Include(d => d.User)
                 .SingleOrDefault(d => d.DeveloperId == id);              
+        }
+
+        public IEnumerable<Developer> FilterBy(Expression<Func<Developer, bool>> predicate)
+        {
+            return _db.Developers
+                .Include(d => d.SkillRatings)
+                .Include(d => d.SkillRatings.Select(s => s.Skill))
+                .Include(d => d.SkillRatings.Select(s => s.Skill.Category))
+                .Include(d => d.User)
+                .Where(predicate)
+                .ToArray();
         }
     }
 }

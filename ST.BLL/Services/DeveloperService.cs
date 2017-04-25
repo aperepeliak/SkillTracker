@@ -7,6 +7,8 @@ using ST.DAL.Models;
 using AutoMapper;
 using System;
 using ST.BLL.Infrastructure.Extensions;
+using LinqKit;
+using System.Linq.Expressions;
 
 namespace ST.BLL.Services
 {
@@ -90,13 +92,39 @@ namespace ST.BLL.Services
             return Mapper.Map<DeveloperDto>(_db.Developers.GetByEmail(email));
         }
 
-        public IEnumerable<DeveloperDto> SearchByFilters(IEnumerable<SkillRatingFilterDto> filters)
+        public IEnumerable<DeveloperDto> SearchByFilters(
+                                    IEnumerable<SkillRatingFilterDto> filters)
         {
-            IEnumerable<DeveloperDto> result = new List<DeveloperDto>();
+            var predicate = PredicateBuilder.New<Developer>();
 
-            var a = _db.Developers.GetAll();
+            foreach (var filter in filters)
+            {
+                var temp = filter;
 
-            return result;
+                switch(temp.Comparer)
+                {
+                    case ComparerType.GreaterThan:
+                        predicate = predicate.And(d =>
+                        d.SkillRatings.Any(sr => sr.SkillId == temp.SkillId &&
+                                            sr.Rating >= temp.Rating));
+                        break;
+
+                    case ComparerType.LessThan:
+                        predicate = predicate.And(d =>
+                        d.SkillRatings.Any(sr => sr.SkillId == temp.SkillId &&
+                                             sr.Rating <= temp.Rating));
+                        break;
+
+                    case ComparerType.Equals:
+                        predicate = predicate.And(d =>
+                        d.SkillRatings.Any(sr => sr.SkillId == temp.SkillId &&
+                                            temp.Rating == sr.Rating));
+                        break;
+                }            
+            }
+
+            return _db.Developers.FilterBy(predicate)
+                .Select(Mapper.Map<Developer, DeveloperDto>);
         }
     }
 }
