@@ -10,11 +10,12 @@
         <button class="btn btn-default add-filter">Add Filter</button>
     </div>
     <div class="filters">
-        <div id="filter-1" class="filter">
+        <div id="filter-0" class="filter">
 
             <div class="form-group">
                 <label>Select Category</label>
                 <select class="form-control categories" data-wired="false">
+                    <option selected disabled>Select category</option>
                     @foreach (var category in Model.Categories)
                     {
                         <option value="@category.Id">@category.Name</option>
@@ -24,21 +25,21 @@
 
             <div class="form-group">
                 <label>Select Skill</label>
-                <select class="form-control skills"></select>
+                <select id="filter-0" class="form-control skills"></select>
             </div>
 
             <div class="form-group comparer-container">
                 <label>Comparer</label>
                 <select class="form-control comparer">
-                    <option value="less-than"><=</option>
-                    <option value="greater-than">>=</option>
-                    <option value="equals">==</option>
+                    <option value="0">>=</option>
+                    <option value="1"><=</option>
+                    <option value="2">==</option>
                 </select>
             </div>
 
             <div class="form-group rating-container">
                 <label>Rating</label>
-                <select class="form-control">
+                <select class="form-control rating">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -50,7 +51,7 @@
     </div>
     <div>
         <button class="btn btn-default begin-search">Begin Search</button>
-        <button class="btn btn-info save-report">Save Report</button>
+        <button class="btn btn-info save-report disabled">Save Report</button>
     </div>
 </div>
 <hr />
@@ -64,53 +65,33 @@
         $(function () {
             var counter = 1;
             $('.add-filter').on('click', function () {
-                addFilter();
+                addFilter(counter);
                 counter++;
             });
 
-            $('.categories[data-wired="false"]').change(function (e) {
+            wireEvents();
 
-                var categoryId = $(e.target).find(":selected").val();
-                var skills = $(".skills");
-                $.ajax({
-                    url: "/api/skills/" + categoryId,
-                    method: "POST"
-                })
-                    .done(function (response) {
-                        skills.empty();
-                        $.each(response, function (index, item) {
-                            var option = `<option value="${item.Id}">${item.Name}</option>`;
-                            skills.append(option);
-                        });
-                    })
-                    .fail(function () {
-                        alert("Error.");
-                    })
-
-
-
-                $(this).attr('data-wired', true);
-            });
+            $('.begin-search').on('click', onBeginSearch);
         });
 
-        function addFilter() {
+        function addFilter(counter) {
             var filters = $('.filters');
 
             var categories = $('<select class="form-control categories" data-wired="false"></select>');
             populateCategories(categories);
 
-            var filter = $('<div class="filter"></div>')
+            var filter = $(`<div id="filter-${counter}" class="filter"></div>`)
                 .append($('<div class="form-group"></div>')
                     .append(categories)
                 )
                 .append($('<div class="form-group"></div>')
-                    .append($('<select class="form-control skills"></select>'))
+                    .append($(`<select id="filter-${counter}" class="form-control skills"></select>`))
                 )
                 .append($('<div class="form-group comparer-container"></div>')
                     .append($('<select class="form-control comparer"></select>')
-                        .append($('<option value="less-than"><=</option>'))
-                        .append($('<option value="greater-than">>=</option>'))
-                        .append($('<option value="equals">==</option>'))
+                        .append($('<option value="0">>=</option>'))
+                        .append($('<option value="1"><=</option>'))
+                        .append($('<option value="2">==</option>'))
                     )
                 )
                 .append($('<div class="form-group rating-container"></div>')
@@ -134,7 +115,7 @@
             })
                 .done(function (response) {
 
-                    var emptyOption = `<option></option>`;
+                    var emptyOption = `<option selected disabled>Select category</option>`;
                     categories.append(emptyOption);
 
                     $.each(response, function (index, item) {
@@ -148,10 +129,10 @@
         };
 
         function wireEvents() {
-            $('.categories[data-wired="false"]').change(function () {
-
+            $('.categories[data-wired="false"]').change(function (e) {
+                var id = $(e.target).closest(".filter").attr('id');
                 var categoryId = $(e.target).find(":selected").val();
-                var skills = $(".skills");
+                var skills = $(`.skills[id="${id}"]`);
                 $.ajax({
                     url: "/api/skills/" + categoryId,
                     method: "POST"
@@ -171,6 +152,39 @@
 
                 $(this).attr('data-wired', true);
             });
+        }
+
+        function onBeginSearch() {
+            var filterDtos = [];
+            var filters = $('.filter');
+
+            $.each(filters, function (index, item) {
+                var categoryId = $(item).find('.categories').val();
+                var skillId = $(item).find('.skills').val();
+                var comparer = $(item).find('.comparer').val();
+                var rating = $(item).find('.rating').val();
+
+                filterDtos.push({
+                    categoryId,
+                    skillId,
+                    comparer,
+                    rating
+                });
+            });
+            var data = JSON.stringify(filterDtos);
+
+            $.ajax({
+                url: '/api/reports/',
+                data: data,
+                contentType: 'application/json',
+                method: 'POST'
+            })
+                .done(function (response) {
+
+                })
+                .fail(function () {
+                    alert('error');
+                });
         }
 
     </script>

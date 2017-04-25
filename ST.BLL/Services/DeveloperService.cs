@@ -89,5 +89,14 @@ namespace ST.BLL.Services
         {
             return Mapper.Map<DeveloperDto>(_db.Developers.GetByEmail(email));
         }
+
+        public IEnumerable<DeveloperDto> SearchByFilters(IEnumerable<SkillRatingFilterDto> filters)
+        {
+            IEnumerable<DeveloperDto> result = new List<DeveloperDto>();
+
+            var a = _db.Developers.GetAll();
+
+            return result;
+        }
     }
 }
