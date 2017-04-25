@@ -16,9 +16,11 @@ namespace ST.WebUI.Controllers
     public class ManagersController : Controller
     {
         private IDeveloperService _devService;
-        public ManagersController(IDeveloperService devService)
+        private ICategoryService _categoryService;
+        public ManagersController(IDeveloperService devService, ICategoryService categoryService)
         {
             _devService = devService;
+            _categoryService = categoryService;
         }
 
         public ActionResult Search(string searchTerm = null, int page = 1)
@@ -43,6 +45,16 @@ namespace ST.WebUI.Controllers
                                             (_devService.GetDeveloperByEmail(email));
 
             return View(developerViewModel);
+        }
+
+        public ActionResult CreateReport()
+        {
+            var viewModel = new ReportFormViewModel()
+            {
+                Categories = _categoryService.GetAll().AsEnumerable()
+            };
+
+            return View("ReportForm", viewModel);
         }
     }
 }

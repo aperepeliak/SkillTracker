@@ -5,5 +5,173 @@
 
 <h2>ReportForm</h2>
 
+<div class="report-options">
+    <div class="controls">
+        <button class="btn btn-default add-filter">Add Filter</button>
+    </div>
+    <div class="filters">
+        <div id="filter-1" class="filter">
+
+            <div class="form-group">
+                <label>Select Category</label>
+                <select class="form-control categories" data-wired="false">
+                    @foreach (var category in Model.Categories)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Select Skill</label>
+                <select class="form-control skills"></select>
+            </div>
+
+            <div class="form-group comparer-container">
+                <label>Comparer</label>
+                <select class="form-control comparer">
+                    <option value="less-than"><=</option>
+                    <option value="greater-than">>=</option>
+                    <option value="equals">==</option>
+                </select>
+            </div>
+
+            <div class="form-group rating-container">
+                <label>Rating</label>
+                <select class="form-control">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div>
+        <button class="btn btn-default begin-search">Begin Search</button>
+        <button class="btn btn-info save-report">Save Report</button>
+    </div>
+</div>
+<hr />
+<div class="results">
+    Results:
+</div>
+
+@section scripts
+{
+    <script>
+        $(function () {
+            var counter = 1;
+            $('.add-filter').on('click', function () {
+                addFilter();
+                counter++;
+            });
+
+            $('.categories[data-wired="false"]').change(function (e) {
+
+                var categoryId = $(e.target).find(":selected").val();
+                var skills = $(".skills");
+                $.ajax({
+                    url: "/api/skills/" + categoryId,
+                    method: "POST"
+                })
+                    .done(function (response) {
+                        skills.empty();
+                        $.each(response, function (index, item) {
+                            var option = `<option value="${item.Id}">${item.Name}</option>`;
+                            skills.append(option);
+                        });
+                    })
+                    .fail(function () {
+                        alert("Error.");
+                    })
 
 
+
+                $(this).attr('data-wired', true);
+            });
+        });
+
+        function addFilter() {
+            var filters = $('.filters');
+
+            var categories = $('<select class="form-control categories" data-wired="false"></select>');
+            populateCategories(categories);
+
+            var filter = $('<div class="filter"></div>')
+                .append($('<div class="form-group"></div>')
+                    .append(categories)
+                )
+                .append($('<div class="form-group"></div>')
+                    .append($('<select class="form-control skills"></select>'))
+                )
+                .append($('<div class="form-group comparer-container"></div>')
+                    .append($('<select class="form-control comparer"></select>')
+                        .append($('<option value="less-than"><=</option>'))
+                        .append($('<option value="greater-than">>=</option>'))
+                        .append($('<option value="equals">==</option>'))
+                    )
+                )
+                .append($('<div class="form-group rating-container"></div>')
+                    .append($('<select class="form-control rating"></select>')
+                        .append($('<option value="1">1</option>'))
+                        .append($('<option value="2">2</option>'))
+                        .append($('<option value="3">3</option>'))
+                        .append($('<option value="4">4</option>'))
+                        .append($('<option value="5">5</option>'))
+                    )
+                );
+
+            filters.append(filter);
+            wireEvents();
+        };
+
+        function populateCategories(categories) {
+            $.ajax({
+                url: '/api/categories/',
+                method: 'POST'
+            })
+                .done(function (response) {
+
+                    var emptyOption = `<option></option>`;
+                    categories.append(emptyOption);
+
+                    $.each(response, function (index, item) {
+                        var option = `<option value="${item.Id}">${item.Name}</option>`;
+                        categories.append(option);
+                    });
+                })
+                .fail(function () {
+                    alert('Error');
+                });
+        };
+
+        function wireEvents() {
+            $('.categories[data-wired="false"]').change(function () {
+
+                var categoryId = $(e.target).find(":selected").val();
+                var skills = $(".skills");
+                $.ajax({
+                    url: "/api/skills/" + categoryId,
+                    method: "POST"
+                })
+                    .done(function (response) {
+                        skills.empty();
+
+                        $.each(response, function (index, item) {
+                            var option = `<option value="${item.Id}">${item.Name}</option>`;
+                            skills.append(option);
+                        });
+                    })
+                    .fail(function () {
+                        alert("Error.");
+                    })
+
+
+                $(this).attr('data-wired', true);
+            });
+        }
+
+    </script>
+}
