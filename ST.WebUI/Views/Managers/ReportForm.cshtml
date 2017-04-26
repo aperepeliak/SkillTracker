@@ -55,8 +55,9 @@
     </div>
 </div>
 <hr />
-<div class="results">
-    Results:
+<h2>Results:</h2>
+<div id="results">
+
 </div>
 
 @section scripts
@@ -180,7 +181,33 @@
                 method: 'POST'
             })
                 .done(function (response) {
-                    console.log(response);
+                    var results = $('#results').empty();
+
+                    $.each(response, function (key, dev) {
+
+                        var skills = $('<div class="skills-container"></div>')
+
+                        $.each(dev.SkillRatings, function (key, entry) {
+                            var categoryGroup = $('<p></p>')
+                                .append($(`<strong>${key}: </strong>`));
+
+                            $.each(entry, function (key, skill) {
+                                categoryGroup.append($(`<span> ${skill.SkillName} (${skill.Rating}/5) </span>`));
+                            })
+
+                            skills.append(categoryGroup);
+                        });
+
+                        var devDesc = $('<div class="dev-description"></div>')
+                            .append($('<h3></h3>')
+                                .append($(`<a href="/managers/developerprofile?email=${dev.Email}">${dev.FirstName} ${dev.LastName} </a>`))
+                                .append($(`<small>${dev.Email}</small>`))
+                            )
+                            .append(skills);
+
+                        results.append(devDesc);
+                    });
+                    $('.save-report').removeClass('disabled');
                 })
                 .fail(function () {
                     alert('error');

@@ -21,11 +21,8 @@ namespace ST.WebUI.Controllers.Api
 
         public IEnumerable<DeveloperViewModel> Search(IEnumerable<SkillRatingFilterDto> filters)
         {
-            IEnumerable<DeveloperViewModel> devs = 
-                _devService.SearchByFilters(filters)
+            return _devService.SearchByFilters(filters)
                 .Select(Mapper.Map<DeveloperDto, DeveloperViewModel>);
-
-            return devs;
         }
     }
 }
