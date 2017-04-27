@@ -14,8 +14,6 @@ namespace ST.DAL.Interfaces
         IRepo<Skill>           Skills        { get; }
         IRepo<Category>        Categories    { get; }
         ISkillRatingRepo       SkillRatings  { get; }
-        IReportRepo                Reports       { get; }
-        IReportFilterRepo          ReportFilters { get; }
 
         Task SaveAsync();
         void Save();

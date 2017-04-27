@@ -15,12 +15,10 @@ namespace ST.WebUI.Controllers.Api
     public class ReportsController : ApiController
     {
         private IDeveloperService _devService;
-        private IManagerService _managerService;
 
-        public ReportsController(IDeveloperService devService, IManagerService managerService)
+        public ReportsController(IDeveloperService devService)
         {
             _devService = devService;
-            _managerService = managerService;
         }
 
         public IEnumerable<DeveloperViewModel> Search(IEnumerable<ReportFilterDto> filters)
@@ -32,7 +30,7 @@ namespace ST.WebUI.Controllers.Api
         [HttpPost]
         public IHttpActionResult SaveReport(ReportDto dto)
         {
-            _managerService.SaveReport(User.Identity.GetUserId(), dto);
+            
 
             return Ok();
         }

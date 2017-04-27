@@ -1,6 +1,4 @@
-﻿using ST.DAL.Models;
-
-namespace ST.BLL.DTOs
+﻿namespace ST.BLL.DTOs
 {
     public class ReportFilterDto
     {
@@ -8,5 +6,12 @@ namespace ST.BLL.DTOs
         public int SkillId { get; set; }
         public ComparerType Comparer { get; set; }
         public int Rating { get; set; }
+    }
+
+    public enum ComparerType
+    {
+        GreaterThan,
+        LessThan,
+        Equals
     }
 }
