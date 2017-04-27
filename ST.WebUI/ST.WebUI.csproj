@@ -238,6 +238,7 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="ViewModels\ReportFormViewModel.cs" />
+    <Compile Include="ViewModels\ReportViewModel.cs" />
     <Compile Include="ViewModels\SkillFormViewModel.cs" />
     <Compile Include="ViewModels\SkillRatingFormViewModel.cs" />
     <Compile Include="ViewModels\SkillsViewModel.cs" />

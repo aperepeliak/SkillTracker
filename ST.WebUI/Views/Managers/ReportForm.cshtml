@@ -233,50 +233,26 @@
 
                 if (reportNameInput.validity.valid) {
 
-                    var reportName = $(reportNameInput).val();
-                    var datetime = Date.now();
+                    var name = $(reportNameInput).val();
 
                     var filters = JSON.parse(localStorage.getItem('filterDtos'));
                     var searchResults = JSON.parse(localStorage.getItem('searchResults'));
-
                     $.ajax({
                         url: "/api/reports/SaveReport",
                         method: 'POST',
-                        data: {
+                        contentType: 'application/json',
+                        data: JSON.stringify({
                             filters,
-                            searchResults
-                        }
+                            searchResults,
+                            name
+                        })
                     })
                         .done(function () {
                             alert('yes!!');
                         })
                         .fail(function () {
                             alert('error');
-                        });
-
-                    //var filters = localStorage.getItem('filterDtos');
-                    //var searchResults = localStorage.getItem('searchResults');
-
-                    //var res = JSON.stringify({
-                    //    reportName,
-                    //    datetime,
-                    //    filters,
-                    //    searchResults
-                    //});
-
-                    //$.ajax({
-                    //    url: "/api/reports/SaveReport",
-                    //    method: 'POST',
-                    //    //contentType: 'application/json',
-                    //    data: res
-                    //})
-                    //    .done(function () {
-                    //        alert('yes!!');
-                    //    })
-                    //    .fail(function () {
-                    //        alert('error');
-                    //    });
-
+                        });                   
 
                     
 

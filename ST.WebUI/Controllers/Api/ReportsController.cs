@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Newtonsoft.Json.Linq;
 
 namespace ST.WebUI.Controllers.Api
 {
@@ -37,16 +38,5 @@ namespace ST.WebUI.Controllers.Api
 
             return Ok();
         }
-
-        //[HttpPost]
-        //public IHttpActionResult SaveReport([FromBody]string data)
-        //{
-        //    var a = data;
-
-        //    //var test = JsonConvert.DeserializeObject<ReportDto>(dto);
-
-
-        //    return Ok();
-        //}
     }
 }
