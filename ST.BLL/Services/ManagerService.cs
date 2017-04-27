@@ -2,6 +2,7 @@
 using ST.BLL.DTOs;
 using System;
 using ST.DAL.Interfaces;
+using ST.DAL.Models;
 
 namespace ST.BLL.Services
 {

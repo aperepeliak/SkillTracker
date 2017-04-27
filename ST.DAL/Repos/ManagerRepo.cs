@@ -1,5 +1,4 @@
-﻿using System;
-using ST.DAL.Interfaces;
+﻿using ST.DAL.Interfaces;
 using ST.DAL.Models;
 
 namespace ST.DAL.Repos
@@ -18,6 +17,4 @@ namespace ST.DAL.Repos
             _db.SaveChanges();
         }
     }
-
-    public class ReportRepo : IReportRepo
 }

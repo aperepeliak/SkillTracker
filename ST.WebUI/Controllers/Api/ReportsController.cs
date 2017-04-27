@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
 using ST.BLL.DTOs;
 using ST.BLL.Interfaces;
 using ST.WebUI.ViewModels;
@@ -31,7 +32,7 @@ namespace ST.WebUI.Controllers.Api
         [HttpPost]
         public IHttpActionResult SaveReport(ReportDto dto)
         {
-            _managerService.SaveReport(dto);
+            _managerService.SaveReport(User.Identity.GetUserId(), dto);
 
             return Ok();
         }

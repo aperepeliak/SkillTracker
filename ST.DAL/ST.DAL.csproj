@@ -98,6 +98,8 @@
     <Compile Include="Repos\CategoryRepo.cs" />
     <Compile Include="Repos\DeveloperRepo.cs" />
     <Compile Include="Repos\ManagerRepo.cs" />
+    <Compile Include="Repos\ReportFilterRepo.cs" />
+    <Compile Include="Repos\ReportRepo.cs" />
     <Compile Include="Repos\SkillRatingRepo.cs" />
     <Compile Include="Repos\SkillRepo.cs" />
     <Compile Include="UnitOfWork.cs" />
