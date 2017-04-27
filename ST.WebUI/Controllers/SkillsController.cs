@@ -57,7 +57,6 @@ namespace ST.WebUI.Controllers
                 Categories = _categoryService.GetAll(),
                 Heading = "Add a skill"
             };
-
             return View("SkillForm", viewModel);
         }
 

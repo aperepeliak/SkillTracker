@@ -11,6 +11,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Newtonsoft.Json.Linq;
+using System.Web.UI.WebControls;
 
 namespace ST.WebUI.Controllers.Api
 {
@@ -33,8 +34,18 @@ namespace ST.WebUI.Controllers.Api
         [HttpPost]
         public IHttpActionResult SaveReport(ReportDto dto)
         {
-            var a = dto;
+            dto.DateTime = DateTime.Now;
+            var grid = new GridView()
+            {
+                DataSource = new
+                {
+                    DateTime = dto.DateTime,
+                    Name = dto.Name
+                }
+            };
+            grid.DataBind();
 
+            //this.re
 
             return Ok();
         }

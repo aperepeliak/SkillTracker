@@ -238,7 +238,7 @@
                     var filters = JSON.parse(localStorage.getItem('filterDtos'));
                     var searchResults = JSON.parse(localStorage.getItem('searchResults'));
                     $.ajax({
-                        url: "/api/reports/SaveReport",
+                        url: "/reports/SaveReport",
                         method: 'POST',
                         contentType: 'application/json',
                         data: JSON.stringify({
