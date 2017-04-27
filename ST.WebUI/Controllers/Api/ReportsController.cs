@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using ST.BLL.DTOs;
 using ST.BLL.Interfaces;
 using ST.WebUI.ViewModels;
@@ -21,6 +22,7 @@ namespace ST.WebUI.Controllers.Api
             _devService = devService;
         }
 
+        [HttpPost]
         public IEnumerable<DeveloperViewModel> Search(IEnumerable<ReportFilterDto> filters)
         {
             return _devService.SearchByFilters(filters)
@@ -30,9 +32,21 @@ namespace ST.WebUI.Controllers.Api
         [HttpPost]
         public IHttpActionResult SaveReport(ReportDto dto)
         {
-            
+            var a = dto;
+
 
             return Ok();
         }
+
+        //[HttpPost]
+        //public IHttpActionResult SaveReport([FromBody]string data)
+        //{
+        //    var a = data;
+
+        //    //var test = JsonConvert.DeserializeObject<ReportDto>(dto);
+
+
+        //    return Ok();
+        //}
     }
 }

@@ -11,7 +11,7 @@ namespace ST.BLL.DTOs
 
         public DateTime DateTime { get; set; }
 
-        public IEnumerable<ReportFilterDto> ReportFilters { get; set; }
-        public IEnumerable<DeveloperDto> SelectedDevelopers { get; set; }
+        public IEnumerable<ReportFilterDto> Filters { get; set; }
+        public IEnumerable<DeveloperDto> SearchResults { get; set; }
     }
 }

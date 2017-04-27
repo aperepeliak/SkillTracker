@@ -110,7 +110,7 @@
 
         function populateCategories(categories) {
             $.ajax({
-                url: '/api/categories/',
+                url: '/api/categories/GetAll',
                 method: 'POST'
             })
                 .done(function (response) {
@@ -134,7 +134,7 @@
                 var categoryId = $(e.target).find(":selected").val();
                 var skills = $(`.skills[id="${id}"]`);
                 $.ajax({
-                    url: "/api/skills/" + categoryId,
+                    url: "/api/skills/GetSkillsByCategory/" + categoryId,
                     method: "POST"
                 })
                     .done(function (response) {
@@ -178,7 +178,7 @@
             localStorage.setItem("filterDtos", data);
 
             $.ajax({
-                url: '/api/reports/',
+                url: '/api/reports/search/',
                 data: data,
                 contentType: 'application/json',
                 method: 'POST'
@@ -236,10 +236,49 @@
                     var reportName = $(reportNameInput).val();
                     var datetime = Date.now();
 
-                    var filters = localStorage.getItem('filterDtos');
-                    var searchResults = localStorage.getItem('searchResults');
+                    var filters = JSON.parse(localStorage.getItem('filterDtos'));
+                    var searchResults = JSON.parse(localStorage.getItem('searchResults'));
+
+                    $.ajax({
+                        url: "/api/reports/SaveReport",
+                        method: 'POST',
+                        data: {
+                            filters,
+                            searchResults
+                        }
+                    })
+                        .done(function () {
+                            alert('yes!!');
+                        })
+                        .fail(function () {
+                            alert('error');
+                        });
+
+                    //var filters = localStorage.getItem('filterDtos');
+                    //var searchResults = localStorage.getItem('searchResults');
+
+                    //var res = JSON.stringify({
+                    //    reportName,
+                    //    datetime,
+                    //    filters,
+                    //    searchResults
+                    //});
+
+                    //$.ajax({
+                    //    url: "/api/reports/SaveReport",
+                    //    method: 'POST',
+                    //    //contentType: 'application/json',
+                    //    data: res
+                    //})
+                    //    .done(function () {
+                    //        alert('yes!!');
+                    //    })
+                    //    .fail(function () {
+                    //        alert('error');
+                    //    });
 
 
+                    
 
                     //window.location.replace("/");
 
