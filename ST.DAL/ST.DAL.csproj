@@ -60,7 +60,9 @@
     <Compile Include="EntityConfigs\ApplicationUserConfig.cs" />
     <Compile Include="EntityConfigs\CategoryConfig.cs" />
     <Compile Include="EntityConfigs\DeveloperConfig.cs" />
+    <Compile Include="EntityConfigs\FilterConfig.cs" />
     <Compile Include="EntityConfigs\ManagerConfig.cs" />
+    <Compile Include="EntityConfigs\ReportConfig.cs" />
     <Compile Include="EntityConfigs\SkillConfig.cs" />
     <Compile Include="EntityConfigs\SkillRatingConfig.cs" />
     <Compile Include="Identity\ApplicationRoleManager.cs" />
@@ -68,6 +70,8 @@
     <Compile Include="Interfaces\IDeveloperRepo.cs" />
     <Compile Include="Interfaces\IManagerRepo.cs" />
     <Compile Include="Interfaces\IRepo.cs" />
+    <Compile Include="Interfaces\IReportFilterRepo.cs" />
+    <Compile Include="Interfaces\IReportRepo.cs" />
     <Compile Include="Interfaces\ISkillRatingRepo.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Migrations\201704131846125_InitialModel.cs" />
@@ -82,9 +86,12 @@
     <Compile Include="Models\ApplicationRole.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\ComparerType.cs" />
     <Compile Include="Models\Developer.cs" />
     <Compile Include="Models\Manager.cs" />
     <Compile Include="Identity\SecurityRoles.cs" />
+    <Compile Include="Models\Report.cs" />
+    <Compile Include="Models\ReportFilter.cs" />
     <Compile Include="Models\Skill.cs" />
     <Compile Include="Models\SkillRating.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

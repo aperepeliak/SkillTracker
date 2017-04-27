@@ -12,6 +12,6 @@ namespace ST.BLL.Interfaces
         IEnumerable<DeveloperDto> SearchByTerm(string searchTerm);
         DeveloperDto GetDeveloper(string id);
         DeveloperDto GetDeveloperByEmail(string email);
-        IEnumerable<DeveloperDto> SearchByFilters(IEnumerable<SkillRatingFilterDto> filters);
+        IEnumerable<DeveloperDto> SearchByFilters(IEnumerable<ReportFilterDto> filters);
     }
 }

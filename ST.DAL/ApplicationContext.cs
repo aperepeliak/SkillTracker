@@ -9,11 +9,13 @@ namespace ST.DAL
     {
         public ApplicationContext() : base("SkillTrackerDb") { }
 
-        public DbSet<Manager>     Managers     { get; set; }
-        public DbSet<Developer>   Developers   { get; set; }
-        public DbSet<Skill>       Skills       { get; set; }
-        public DbSet<Category>    Categories   { get; set; }
-        public DbSet<SkillRating> SkillRatings { get; set; }
+        public DbSet<Manager>      Managers      { get; set; }
+        public DbSet<Developer>    Developers    { get; set; }
+        public DbSet<Skill>        Skills        { get; set; }
+        public DbSet<Category>     Categories    { get; set; }
+        public DbSet<SkillRating>  SkillRatings  { get; set; }
+        public DbSet<Report>       Reports       { get; set; }
+        public DbSet<ReportFilter> ReportFilters { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -23,6 +25,8 @@ namespace ST.DAL
             modelBuilder.Configurations.Add(new DeveloperConfig());
             modelBuilder.Configurations.Add(new ManagerConfig());
             modelBuilder.Configurations.Add(new SkillRatingConfig());
+            modelBuilder.Configurations.Add(new ReportFilterConfig());
+            modelBuilder.Configurations.Add(new ReportConfig());
 
             base.OnModelCreating(modelBuilder);
         }

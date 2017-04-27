@@ -234,13 +234,14 @@
                 if (reportNameInput.validity.valid) {
 
                     var reportName = $(reportNameInput).val();
-                    var uid = Date.now();
-                    var reportNameGuid = reportName + '_' + uid;
+                    var datetime = Date.now();
 
                     var filters = localStorage.getItem('filterDtos');
                     var searchResults = localStorage.getItem('searchResults');
-                    console.log('filters = ', filters);
-                    console.log('searchRes = ', searchResults);
+
+
+
+                    //window.location.replace("/");
 
                 } else {
                     alert('Please enter report name.');

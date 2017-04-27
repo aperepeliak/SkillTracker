@@ -12,13 +12,15 @@ namespace ST.DAL
     {
         private ApplicationContext _db;
 
-        public ApplicationUserManager UserManager  { get; private set; }
-        public ApplicationRoleManager RoleManager  { get; private set; }
-        public IManagerRepo           Managers     { get; private set; }
-        public IDeveloperRepo         Developers   { get; private set; }
-        public IRepo<Skill>           Skills       { get; private set; }
-        public IRepo<Category>        Categories   { get; private set; }
-        public ISkillRatingRepo       SkillRatings { get; private set; }
+        public ApplicationUserManager UserManager   { get; private set; }
+        public ApplicationRoleManager RoleManager   { get; private set; }
+        public IManagerRepo           Managers      { get; private set; }
+        public IDeveloperRepo         Developers    { get; private set; }
+        public IRepo<Skill>           Skills        { get; private set; }
+        public IRepo<Category>        Categories    { get; private set; }
+        public ISkillRatingRepo       SkillRatings  { get; private set; }
+        public IReportRepo                Reports       { get; private set; }
+        public IReportFilterRepo          ReportFilters { get; private set; }
 
         public UnitOfWork(ApplicationContext db)
         {
@@ -32,6 +34,7 @@ namespace ST.DAL
             Skills       = new SkillRepo      (_db);
             Categories   = new CategoryRepo   (_db);
             SkillRatings = new SkillRatingRepo(_db);
+            Reports     = new
         }
 
         public void       Save()      =>       _db.SaveChanges();

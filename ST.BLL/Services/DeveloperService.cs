@@ -8,7 +8,6 @@ using AutoMapper;
 using System;
 using ST.BLL.Infrastructure.Extensions;
 using LinqKit;
-using System.Linq.Expressions;
 
 namespace ST.BLL.Services
 {
@@ -28,7 +27,6 @@ namespace ST.BLL.Services
                 SkillId = dto.SkillId,
                 Rating = dto.Rating
             });
-            //_db.SkillRatings.Add(Mapper.Map<SkillRating>(dto));
             _db.Save();
         }
 
@@ -99,7 +97,7 @@ namespace ST.BLL.Services
         }
 
         public IEnumerable<DeveloperDto> SearchByFilters(
-                                    IEnumerable<SkillRatingFilterDto> filters)
+                                    IEnumerable<ReportFilterDto> filters)
         {
             var predicate = PredicateBuilder.New<Developer>();
 

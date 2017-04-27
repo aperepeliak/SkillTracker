@@ -14,15 +14,26 @@ namespace ST.WebUI.Controllers.Api
     public class ReportsController : ApiController
     {
         private IDeveloperService _devService;
-        public ReportsController(IDeveloperService devService)
+        private IManagerService _managerService;
+
+        public ReportsController(IDeveloperService devService, IManagerService managerService)
         {
             _devService = devService;
+            _managerService = managerService;
         }
 
-        public IEnumerable<DeveloperViewModel> Search(IEnumerable<SkillRatingFilterDto> filters)
+        public IEnumerable<DeveloperViewModel> Search(IEnumerable<ReportFilterDto> filters)
         {
             return _devService.SearchByFilters(filters)
                 .Select(Mapper.Map<DeveloperDto, DeveloperViewModel>);
+        }
+
+        [HttpPost]
+        public IHttpActionResult SaveReport(ReportDto dto)
+        {
+            _managerService.SaveReport(dto);
+
+            return Ok();
         }
     }
 }

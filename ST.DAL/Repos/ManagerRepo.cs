@@ -18,4 +18,6 @@ namespace ST.DAL.Repos
             _db.SaveChanges();
         }
     }
+
+    public class ReportRepo : IReportRepo
 }

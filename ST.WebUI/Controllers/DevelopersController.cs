@@ -56,7 +56,6 @@ namespace ST.WebUI.Controllers
 
             var skillRatingDto = new SkillRatingDto
             {
-                //DeveloperId = User.Identity.GetUserId(),
                 SkillId = viewModel.SkillId,
                 Rating = viewModel.Rating,
             };
