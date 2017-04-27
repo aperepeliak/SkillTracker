@@ -49,7 +49,7 @@
             </div>
         </div>
     </div>
-    <div>
+    <div class="actions">
         <button class="btn btn-default begin-search">Begin Search</button>
         <button class="btn btn-info save-report disabled">Save Report</button>
     </div>
@@ -65,14 +65,13 @@
     <script>
         $(function () {
             var counter = 1;
+            wireEvents();    
+
             $('.add-filter').on('click', function () {
                 addFilter(counter);
                 counter++;
             });
-
-            wireEvents();
-
-            $('.begin-search').on('click', onBeginSearch);
+            $('.save-report').on('click', onSaveReport);
         });
 
         function addFilter(counter) {
@@ -153,6 +152,8 @@
 
                 $(this).attr('data-wired', true);
             });
+
+            $('.begin-search').on('click', onBeginSearch);
         }
 
         function onBeginSearch() {
@@ -172,7 +173,9 @@
                     rating
                 });
             });
+
             var data = JSON.stringify(filterDtos);
+            localStorage.setItem("filterDtos", data);
 
             $.ajax({
                 url: '/api/reports/',
@@ -207,12 +210,42 @@
 
                         results.append(devDesc);
                     });
-                    $('.save-report').removeClass('disabled');
+                    if (response.length) {
+                        localStorage.setItem('searchResults', JSON.stringify(response));
+                        $('.save-report').removeClass('disabled');
+                    } else {
+                        $('.save-report').addClass('disabled');
+                        results.empty().append($('<p class="text-info">No matches found.</p>'));
+                    }
                 })
                 .fail(function () {
                     alert('error');
                 });
         }
+        function onSaveReport() {
+            var self = $(this);
+            self.closest('div')
+                .append($('<input id="report-name" type="text" placeholder="report name" class="form-control" required/>'))
+                .append($('<button class="btn btn-success save-ok">OK</button>'));
 
+            $('.save-ok').on('click', function () {
+                var reportNameInput = document.getElementById('report-name');
+
+                if (reportNameInput.validity.valid) {
+
+                    var reportName = $(reportNameInput).val();
+                    var uid = Date.now();
+                    var reportNameGuid = reportName + '_' + uid;
+
+                    var filters = localStorage.getItem('filterDtos');
+                    var searchResults = localStorage.getItem('searchResults');
+                    console.log('filters = ', filters);
+                    console.log('searchRes = ', searchResults);
+
+                } else {
+                    alert('Please enter report name.');
+                }             
+            });
+        }
     </script>
 }

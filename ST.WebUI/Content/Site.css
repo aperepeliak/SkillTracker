@@ -137,6 +137,11 @@ h1 small {
 .report-options .filters .filter .rating-container {
   width: 80px;
 }
-.report-options .begin-search {
-  margin: 30px 0;
+.report-options .actions {
+  display: flex;
+  justify-content: flex-start;
+  padding: 15px 0;
+}
+.report-options .actions > * {
+  margin-right: 10px;
 }

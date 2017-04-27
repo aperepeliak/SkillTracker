@@ -5,9 +5,9 @@ namespace ST.BLL.Interfaces
 {
     public interface IDeveloperService
     {
-        void AddSkillRating(SkillRatingDto dto);
+        void AddSkillRating(string developerId, SkillRatingDto dto);
         SkillRatingDto GetSkillRating(string developerId, int skillId);
-        void DeleteSkillRating(SkillRatingDto dto);
+        void DeleteSkillRating(string developerId, int skillId);
         void UpdateSkillRating(string developerId, int skillId, int newRating);
         IEnumerable<DeveloperDto> SearchByTerm(string searchTerm);
         DeveloperDto GetDeveloper(string id);

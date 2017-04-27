@@ -20,9 +20,15 @@ namespace ST.BLL.Services
             _db = db;
         }
 
-        public void AddSkillRating(SkillRatingDto dto)
+        public void AddSkillRating(string developerId, SkillRatingDto dto)
         {
-            _db.SkillRatings.Add(Mapper.Map<SkillRating>(dto));
+            _db.SkillRatings.Add(new SkillRating
+            {
+                DeveloperId = developerId,
+                SkillId = dto.SkillId,
+                Rating = dto.Rating
+            });
+            //_db.SkillRatings.Add(Mapper.Map<SkillRating>(dto));
             _db.Save();
         }
 
@@ -38,9 +44,9 @@ namespace ST.BLL.Services
             return dto;
         }
 
-        public void DeleteSkillRating(SkillRatingDto dto)
+        public void DeleteSkillRating(string developerId, int skillId)
         {
-            var skillRating = _db.SkillRatings.Get(dto.DeveloperId, dto.SkillId);
+            var skillRating = _db.SkillRatings.Get(developerId, skillId);
 
             if (skillRating != null)
             {
@@ -71,10 +77,10 @@ namespace ST.BLL.Services
             else
             {
                 selectedDevs = _db.Developers.GetAll()
-                .Where(d => 
-                 d.User.Email.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)      ||
-                 d.User.FirstName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)  ||
-                 d.User.LastName.Contains (searchTerm, StringComparison.OrdinalIgnoreCase)  ||
+                .Where(d =>
+                 d.User.Email.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                 d.User.FirstName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                 d.User.LastName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
                  d.SkillRatings.Any(s => s.Skill.Name
                                     .Contains(searchTerm, StringComparison.OrdinalIgnoreCase)));
             }
@@ -101,7 +107,7 @@ namespace ST.BLL.Services
             {
                 var temp = filter;
 
-                switch(temp.Comparer)
+                switch (temp.Comparer)
                 {
                     case ComparerType.GreaterThan:
                         predicate = predicate.And(d =>
@@ -120,7 +126,7 @@ namespace ST.BLL.Services
                         d.SkillRatings.Any(sr => sr.SkillId == temp.SkillId &&
                                             temp.Rating == sr.Rating));
                         break;
-                }            
+                }
             }
 
             return _db.Developers.FilterBy(predicate)
