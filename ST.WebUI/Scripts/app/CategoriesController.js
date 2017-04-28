@@ -45,7 +45,7 @@
                 if (!response) {
                     var message = $('<div class="alert alert-danger" role="alert">There is already a category with such name.</div>')
                     $('.alert-info').after(message);
-                    message.fadeOut(4000);
+                    message.fadeOut(4000, function () { $(this).remove(); });
                 } else {
                     $('#category-form').off('submit');
                     $('#category-form').submit();

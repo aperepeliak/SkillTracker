@@ -278,6 +278,7 @@
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\app\categoriesController.js" />
     <Content Include="Scripts\app\developersController.js" />
+    <Content Include="Scripts\app\skillRatingsController.js" />
     <Content Include="Scripts\app\skillsController.js" />
     <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.js" />

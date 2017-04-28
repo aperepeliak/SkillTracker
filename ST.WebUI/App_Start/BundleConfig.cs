@@ -17,6 +17,7 @@ namespace ST.WebUI
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                         "~/Scripts/app/skillsController.js",
                         "~/Scripts/app/categoriesController.js",
+                        "~/Scripts/app/skillRatingsController.js",
                         "~/Scripts/app/developersController.js"
                 ));
 
