@@ -4,10 +4,6 @@ using ST.BLL.DTOs;
 using ST.BLL.Infrastructure;
 using ST.BLL.Interfaces;
 using ST.WebUI.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ST.WebUI.Controllers
@@ -19,7 +15,7 @@ namespace ST.WebUI.Controllers
         private ICategoryService _categoryService;
 
         public DevelopersController(IDeveloperService devService, 
-            ICategoryService categoryService)
+                                    ICategoryService categoryService)
         {
             _devService = devService;
             _categoryService = categoryService;

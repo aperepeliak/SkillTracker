@@ -26,6 +26,7 @@ namespace ST.BLL.Services
         {
             return _db.Categories
                       .GetAll()
+                      .OrderBy(c => c.Name)
                       .Select(Mapper.Map<Category, CategoryDto>);
         }
 
