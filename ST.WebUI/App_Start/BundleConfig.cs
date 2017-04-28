@@ -16,7 +16,8 @@ namespace ST.WebUI
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                         "~/Scripts/app/skillsController.js",
-                        "~/Scripts/app/categoriesController.js"
+                        "~/Scripts/app/categoriesController.js",
+                        "~/Scripts/app/developersController.js"
                 ));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
