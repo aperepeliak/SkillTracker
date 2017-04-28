@@ -14,7 +14,7 @@ namespace ST.WebUI
             config.Routes.MapHttpRoute(
                 name: "Reporting",
                 routeTemplate: "api/{controller}/{action}/{id}",
-                defaults: new { action = "Search", id = RouteParameter.Optional }
+                defaults: new { id = RouteParameter.Optional }
             );
 
             config.Routes.MapHttpRoute(

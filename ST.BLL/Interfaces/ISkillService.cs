@@ -13,5 +13,6 @@ namespace ST.BLL.Interfaces
 
         IEnumerable<SkillDto> GetAll();
         IEnumerable<SkillDto> GetByCategory(int categoryId = 0);
+        bool IsUnique(string name, int categoryId);
     }
 }

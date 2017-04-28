@@ -5,6 +5,7 @@ using ST.DAL.Interfaces;
 using System.Linq;
 using ST.DAL.Models;
 using AutoMapper;
+using System;
 
 namespace ST.BLL.Services
 {
@@ -29,7 +30,7 @@ namespace ST.BLL.Services
 
         public IEnumerable<SkillDto> GetByCategory(int categoryId = 0)
         {
-           
+
             return categoryId == 0
 
                 ? _db.Skills.GetAll()
@@ -56,6 +57,14 @@ namespace ST.BLL.Services
                 _db.Skills.Delete(skill);
                 _db.Save();
             }
+        }
+
+        public bool IsUnique(string name, int categoryId)
+        {
+            return !_db.Skills
+                    .GetAll()
+                    .Any(s => s.CategoryId == categoryId && 
+                              s.Name.ToLower() == name.ToLower());
         }
 
         public void Update(SkillDto skillDto)

@@ -22,5 +22,11 @@ namespace ST.WebUI.Controllers.Api
         {
             return _skillService.GetByCategory(id);
         }
+
+        [HttpGet]
+        public IHttpActionResult ValidateUnique(string name, int categoryId)
+        {
+            return Ok(_skillService.IsUnique(name, categoryId));
+        }
     }
 }

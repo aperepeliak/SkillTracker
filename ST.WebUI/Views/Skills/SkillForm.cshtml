@@ -7,7 +7,7 @@
 
 <h2>@Model.Heading</h2>
 
-@using (Html.BeginForm(Model.Action, "Skills")) 
+@using (Html.BeginForm(Model.Action, "Skills", FormMethod.Post, new { id="skill-form" }))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.Id)
@@ -16,12 +16,12 @@
 
     <div class="form-group">
         @Html.LabelFor(m => m.Name)
-        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", autofocus = true })
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", id="skill-name", autofocus = true })
         @Html.ValidationMessageFor(m => m.Name)
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.CategoryId)
-        @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categories, "Id", "Name"), "", new { @class = "form-control" })
+        @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categories, "Id", "Name"), "", new { @class = "form-control category" })
         @Html.ValidationMessageFor(m => m.CategoryId)
     </div>
     <button type="submit" class="btn btn-primary">Save</button>
@@ -30,4 +30,32 @@
 @section scripts
 {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(function () {
+            $('#skill-form').submit(function (e) {
+                
+                var skillName = $('#skill-name').val();
+                var categoryId = $('.category').val();
+
+                $.ajax({
+                    url: `/api/skills/validateUnique?name=${skillName}&categoryId=${categoryId}`,
+                    method: 'GET'
+                })
+                    .done(function (res) {
+                        if (!res) {
+                            e.preventDefault();
+                            var message = $('<div class="alert alert-danger" role="alert">There is already a skill with such name.</div>')
+                            $('.alert-info').after(message);
+                            message.fadeOut(5000);
+                        }
+                    })
+                    .fail(function () {
+                        e.preventDefault();
+                        alert('Error');
+                    });
+
+                return false;
+            });        
+        });
+    </script>
 }
