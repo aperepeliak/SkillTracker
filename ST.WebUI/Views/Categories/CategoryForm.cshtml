@@ -27,28 +27,7 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script>
         $(function () {
-            $('#category-form').submit(function (e) {
-                e.preventDefault();
-                var categoryName = $('.category-name').val();
-
-                $.ajax({
-                    url: `/api/categories/validateUnique?name=${categoryName}`,
-                    method: 'GET'
-                })
-                    .done(function (response) {
-                        if (!response) {
-                            var message = $('<div class="alert alert-danger" role="alert">There is already a category with such name.</div>')
-                            $('.alert-info').after(message);
-                            message.fadeOut(4000);
-                        } else {
-                            $('#category-form').off('submit');
-                            $('#category-form').submit();
-                        }
-                    })
-                    .fail(function () {
-                        alert('Error');
-                    })
-            });
+            CategoriesController.init();
         });
     </script>
 }

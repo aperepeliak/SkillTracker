@@ -47,43 +47,7 @@
 {
     <script>
         $(function () {
-            $("span.delete").click(function (e) {
-                e.preventDefault();
-                var element = $(e.target);
-                var categoryId = element.attr("data-category-id");
-                var categoryName = element.closest('td').prev().text().trim();
-
-                bootbox.confirm({
-                    message: "Are you sure you want to delete <strong>" + categoryName + "</strong> category?",
-                    buttons: {
-                        cancel: {
-                            label: 'No',
-                            className: 'btn-default'
-                        },
-                        confirm: {
-                            label: 'Yes',
-                            className: 'btn-danger'
-                        }
-                    },
-                    callback: function (result) {
-                        if (!result) return;
-
-                        $.ajax({
-                            url: "/categories/delete/" + categoryId,
-                            method: "POST"
-                        })
-                            .done(function () {
-                                element.closest('tr')
-                                    .fadeOut(function () {
-                                        $(this).remove();
-                                    })
-                            })
-                            .fail(function () {
-                                alert("Error!");
-                            })
-                    }
-                });
-            });
+            CategoriesController.init();
         });
     </script>
 }

@@ -32,29 +32,7 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script>
         $(function () {
-            $('#skill-form').submit(function (e) {
-                e.preventDefault();
-                var skillName = $('#skill-name').val();
-                var categoryId = $('.category').val();
-
-                $.ajax({
-                    url: `/api/skills/validateUnique?name=${skillName}&categoryId=${categoryId}`,
-                    method: 'GET'
-                })
-                    .done(function (response) {
-                        if (!response) {
-                            var message = $('<div class="alert alert-danger" role="alert">There is already a skill with such name.</div>')
-                            $('.alert-info').after(message);
-                            message.fadeOut(4000);
-                        } else {
-                            $('#skill-form').off('submit');
-                            $('#skill-form').submit();
-                        }
-                    })
-                    .fail(function () {
-                        alert('Error');
-                    });
-            });
+            SkillsController.init();
         });
     </script>
 }

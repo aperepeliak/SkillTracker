@@ -71,43 +71,7 @@
 {
     <script>
         $(function () {
-            $("span.delete").click(function (e) {
-                e.preventDefault();
-                var element = $(e.target);
-                var skillId = element.attr("data-skill-id");
-                var skillName = element.closest('td').prev().prev().text().trim();
-
-                bootbox.confirm({
-                    message: "Are you sure you want to delete <strong>" + skillName + "</strong> skill?",
-                    buttons: {
-                        cancel: {
-                            label: 'No',
-                            className: 'btn-default'
-                        },
-                        confirm: {
-                            label: 'Yes',
-                            className: 'btn-danger'
-                        }
-                    },
-                    callback: function (result) {
-                        if (!result) return;
-                        
-                        $.ajax({
-                            url: "/skills/delete/" + skillId,
-                            method: "POST"
-                        })
-                            .done(function () {
-                                element.closest('tr')
-                                    .fadeOut(function () {
-                                        $(this).remove();
-                                    })
-                            })
-                            .fail(function () {
-                                alert("Error!");
-                            })
-                    }
-                });
-            });
+            SkillsController.init();
         });
     </script>
 }
