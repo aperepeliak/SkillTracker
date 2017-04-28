@@ -12,6 +12,9 @@ using System.Net.Http;
 using System.Web.Http;
 using Newtonsoft.Json.Linq;
 using System.Web.UI.WebControls;
+using System.Web;
+using System.IO;
+using System.Web.UI;
 
 namespace ST.WebUI.Controllers.Api
 {
@@ -35,19 +38,11 @@ namespace ST.WebUI.Controllers.Api
         public IHttpActionResult SaveReport(ReportDto dto)
         {
             dto.DateTime = DateTime.Now;
-            var grid = new GridView()
-            {
-                DataSource = new
-                {
-                    DateTime = dto.DateTime,
-                    Name = dto.Name
-                }
-            };
-            grid.DataBind();
 
-            //this.re
 
             return Ok();
         }
     }
+
+    
 }

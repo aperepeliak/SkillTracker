@@ -15,7 +15,34 @@ namespace ST.WebUI.Controllers
         public void SaveReport(ReportDto dto)
         {
             dto.DateTime = DateTime.Now;
-            var grid = new GridView()
+
+            Export export = new Export();
+            export.ToExcel(Response, dto.Filters);
+        }
+    }
+
+    public class Export
+    {
+        public void ToExcel(HttpResponseBase Response, object clientsList)
+        {
+            var grid = new System.Web.UI.WebControls.GridView();
+            grid.DataSource = clientsList;
+            grid.DataBind();
+            Response.ClearContent();
+            Response.AddHeader("content-disposition", "attachment; filename=FileName.xls");
+            Response.ContentType = "application/excel";
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter htw = new HtmlTextWriter(sw);
+
+            grid.RenderControl(htw);
+            Response.Write(sw.ToString());
+            Response.End();
+        }
+    }
+}
+
+/*
+ * var grid = new GridView()
             {
                 DataSource = dto.Filters.Select(f => new
                 {
@@ -37,6 +64,4 @@ namespace ST.WebUI.Controllers
 
             Response.Write(sw.ToString());
             Response.End();
-        }
-    }
-}
+ */
