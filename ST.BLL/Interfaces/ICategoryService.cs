@@ -12,5 +12,6 @@ namespace ST.BLL.Interfaces
         CategoryDto GetById(int id);
 
         IEnumerable<CategoryDto> GetAll();
+        bool IsUnique(string name);
     }
 }

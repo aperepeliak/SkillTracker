@@ -7,7 +7,7 @@
 
 <h2>@Model.Heading</h2>
 
-@using (Html.BeginForm(Model.Action, "Categories"))
+@using (Html.BeginForm(Model.Action, "Categories", FormMethod.Post, new { id = "category-form" }))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.Id)
@@ -16,7 +16,7 @@
 
     <div class="form-group">
         @Html.LabelFor(m => m.Name)
-        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", autofocus = true })
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control category-name", autofocus = true })
         @Html.ValidationMessageFor(m => m.Name)
     </div>
     <button type="submit" class="btn btn-primary">Save</button>
@@ -25,4 +25,31 @@
 @section scripts
 {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(function () {
+            $('#category-form').submit(function (e) {
+                e.preventDefault();
+                var categoryName = $('.category-name').val();
+                var self = $(this);
+
+                $.ajax({
+                    url: `/api/categories/validateUnique?name=${categoryName}`,
+                    method: 'GET'
+                })
+                    .done(function (response) {
+                        if (!response) {
+                            var message = $('<div class="alert alert-danger" role="alert">There is already a category with such name.</div>')
+                            $('.alert-info').after(message);
+                            message.fadeOut(5000);
+                        } else {
+                            $('#category-form').off('submit');
+                            $('#category-form').submit();
+                        }
+                    })
+                    .fail(function () {
+                        alert('Error');
+                    })
+            });
+        });
+    </script>
 }

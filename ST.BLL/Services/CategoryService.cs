@@ -5,6 +5,7 @@ using ST.DAL.Interfaces;
 using System.Linq;
 using ST.DAL.Models;
 using AutoMapper;
+using System;
 
 namespace ST.BLL.Services
 {
@@ -34,6 +35,13 @@ namespace ST.BLL.Services
         {
             var category = _db.Categories.GetById(id);
             return Mapper.Map<CategoryDto>(category);
+        }
+
+        public bool IsUnique(string name)
+        {
+            return !_db.Categories
+                        .GetAll()
+                        .Any(c => c.Name.ToLower() == name.ToLower());
         }
 
         public void Remove(CategoryDto categoryDto)

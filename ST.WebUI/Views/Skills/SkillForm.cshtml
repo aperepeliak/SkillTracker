@@ -7,7 +7,7 @@
 
 <h2>@Model.Heading</h2>
 
-@using (Html.BeginForm(Model.Action, "Skills", FormMethod.Post, new { id="skill-form" }))
+@using (Html.BeginForm(Model.Action, "Skills", FormMethod.Post, new { id = "skill-form" }))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.Id)
@@ -16,7 +16,7 @@
 
     <div class="form-group">
         @Html.LabelFor(m => m.Name)
-        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", id="skill-name", autofocus = true })
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", id = "skill-name", autofocus = true })
         @Html.ValidationMessageFor(m => m.Name)
     </div>
     <div class="form-group">
@@ -33,7 +33,7 @@
     <script>
         $(function () {
             $('#skill-form').submit(function (e) {
-                
+                e.preventDefault();
                 var skillName = $('#skill-name').val();
                 var categoryId = $('.category').val();
 
@@ -41,21 +41,22 @@
                     url: `/api/skills/validateUnique?name=${skillName}&categoryId=${categoryId}`,
                     method: 'GET'
                 })
-                    .done(function (res) {
-                        if (!res) {
+                    .done(function (response) {
+                        if (!response) {
                             e.preventDefault();
                             var message = $('<div class="alert alert-danger" role="alert">There is already a skill with such name.</div>')
                             $('.alert-info').after(message);
                             message.fadeOut(5000);
+                        } else {
+                            $('#skill-form').off('submit');
+                            $('#skill-form').submit();
                         }
                     })
                     .fail(function () {
                         e.preventDefault();
                         alert('Error');
                     });
-
-                return false;
-            });        
+            });
         });
     </script>
 }
