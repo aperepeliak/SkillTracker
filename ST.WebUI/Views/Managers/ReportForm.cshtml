@@ -3,7 +3,7 @@
     ViewBag.Title = "ReportForm";
 }
 
-<h2>ReportForm</h2>
+<h2>Reports</h2>
 
 <div class="report-options">
     <div class="controls">
@@ -50,8 +50,13 @@
         </div>
     </div>
     <div class="actions">
-        <button class="btn btn-default begin-search">Begin Search</button>
-        <button class="btn btn-info save-report disabled">Save Report</button>
+        <button class="btn btn-default begin-search">Generate</button>
+        <button class="btn btn-info save-report disabled"
+                data-toggle="tooltip"
+                data-placement="right"
+                title="Sorry! Not implemented yet.">
+            Export to Excel
+        </button>
     </div>
 </div>
 <hr />
@@ -65,13 +70,12 @@
     <script>
         $(function () {
             var counter = 1;
-            wireEvents();    
+            wireEvents();
 
             $('.add-filter').on('click', function () {
                 addFilter(counter);
                 counter++;
             });
-            $('.save-report').on('click', onSaveReport);
         });
 
         function addFilter(counter) {
@@ -221,47 +225,6 @@
                 .fail(function () {
                     alert('error');
                 });
-        }
-        function onSaveReport() {
-            var self = $(this);
-            self.closest('div')
-                .append($('<input id="report-name" type="text" placeholder="report name" class="form-control" required/>'))
-                .append($('<button class="btn btn-success save-ok">OK</button>'));
-
-            $('.save-ok').on('click', function () {
-                var reportNameInput = document.getElementById('report-name');
-
-                if (reportNameInput.validity.valid) {
-
-                    var name = $(reportNameInput).val();
-
-                    var filters = JSON.parse(localStorage.getItem('filterDtos'));
-                    var searchResults = JSON.parse(localStorage.getItem('searchResults'));
-                    $.ajax({
-                        url: "/reports/SaveReport",
-                        method: 'POST',
-                        contentType: 'application/json',
-                        data: JSON.stringify({
-                            filters,
-                            searchResults,
-                            name
-                        })
-                    })
-                        .done(function () {
-                            alert('yes!!');
-                        })
-                        .fail(function () {
-                            alert('error');
-                        });                   
-
-                    
-
-                    //window.location.replace("/");
-
-                } else {
-                    alert('Please enter report name.');
-                }             
-            });
         }
     </script>
 }

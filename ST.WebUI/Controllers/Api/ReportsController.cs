@@ -1,20 +1,10 @@
 ﻿using AutoMapper;
-using Microsoft.AspNet.Identity;
-using Newtonsoft.Json;
 using ST.BLL.DTOs;
 using ST.BLL.Interfaces;
 using ST.WebUI.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-using Newtonsoft.Json.Linq;
-using System.Web.UI.WebControls;
-using System.Web;
-using System.IO;
-using System.Web.UI;
 
 namespace ST.WebUI.Controllers.Api
 {
@@ -32,15 +22,6 @@ namespace ST.WebUI.Controllers.Api
         {
             return _devService.SearchByFilters(filters)
                 .Select(Mapper.Map<DeveloperDto, DeveloperViewModel>);
-        }
-
-        [HttpPost]
-        public IHttpActionResult SaveReport(ReportDto dto)
-        {
-            dto.DateTime = DateTime.Now;
-
-
-            return Ok();
         }
     }
 

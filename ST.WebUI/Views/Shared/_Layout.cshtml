@@ -35,13 +35,7 @@
                         }
                         else
                         {
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("My Reports", "ListReports", "Managers")</li>
-                                    <li>@Html.ActionLink("New Report", "CreateReport", "Managers")</li>
-                                </ul>
-                            </li>
+                            <li>@Html.ActionLink("Generate Report", "CreateReport", "Managers")</li>
                             <li>@Html.ActionLink("Search", "Search", "Managers")</li>
                         }
                     }
