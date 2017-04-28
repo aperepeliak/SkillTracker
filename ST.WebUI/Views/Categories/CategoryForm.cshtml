@@ -30,7 +30,6 @@
             $('#category-form').submit(function (e) {
                 e.preventDefault();
                 var categoryName = $('.category-name').val();
-                var self = $(this);
 
                 $.ajax({
                     url: `/api/categories/validateUnique?name=${categoryName}`,
@@ -40,7 +39,7 @@
                         if (!response) {
                             var message = $('<div class="alert alert-danger" role="alert">There is already a category with such name.</div>')
                             $('.alert-info').after(message);
-                            message.fadeOut(5000);
+                            message.fadeOut(4000);
                         } else {
                             $('#category-form').off('submit');
                             $('#category-form').submit();

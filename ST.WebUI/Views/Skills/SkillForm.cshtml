@@ -43,17 +43,15 @@
                 })
                     .done(function (response) {
                         if (!response) {
-                            e.preventDefault();
                             var message = $('<div class="alert alert-danger" role="alert">There is already a skill with such name.</div>')
                             $('.alert-info').after(message);
-                            message.fadeOut(5000);
+                            message.fadeOut(4000);
                         } else {
                             $('#skill-form').off('submit');
                             $('#skill-form').submit();
                         }
                     })
                     .fail(function () {
-                        e.preventDefault();
                         alert('Error');
                     });
             });

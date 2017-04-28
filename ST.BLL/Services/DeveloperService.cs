@@ -130,5 +130,11 @@ namespace ST.BLL.Services
             return _db.Developers.FilterBy(predicate)
                 .Select(Mapper.Map<Developer, DeveloperDto>);
         }
+
+        public bool IsSkillRatingUnique(string developerId, int skillId)
+        {
+            return !_db.SkillRatings.GetForDeveloper(developerId)
+                                     .Any(sr => sr.SkillId == skillId);
+        }
     }
 }

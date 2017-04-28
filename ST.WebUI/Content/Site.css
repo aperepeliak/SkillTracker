@@ -48,6 +48,9 @@ textarea {
 h1 small {
   font-weight: 300;
 }
+.alerts {
+  height: 60px;
+}
 /* DEVELOPER'S PERSONAL PAGE */
 .skill-ratings {
   margin: 40px 0;

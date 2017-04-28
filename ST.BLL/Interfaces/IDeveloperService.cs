@@ -13,5 +13,6 @@ namespace ST.BLL.Interfaces
         DeveloperDto GetDeveloper(string id);
         DeveloperDto GetDeveloperByEmail(string email);
         IEnumerable<DeveloperDto> SearchByFilters(IEnumerable<ReportFilterDto> filters);
+        bool IsSkillRatingUnique(string developerId, int skillId);
     }
 }

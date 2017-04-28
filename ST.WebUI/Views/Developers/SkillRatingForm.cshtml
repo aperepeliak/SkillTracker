@@ -5,10 +5,12 @@
 
 <h2>Add a Skill</h2>
 
-@using (Html.BeginForm("Create", "Developers"))
+@using (Html.BeginForm("Create", "Developers", FormMethod.Post, new { id = "skill-rating-form" }))
 {
     @Html.AntiForgeryToken()
-  
+
+    <div class="alerts"></div>
+
     <div class="form-group">
         @Html.LabelFor(m => m.CategoryId)
         @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categories, "Id", "Name"), "", new { @class = "form-control categories" })
@@ -21,7 +23,7 @@
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Rating)
-        @Html.TextBoxFor(model => model.Rating, new { @class = "form-control", type ="number", min="1", max="5" })
+        @Html.TextBoxFor(model => model.Rating, new { @class = "form-control", type = "number", min = "1", max = "5" })
         @Html.ValidationMessageFor(m => m.Rating)
     </div>
     <button type="submit" class="btn btn-primary">Add</button>
@@ -29,18 +31,19 @@
 
 @section scripts
 {
+    @Scripts.Render("~/bundles/jqueryval")
     <script>
         $(function () {
-            $(".categories").on("change", function (e) {
+            $('.categories').on('change', function (e) {
                 var categoryId = $(e.target).find(":selected").val();
                 var skills = $(".skills");
                 $.ajax({
-                    url: "/api/skills/" + categoryId,
+                    url: "/api/skills/GetSkillsByCategory/" + categoryId,
                     method: "POST"
                 })
                     .done(function (response) {
                         skills.empty();
-                        
+
                         $.each(response, function (index, item) {
                             var option = `<option value="${item.Id}">${item.Name}</option>`;
                             skills.append(option);
@@ -50,8 +53,31 @@
                         alert("Error.");
                     })
             });
+
+            $('#skill-rating-form').submit(function (e) {
+
+                e.preventDefault();
+                var skillId = $('.skills').val();
+
+                $.ajax({
+                    url: `/api/skillratings/validateUnique?skillId=${skillId}`,
+                    method: 'GET'
+                })
+                    .done(function (response) {
+                        if (response) {
+                            $('#skill-rating-form').off('submit');
+                            $('#skill-rating-form').submit();
+                        } else {
+                            var message = $('<div class="alert alert-danger" role="alert">You have already added this skill to your profile.</div>')
+                            $('.alerts').append(message);
+                            message.fadeOut(4000, function () { $(this).remove(); });
+                        }
+                    })
+                    .fail(function () {
+                        alert('Error');
+                    });
+            });
         })
     </script>
 
-    @Scripts.Render("~/bundles/jqueryval")
 }

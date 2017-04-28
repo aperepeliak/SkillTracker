@@ -1,18 +1,16 @@
 ﻿using Microsoft.AspNet.Identity;
 using ST.BLL.DTOs;
+using ST.BLL.Infrastructure;
 using ST.BLL.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace ST.WebUI.Controllers.Api
 {
+    [Authorize(Roles = SecurityRoles.Developer)]
     public class SkillRatingsController : ApiController
     {
         private IDeveloperService _devService;
+
         public SkillRatingsController(IDeveloperService devService)
         {
             _devService = devService;
@@ -21,9 +19,9 @@ namespace ST.WebUI.Controllers.Api
         [HttpPost]
         public IHttpActionResult Delete(int id)
         {
-            var dto = _devService.GetSkillRating(User.Identity.GetUserId(), id);
+            var skillRating = _devService.GetSkillRating(User.Identity.GetUserId(), id);
 
-            if (dto == null)
+            if (skillRating == null)
                 return NotFound();
 
             _devService.DeleteSkillRating(User.Identity.GetUserId(), id);
@@ -34,11 +32,16 @@ namespace ST.WebUI.Controllers.Api
         [HttpPost]
         public IHttpActionResult Update(SkillRatingDto dto)
         {
-            var developerId = User.Identity.GetUserId();
-
-            _devService.UpdateSkillRating(developerId, dto.SkillId, dto.Rating);
+            _devService.UpdateSkillRating(User.Identity.GetUserId(), 
+                                          dto.SkillId, dto.Rating);
 
             return Ok();
+        }
+
+        [HttpGet]
+        public IHttpActionResult ValidateUnique(int skillId)
+        {
+            return Ok(_devService.IsSkillRatingUnique(User.Identity.GetUserId(), skillId));
         }
     }
 }

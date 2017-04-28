@@ -62,7 +62,7 @@
                         if (!result) return;
 
                         $.ajax({
-                            url: "/api/skillratings/" + skillId,
+                            url: "/api/skillratings/Delete/" + skillId,
                             method: "POST"
                         })
                             .done(function () {
@@ -106,7 +106,7 @@
                     var newRating = element.val();
 
                     if (newRating != rating) {
-                        $.post('/api/skillratings',
+                        $.post('/api/skillratings/update',
                             {
                                 skillId: skillId,
                                 rating: newRating
