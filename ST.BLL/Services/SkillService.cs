@@ -27,11 +27,19 @@ namespace ST.BLL.Services
             return _db.Skills.GetAll().Select(Mapper.Map<Skill, SkillDto>);
         }
 
-        public IEnumerable<SkillDto> GetByCategory(int categoryId)
+        public IEnumerable<SkillDto> GetByCategory(int categoryId = 0)
         {
-            return _db.Skills.GetAll()
-                .Where(s => s.CategoryId == categoryId)
-                .Select(Mapper.Map<Skill, SkillDto>);
+           
+            return categoryId == 0
+
+                ? _db.Skills.GetAll()
+                            .OrderBy(s => s.Name)
+                            .Select(Mapper.Map<Skill, SkillDto>)
+
+                : _db.Skills.GetAll()
+                            .Where(s => s.CategoryId == categoryId)
+                            .OrderBy(s => s.Name)
+                            .Select(Mapper.Map<Skill, SkillDto>);
         }
 
         public SkillDto GetById(int id)

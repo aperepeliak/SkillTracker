@@ -12,6 +12,7 @@ namespace ST.WebUI.ViewModels
         public string Name { get; set; }
 
         [Required]
+        [Display(Name = "Category")]
         public int CategoryId { get; set; }
         public IEnumerable<CategoryDto> Categories { get; set; }
 

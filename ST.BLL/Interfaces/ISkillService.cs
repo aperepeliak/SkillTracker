@@ -12,6 +12,6 @@ namespace ST.BLL.Interfaces
         SkillDto GetById(int id);
 
         IEnumerable<SkillDto> GetAll();
-        IEnumerable<SkillDto> GetByCategory(int categoryId);
+        IEnumerable<SkillDto> GetByCategory(int categoryId = 0);
     }
 }

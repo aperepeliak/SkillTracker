@@ -14,7 +14,8 @@ namespace ST.WebUI.Controllers
         private ISkillService _skillService;
         private ICategoryService _categoryService;
 
-        public SkillsController(ISkillService skillService, ICategoryService categoryService)
+        public SkillsController(ISkillService skillService, 
+                                ICategoryService categoryService)
         {
             _skillService    = skillService;
             _categoryService = categoryService;
@@ -24,25 +25,16 @@ namespace ST.WebUI.Controllers
         {
             int numberOfItemsPerPage = 8;
 
-            var skills = categoryId == 0
-                ? _skillService.GetAll()
-                               .OrderBy(s => s.Id)
-                               .ToPagedList(page, numberOfItemsPerPage)
-
-                : _skillService.GetByCategory(categoryId)
-                               .OrderBy(s => s.Id)
-                               .ToPagedList(page, numberOfItemsPerPage);
-
-            string selectedCategoryName = categoryId == 0
-                ? "Filter By Category"
-                : _categoryService.GetById(categoryId).Name;
-
             var viewModel = new SkillsViewModel
             {
-                Skills = skills,
-                Categories = _categoryService.GetAll().ToList(),
-                SelectedCategoryName = selectedCategoryName,
-                SelectedCategoryId = categoryId
+                Skills = _skillService.GetByCategory(categoryId)
+                                      .ToPagedList(page, numberOfItemsPerPage),
+
+                Categories           = _categoryService.GetAll().ToList(),
+                SelectedCategoryId   = categoryId,
+                SelectedCategoryName = categoryId == 0
+                                        ? "Filter By Category"
+                                        : _categoryService.GetById(categoryId).Name
             };
 
             return View(viewModel);
