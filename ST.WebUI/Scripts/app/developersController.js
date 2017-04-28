@@ -13,7 +13,7 @@
         $('.skills-item-delete').on('click', onSkillRatingDelete);
     };
 
-    onSkillRatingEdit = function (e) {
+    var onSkillRatingEdit = function (e) {
         skillElement = $(e.target).closest('li');
 
         skillId = skillElement.attr('data-skill-id');
@@ -25,7 +25,7 @@
         $('.edit-rating').on('blur', onEditFinish);
     };
 
-    onEditFinish = function (e) {
+    var onEditFinish = function (e) {
         var targetElement = $(e.target);
         var parentElement = targetElement.closest('li');
         var newRating = targetElement.val();
@@ -45,7 +45,7 @@
             switchToViewMode(targetElement, parentElement);
         }
     };
-    switchToEditorMode = function () {
+    var switchToEditorMode = function () {
         skillElement.find('.glyphicon-star').remove();
         actions.toggleClass('actions').css('display', 'none');
         var editor = $(`<input class="form-control edit-rating" type="number" value="${rating}" min="1" max="5" />`);
@@ -53,7 +53,7 @@
         skillElement.find('section').append(editor).append(acceptChangesEl);
         editor.focus();
     };
-    switchToViewMode = function (targetElement, parentElement) {
+    var switchToViewMode = function (targetElement, parentElement) {
         actions.toggleClass('actions').css('display', '');
         targetElement.remove();
         acceptChangesEl.remove();
@@ -63,7 +63,7 @@
         }
     };
 
-    onSkillRatingDelete = function (e) {
+    var onSkillRatingDelete = function (e) {
         skillElement = $(e.target).closest('li');
         skillName = skillElement.attr('data-skill-name');
         skillId = skillElement.attr('data-skill-id');
@@ -97,7 +97,7 @@
         });
     };
 
-    drawRatings = function () {
+    var drawRatings = function () {
         var skillElements = $('.skills-item');
         $.each(skillElements, function (index, item) {
             var rating = $(this).attr('data-skill-rating')
@@ -107,7 +107,7 @@
         });
     };
 
-    fail = function () {
+    var fail = function () {
         alert('Error');
     };
 

@@ -5,7 +5,7 @@
         $('#skill-rating-form').submit(onSkillRatingSubmit);
     };
 
-    onCategoriesChange = function (e) {
+    var onCategoriesChange = function (e) {
 
         var categoryId = $(e.target).find(':selected').val();
         var skills = $('.skills');
@@ -25,7 +25,7 @@
             .fail(fail);
     };
 
-    onSkillRatingSubmit = function (e) {
+    var onSkillRatingSubmit = function (e) {
 
         e.preventDefault();
         var skillId = $('.skills').val();
@@ -47,7 +47,7 @@
             .fail(fail);
     };
 
-    fail = function () {
+    var fail = function () {
         alert('Error');
     };
 

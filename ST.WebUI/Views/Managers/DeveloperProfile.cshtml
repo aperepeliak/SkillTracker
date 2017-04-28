@@ -30,19 +30,19 @@
 </div>
 
 
-@section scripts 
+@section scripts
     {
-        <script>
-            $(function () {
-                    var skillItems = $(".skills-item");
-                    $.each(skillItems, function (index, item) {
-                        var rating = $(this).attr("data-skill-rating")
-                        for (var i = 0; i < rating; i++) {
-                            $(item).find("section").append("<span class='glyphicon glyphicon-star'></span>");
-                        }
-                    });
+    <script>
+        $(function () {
+            var skillItems = $('.skills-item');
+            $.each(skillItems, function (index, item) {
+                var rating = $(this).attr('data-skill-rating')
+                for (var i = 0; i < rating; i++) {
+                    $(item).find('section').append('<span class="glyphicon glyphicon-star"></span>');
+                }
             });
-        </script>
-    }
+        });
+    </script>
+}
 
 
