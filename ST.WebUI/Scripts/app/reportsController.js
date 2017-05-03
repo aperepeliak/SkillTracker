@@ -6,6 +6,7 @@
         $('.categories[data-wired="false"]').change(onCategoryChange);
         $('.begin-search').on('click', onBeginSearch);
         $('.add-filter').on('click', onAddFilter);
+        $('.save-report').on('click', onSaveReport);
     };
 
     var onCategoryChange = function (e) {
@@ -130,6 +131,61 @@
         $('.categories[data-wired="false"]').change(onCategoryChange);
         counter++;
     };
+
+    var onSaveReport = function () {
+        var self = $(this);
+        self.closest('div')
+            .append($('<input id="report-name" type="text" placeholder="report name" class="form-control" required/>'))
+            .append($('<button class="btn btn-success save-ok">OK</button>'));
+
+        $('.save-ok').on('click', function () {
+            var reportNameInput = document.getElementById('report-name');
+
+            if (reportNameInput.validity.valid) {
+
+                var name = $(reportNameInput).val();
+
+                var filters = JSON.parse(localStorage.getItem('filterDtos'));
+                var developers = JSON.parse(localStorage.getItem('searchResults'));
+
+                var searchResults = [];
+                $.each(developers, function (i, dev) {
+                    var skillRatings = [];
+                    $.each(developers[0].SkillRatings, function (index, entry) {
+                        var skills = Object.values(entry);
+                        skillRatings.push(skills);
+                    });
+                    searchResults[i] = {
+                        firstName: dev.FirstName,
+                        lastName: dev.LastName,
+                        email: dev.Email,
+                        skillRatings
+                    };
+                });
+
+                $.ajax({
+                    url: "/reports/SaveReport",
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        searchResults,
+                        name
+                    })
+                })
+                    .done(function (data) {
+                        var response = data;
+                        window.location = '/Reports/Download?fileGuid=' + response.FileGuid
+                            + '&filename=' + response.FileName;
+                    })
+                    .fail(function () {
+                        alert('error');
+                    });
+
+            } else {
+                alert('Please enter report name.');
+            }
+        });
+    }
 
     var populateCategories = function (categories) {
         $.ajax({
