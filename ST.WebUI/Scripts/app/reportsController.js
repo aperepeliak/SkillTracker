@@ -88,9 +88,9 @@
 
                 if (response.length) {
                     localStorage.setItem('searchResults', JSON.stringify(response));
-                    $('.save-report').removeClass('disabled');
+                    $('.export-report').removeClass('disabled');
                 } else {
-                    $('.save-report').addClass('disabled');
+                    $('.export-report').addClass('disabled');
                     results.empty().append($('<p class="text-info">No matches found.</p>'));
                 }
             })
