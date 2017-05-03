@@ -44,12 +44,12 @@ namespace ST.BLL.Services
                 {
                     foreach (var skillRating in category.Value)
                     {
-                        worksheet.Cell(x, y).SetValue(developer.Email); y++;
-                        worksheet.Cell(x, y).SetValue(developer.FirstName); y++;
-                        worksheet.Cell(x, y).SetValue(developer.LastName); y++;
+                        worksheet.Cell(x, y).SetValue(developer.Email);          y++;
+                        worksheet.Cell(x, y).SetValue(developer.FirstName);      y++;
+                        worksheet.Cell(x, y).SetValue(developer.LastName);       y++;
                         worksheet.Cell(x, y).SetValue(skillRating.CategoryName); y++;
-                        worksheet.Cell(x, y).SetValue(skillRating.SkillName); y++;
-                        worksheet.Cell(x, y).SetValue(skillRating.Rating); y++;
+                        worksheet.Cell(x, y).SetValue(skillRating.SkillName);    y++;
+                        worksheet.Cell(x, y).SetValue(skillRating.Rating);       y++;
                         x++; y = 1;
                     }
                 }
