@@ -6,7 +6,7 @@
         $('.categories[data-wired="false"]').change(onCategoryChange);
         $('.begin-search').on('click', onBeginSearch);
         $('.add-filter').on('click', onAddFilter);
-        $('.save-report').on('click', onSaveReport);
+        $('.export-report').on('click', onSaveReport);
     };
 
     var onCategoryChange = function (e) {
