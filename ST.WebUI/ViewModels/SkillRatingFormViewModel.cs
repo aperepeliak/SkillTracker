@@ -6,11 +6,11 @@ namespace ST.WebUI.ViewModels
 {
     public class SkillRatingFormViewModel
     {
-        [Display(Name = "Select Category")]
+        [Display(Name = "Category")]
         public int CategoryId { get; set; }
         public IEnumerable<CategoryDto> Categories { get; set; }
 
-        [Display(Name = "Select Skill")]
+        [Display(Name = "Skill")]
         public int SkillId { get; set; }
         public IEnumerable<SkillDto> Skills { get; set; }
 
