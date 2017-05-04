@@ -10,6 +10,11 @@
         var categoryId = $(e.target).find(':selected').val();
         var skills = $('.skills');
 
+        if (!categoryId) {
+            skills.empty();
+            return;
+        }
+
         $.ajax({
             url: `/api/skills/GetSkillsByCategory/${categoryId}`,
             method: 'POST'
@@ -29,6 +34,8 @@
 
         e.preventDefault();
         var skillId = $('.skills').val();
+
+        if (!skillId) return;
 
         $.ajax({
             url: `/api/skillratings/validateUnique?skillId=${skillId}`,

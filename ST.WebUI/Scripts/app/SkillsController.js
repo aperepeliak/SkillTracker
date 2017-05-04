@@ -39,6 +39,9 @@
     };
 
     var validateAndSubmitSkill = function (skillName, categoryId) {
+
+        if (!skillName || !categoryId) return;
+
         $.ajax({
             url: `/api/skills/validateUnique?name=${skillName}&categoryId=${categoryId}`,
             method: 'GET'

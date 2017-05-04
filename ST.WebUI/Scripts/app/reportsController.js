@@ -81,7 +81,8 @@
                             .append($(`<a href="/managers/developerprofile?email=${dev.Email}">${dev.FirstName} ${dev.LastName} </a>`))
                             .append($(`<small>${dev.Email}</small>`))
                         )
-                        .append(skills);
+                        .append(skills)
+                        .append($('<hr />'));
 
                     results.append(devDesc);
                 });

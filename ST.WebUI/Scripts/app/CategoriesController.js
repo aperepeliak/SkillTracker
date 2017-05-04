@@ -37,6 +37,9 @@
     }
 
     var validateAndSubmitCategory = function (categoryName) {
+
+        if (!categoryName) return;
+
         $.ajax({
             url: `/api/categories/validateUnique?name=${categoryName}`,
             method: 'GET'
