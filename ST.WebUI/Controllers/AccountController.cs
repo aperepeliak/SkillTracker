@@ -36,8 +36,11 @@ namespace ST.WebUI.Controllers
 
             ClaimsIdentity claim = await UserService.Authenticate(userDto);
 
-            if (claim == null)       
+            if (claim == null)
+            {
                 ModelState.AddModelError("", "Invalid login or password");
+                return View(viewModel);
+            }       
 
             AuthenticationManager.SignOut();
             AuthenticationManager.SignIn(new AuthenticationProperties
