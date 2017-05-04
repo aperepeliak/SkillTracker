@@ -69,7 +69,8 @@
     <Compile Include="Interfaces\IManagerRepo.cs" />
     <Compile Include="Interfaces\IRepo.cs" />
     <Compile Include="Interfaces\ISkillRatingRepo.cs" />
-    <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Interfaces\ISkillsUnitOfWork.cs" />
+    <Compile Include="Interfaces\IUserUnitOfWork.cs" />
     <Compile Include="Migrations\201704131846125_InitialModel.cs" />
     <Compile Include="Migrations\201704131846125_InitialModel.Designer.cs">
       <DependentUpon>201704131846125_InitialModel.cs</DependentUpon>
@@ -93,7 +94,8 @@
     <Compile Include="Repos\ManagerRepo.cs" />
     <Compile Include="Repos\SkillRatingRepo.cs" />
     <Compile Include="Repos\SkillRepo.cs" />
-    <Compile Include="UnitOfWork.cs" />
+    <Compile Include="SkillsUnitOfWork.cs" />
+    <Compile Include="UserUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

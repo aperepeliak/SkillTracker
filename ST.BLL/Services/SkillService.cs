@@ -11,8 +11,8 @@ namespace ST.BLL.Services
 {
     public class SkillService : ISkillService
     {
-        IUnitOfWork _db;
-        public SkillService(IUnitOfWork db)
+        ISkillsUnitOfWork _db;
+        public SkillService(ISkillsUnitOfWork db)
         {
             _db = db;
         }

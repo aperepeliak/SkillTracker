@@ -13,8 +13,8 @@ namespace ST.BLL.Services
 {
     public class DeveloperService : IDeveloperService
     {
-        IUnitOfWork _db;
-        public DeveloperService(IUnitOfWork db)
+        IUserUnitOfWork _db;
+        public DeveloperService(IUserUnitOfWork db)
         {
             _db = db;
         }

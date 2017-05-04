@@ -11,8 +11,8 @@ namespace ST.BLL.Services
 {
     public class CategoryService : ICategoryService
     {
-        IUnitOfWork _db;
-        public CategoryService(IUnitOfWork db)
+        ISkillsUnitOfWork _db;
+        public CategoryService(ISkillsUnitOfWork db)
         {
             _db = db;
         }

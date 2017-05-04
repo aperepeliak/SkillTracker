@@ -23,7 +23,5 @@ namespace ST.WebUI.Controllers.Api
             return _devService.SearchByFilters(filters)
                 .Select(Mapper.Map<DeveloperDto, DeveloperViewModel>);
         }
-    }
-
-    
+    }   
 }
