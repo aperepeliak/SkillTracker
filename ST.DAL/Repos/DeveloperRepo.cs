@@ -25,8 +25,8 @@ namespace ST.DAL.Repos
         public IEnumerable<Developer> GetAll()
         {
             return _db.Developers
-                 .Include(d => d.SkillRatings)
-                 .Include(d => d.SkillRatings.Select(s => s.Skill))
+          //       .Include(d => d.SkillRatings)
+          //       .Include(d => d.SkillRatings.Select(s => s.Skill))
                  .Include(d => d.SkillRatings.Select(s => s.Skill.Category))
                  .Include(d => d.User);
         }
@@ -34,8 +34,8 @@ namespace ST.DAL.Repos
         public Developer GetByEmail(string email)
         {
             return _db.Developers
-                .Include(d => d.SkillRatings)
-                .Include(d => d.SkillRatings.Select(s => s.Skill))
+         //       .Include(d => d.SkillRatings)
+         //       .Include(d => d.SkillRatings.Select(s => s.Skill))
                 .Include(d => d.SkillRatings.Select(s => s.Skill.Category))
                 .Include(d => d.User)
                 .SingleOrDefault(d => d.User.Email == email);
@@ -54,8 +54,8 @@ namespace ST.DAL.Repos
         public IEnumerable<Developer> FilterBy(Expression<Func<Developer, bool>> predicate)
         {
             return _db.Developers
-                .Include(d => d.SkillRatings)
-                .Include(d => d.SkillRatings.Select(s => s.Skill))
+                //.Include(d => d.SkillRatings)
+                //.Include(d => d.SkillRatings.Select(s => s.Skill))
                 .Include(d => d.SkillRatings.Select(s => s.Skill.Category))
                 .Include(d => d.User)
                 .Where(predicate)
