@@ -21,20 +21,6 @@ namespace ST.BLL.Services
             _unitOfWork.Save();
         }
 
-        public IEnumerable<CategoryDto> GetAll()
-            => _unitOfWork.Categories
-                          .GetAll()
-                          .OrderBy(c => c.Name)
-                          .Select(Mapper.Map<Category, CategoryDto>);
-
-        public CategoryDto GetById(int id)
-            => Mapper.Map<CategoryDto>(_unitOfWork.Categories.GetById(id));
-
-        public bool IsUnique(string name)
-            => !_unitOfWork.Categories
-                           .GetAll()
-                           .Any(c => c.Name.ToLower() == name.ToLower());
-        
         public void Remove(CategoryDto categoryDto)
         {
             var category = _unitOfWork.Categories.GetById(categoryDto.Id);
@@ -56,5 +42,19 @@ namespace ST.BLL.Services
                 _unitOfWork.Save();
             }
         }
+
+        public IEnumerable<CategoryDto> GetAll()
+            => _unitOfWork.Categories
+                          .GetAll()
+                          .OrderBy(c => c.Name)
+                          .Select(Mapper.Map<Category, CategoryDto>);
+
+        public CategoryDto GetById(int id)
+            => Mapper.Map<CategoryDto>(_unitOfWork.Categories.GetById(id));
+
+        public bool IsUnique(string name)
+            => !_unitOfWork.Categories
+                           .GetAll()
+                           .Any(c => c.Name.ToLower() == name.ToLower());
     }
 }

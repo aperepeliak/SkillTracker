@@ -10,60 +10,62 @@ namespace ST.BLL.Services
 {
     public class SkillService : ISkillService
     {
-        ISkillsUnitOfWork _db;
+        ISkillsUnitOfWork _unitOfWork;
 
-        public SkillService(ISkillsUnitOfWork db)
-        { _db = db; }
+        public SkillService(ISkillsUnitOfWork unitOfWork)
+        { _unitOfWork = unitOfWork; }
 
         public void Add(SkillDto dto)
         {
-            _db.Skills.Add(Mapper.Map<Skill>(dto));
-            _db.Save();
+            _unitOfWork.Skills.Add(Mapper.Map<Skill>(dto));
+            _unitOfWork.Save();
         }
 
         public void Update(SkillDto skillDto)
         {
-            var skill = _db.Skills.GetById(skillDto.Id);
+            var skill = _unitOfWork.Skills.GetById(skillDto.Id);
 
             if (skill != null)
             {
                 skill.Name = skillDto.Name;
                 skill.CategoryId = skillDto.CategoryId;
-                _db.Save();
+                _unitOfWork.Save();
             }
         }
 
         public void Remove(SkillDto skillDto)
         {
-            var skill = _db.Skills.GetById(skillDto.Id);
+            var skill = _unitOfWork.Skills.GetById(skillDto.Id);
 
             if (skill != null)
             {
-                _db.Skills.Delete(skill);
-                _db.Save();
+                _unitOfWork.Skills.Delete(skill);
+                _unitOfWork.Save();
             }
         }
 
         public IEnumerable<SkillDto> GetAll()
-            => _db.Skills.GetAll().Select(Mapper.Map<Skill, SkillDto>);
+            => _unitOfWork.Skills
+                          .GetAll()
+                          .Select(Mapper.Map<Skill, SkillDto>);
 
         public IEnumerable<SkillDto> GetByCategory(int categoryId = 0)       
             => categoryId == 0
-                ? _db.Skills.GetAll()
-                            .OrderBy(s => s.Name)
-                            .Select(Mapper.Map<Skill, SkillDto>)
-                : _db.Skills.GetAll()
-                            .Where(s => s.CategoryId == categoryId)
-                            .OrderBy(s => s.Name)
-                            .Select(Mapper.Map<Skill, SkillDto>);
+                ? _unitOfWork.Skills.GetAll()
+                             .OrderBy(s => s.Name)
+                             .Select(Mapper.Map<Skill, SkillDto>)
+                : _unitOfWork.Skills.GetAll()
+                             .Where(s => s.CategoryId == categoryId)
+                             .OrderBy(s => s.Name)
+                             .Select(Mapper.Map<Skill, SkillDto>);
         
         public SkillDto GetById(int id)
-            => Mapper.Map<SkillDto>(_db.Skills.GetById(id));
+            => Mapper.Map<SkillDto>(_unitOfWork.Skills.GetById(id));
 
         public bool IsUnique(string name, int categoryId)
-            => !_db.Skills
-                    .GetAll()
-                    .Any(s => s.CategoryId == categoryId &&
-                              s.Name.ToLower() == name.ToLower());
+            => !_unitOfWork.Skills
+                           .GetAll()
+                           .Any(s => s.CategoryId == categoryId &&
+                                     s.Name.ToLower() == name.ToLower());
     }
 }
