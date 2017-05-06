@@ -54,7 +54,7 @@ namespace ST.WebUI.App_Start
                 kernel.Bind(x => x.FromAssembliesMatching("ST.BLL.dll")
                     .SelectAllClasses()
                     .BindAllInterfaces()
-                    );
+                );
 
                 return kernel;
             }
