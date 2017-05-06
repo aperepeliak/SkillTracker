@@ -13,28 +13,29 @@ namespace ST.BLL.Services
 {
     public class DeveloperService : IDeveloperService
     {
-        IUserUnitOfWork _db;
-        public DeveloperService(IUserUnitOfWork db)
-        {
-            _db = db;
-        }
+        IUserUnitOfWork _userUnitOfWork;
+
+        public DeveloperService(IUserUnitOfWork userUnitOfWork)
+        { _userUnitOfWork = userUnitOfWork; }
 
         public void AddSkillRating(string developerId, SkillRatingDto dto)
         {
-            _db.SkillRatings.Add(new SkillRating
+            _userUnitOfWork.SkillRatings.Add(new SkillRating
             {
                 DeveloperId = developerId,
                 SkillId = dto.SkillId,
                 Rating = dto.Rating
             });
-            _db.Save();
+
+            _userUnitOfWork.Save();
         }
 
         public SkillRatingDto GetSkillRating(string developerId, int skillId)
         {
             SkillRatingDto dto = null;
 
-            var skillRating = _db.SkillRatings.Get(developerId, skillId);
+            var skillRating = _userUnitOfWork.SkillRatings
+                                             .Get(developerId, skillId);
 
             if (skillRating != null)
                 dto = Mapper.Map<SkillRatingDto>(skillRating);
@@ -44,23 +45,23 @@ namespace ST.BLL.Services
 
         public void DeleteSkillRating(string developerId, int skillId)
         {
-            var skillRating = _db.SkillRatings.Get(developerId, skillId);
+            var skillRating = _userUnitOfWork.SkillRatings.Get(developerId, skillId);
 
             if (skillRating != null)
             {
-                _db.SkillRatings.Delete(skillRating);
-                _db.Save();
+                _userUnitOfWork.SkillRatings.Delete(skillRating);
+                _userUnitOfWork.Save();
             }
         }
 
         public void UpdateSkillRating(string developerId, int skillId, int newRating)
         {
-            var skillRating = _db.SkillRatings.Get(developerId, skillId);
+            var skillRating = _userUnitOfWork.SkillRatings.Get(developerId, skillId);
 
             if (skillRating != null)
             {
                 skillRating.Rating = newRating;
-                _db.Save();
+                _userUnitOfWork.Save();
             }
         }
 
@@ -70,30 +71,23 @@ namespace ST.BLL.Services
 
             if (string.IsNullOrWhiteSpace(searchTerm))
             {
-                selectedDevs = _db.Developers.GetAll();
+                selectedDevs = _userUnitOfWork.Developers.GetAll();
             }
             else
             {
-                selectedDevs = _db.Developers.GetAll()
+                selectedDevs = _userUnitOfWork.Developers.GetAll()
                 .Where(d =>
-                 d.User.Email.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
-                 d.User.FirstName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
-                 d.User.LastName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
-                 d.SkillRatings.Any(s => s.Skill.Name
-                                    .Contains(searchTerm, StringComparison.OrdinalIgnoreCase)));
+                        d.User.Email.Contains
+                            (searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                        d.User.FirstName.Contains
+                            (searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                        d.User.LastName.Contains
+                            (searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                        d.SkillRatings.Any(s => s.Skill.Name.Contains
+                            (searchTerm, StringComparison.OrdinalIgnoreCase)));
             }
 
             return selectedDevs.Select(Mapper.Map<Developer, DeveloperDto>);
-        }
-
-        public DeveloperDto GetDeveloper(string id)
-        {
-            return Mapper.Map<DeveloperDto>(_db.Developers.GetById(id));
-        }
-
-        public DeveloperDto GetDeveloperByEmail(string email)
-        {
-            return Mapper.Map<DeveloperDto>(_db.Developers.GetByEmail(email));
         }
 
         public IEnumerable<DeveloperDto> SearchByFilters(
@@ -127,14 +121,19 @@ namespace ST.BLL.Services
                 }
             }
 
-            return _db.Developers.FilterBy(predicate)
+            return _userUnitOfWork.Developers.FilterBy(predicate)
                 .Select(Mapper.Map<Developer, DeveloperDto>);
         }
 
+        public DeveloperDto GetDeveloper(string id)
+            => Mapper.Map<DeveloperDto>(_userUnitOfWork.Developers.GetById(id));
+
+        public DeveloperDto GetDeveloperByEmail(string email)
+            => Mapper.Map<DeveloperDto>(_userUnitOfWork.Developers.GetByEmail(email));
+
         public bool IsSkillRatingUnique(string developerId, int skillId)
-        {
-            return !_db.SkillRatings.GetForDeveloper(developerId)
-                                     .Any(sr => sr.SkillId == skillId);
-        }
+            => !_userUnitOfWork.SkillRatings
+                               .GetForDeveloper(developerId)
+                               .Any(sr => sr.SkillId == skillId);
     }
 }

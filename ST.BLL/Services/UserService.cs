@@ -15,9 +15,7 @@ namespace ST.BLL.Services
     {
         IUserUnitOfWork _db;
         public UserService(IUserUnitOfWork db)
-        {
-            _db = db;
-        }
+        { _db = db; }
 
         public async Task<OperationDetails> Create(UserDto userDto)
         {

@@ -5,64 +5,55 @@ using ST.DAL.Interfaces;
 using System.Linq;
 using ST.DAL.Models;
 using AutoMapper;
-using System;
 
 namespace ST.BLL.Services
 {
     public class CategoryService : ICategoryService
     {
-        ISkillsUnitOfWork _db;
-        public CategoryService(ISkillsUnitOfWork db)
-        {
-            _db = db;
-        }
+        ISkillsUnitOfWork _unitOfWork;
+
+        public CategoryService(ISkillsUnitOfWork unitOfWork)
+        { _unitOfWork = unitOfWork; }
 
         public void Add(CategoryDto dto)
         {
-            _db.Categories.Add(Mapper.Map<Category>(dto));
-            _db.Save();
+            _unitOfWork.Categories.Add(Mapper.Map<Category>(dto));
+            _unitOfWork.Save();
         }
 
         public IEnumerable<CategoryDto> GetAll()
-        {
-            return _db.Categories
-                      .GetAll()
-                      .OrderBy(c => c.Name)
-                      .Select(Mapper.Map<Category, CategoryDto>);
-        }
+            => _unitOfWork.Categories
+                          .GetAll()
+                          .OrderBy(c => c.Name)
+                          .Select(Mapper.Map<Category, CategoryDto>);
 
         public CategoryDto GetById(int id)
-        {
-            var category = _db.Categories.GetById(id);
-            return Mapper.Map<CategoryDto>(category);
-        }
+            => Mapper.Map<CategoryDto>(_unitOfWork.Categories.GetById(id));
 
         public bool IsUnique(string name)
-        {
-            return !_db.Categories
-                        .GetAll()
-                        .Any(c => c.Name.ToLower() == name.ToLower());
-        }
-
+            => !_unitOfWork.Categories
+                           .GetAll()
+                           .Any(c => c.Name.ToLower() == name.ToLower());
+        
         public void Remove(CategoryDto categoryDto)
         {
-            var category = _db.Categories.GetById(categoryDto.Id);
+            var category = _unitOfWork.Categories.GetById(categoryDto.Id);
 
             if (category != null)
             {
-                _db.Categories.Delete(category);
-                _db.Save();
+                _unitOfWork.Categories.Delete(category);
+                _unitOfWork.Save();
             }
         }
 
         public void Update(CategoryDto categoryDto)
         {
-            var category = _db.Categories.GetById(categoryDto.Id);
+            var category = _unitOfWork.Categories.GetById(categoryDto.Id);
 
             if (category != null)
             {
                 category.Name = categoryDto.Name;
-                _db.Save();
+                _unitOfWork.Save();
             }
         }
     }

@@ -10,8 +10,8 @@ namespace ST.BLL.Interfaces
         void Update (CategoryDto categoryDto);
 
         CategoryDto GetById(int id);
-
         IEnumerable<CategoryDto> GetAll();
+
         bool IsUnique(string name);
     }
 }
