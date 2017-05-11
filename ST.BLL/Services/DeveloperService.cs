@@ -97,26 +97,24 @@ namespace ST.BLL.Services
 
             foreach (var filter in filters)
             {
-                var temp = filter;
-
-                switch (temp.Comparer)
+                switch (filter.Comparer)
                 {
                     case ComparerType.GreaterThan:
                         predicate = predicate.And(d =>
-                        d.SkillRatings.Any(sr => sr.SkillId == temp.SkillId &&
-                                            sr.Rating >= temp.Rating));
+                        d.SkillRatings.Any(sr => sr.SkillId == filter.SkillId &&
+                                            sr.Rating >= filter.Rating));
                         break;
 
                     case ComparerType.LessThan:
                         predicate = predicate.And(d =>
-                        d.SkillRatings.Any(sr => sr.SkillId == temp.SkillId &&
-                                             sr.Rating <= temp.Rating));
+                        d.SkillRatings.Any(sr => sr.SkillId == filter.SkillId &&
+                                             sr.Rating <= filter.Rating));
                         break;
 
                     case ComparerType.Equals:
                         predicate = predicate.And(d =>
-                        d.SkillRatings.Any(sr => sr.SkillId == temp.SkillId &&
-                                            temp.Rating == sr.Rating));
+                        d.SkillRatings.Any(sr => sr.SkillId == filter.SkillId &&
+                                            filter.Rating == sr.Rating));
                         break;
                 }
             }
