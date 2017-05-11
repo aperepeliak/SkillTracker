@@ -11,8 +11,8 @@ namespace ST.WebUI.Controllers
     [Authorize(Roles = SecurityRoles.Admin)]
     public class SkillsController : Controller
     {
-        private ISkillService _skillService;
-        private ICategoryService _categoryService;
+        private readonly ISkillService _skillService;
+        private readonly ICategoryService _categoryService;
 
         public SkillsController(ISkillService skillService, 
                                 ICategoryService categoryService)

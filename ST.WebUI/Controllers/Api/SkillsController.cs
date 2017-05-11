@@ -7,22 +7,17 @@ namespace ST.WebUI.Controllers.Api
 {
     public class SkillsController : ApiController
     {
-        private ISkillService _skillService;
+        private readonly ISkillService _skillService;
+
         public SkillsController(ISkillService skillService)
-        {
-            _skillService = skillService;
-        }
+        { _skillService = skillService; }
 
         [HttpPost]
         public IEnumerable<SkillDto> GetSkillsByCategory(int id)
-        {
-            return _skillService.GetByCategory(id);
-        }
+            => _skillService.GetByCategory(id);
 
         [HttpGet]
         public IHttpActionResult ValidateUnique(string name, int categoryId)
-        {
-            return Ok(_skillService.IsUnique(name, categoryId));
-        }
+            => Ok(_skillService.IsUnique(name, categoryId));
     }
 }

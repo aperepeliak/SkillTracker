@@ -2,10 +2,7 @@
 using ST.BLL.DTOs;
 using ST.BLL.Interfaces;
 using ST.WebUI.ViewModels;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ST.WebUI.Controllers
@@ -13,7 +10,7 @@ namespace ST.WebUI.Controllers
     [Authorize(Roles = SecurityRoles.Admin)]
     public class CategoriesController : Controller
     {
-        private ICategoryService _categoryService;
+        private readonly ICategoryService _categoryService;
         public CategoriesController(ICategoryService categoryService)
         {
             _categoryService = categoryService;

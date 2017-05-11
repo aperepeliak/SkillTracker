@@ -8,7 +8,7 @@ namespace ST.WebUI.Controllers
 {
     public class UsersController : Controller
     {
-        private IUserService _userService;
+        private readonly IUserService _userService;
 
         public UsersController(IUserService userService)
         {

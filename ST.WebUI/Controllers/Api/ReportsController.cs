@@ -10,7 +10,7 @@ namespace ST.WebUI.Controllers.Api
 {
     public class ReportsController : ApiController
     {
-        private IDeveloperService _devService;
+        private readonly IDeveloperService _devService;
 
         public ReportsController(IDeveloperService devService)
         {

@@ -7,7 +7,8 @@ namespace ST.WebUI.Controllers.Api
 {
     public class CategoriesController : ApiController
     {
-        ICategoryService _categoryService;
+        private readonly ICategoryService _categoryService;
+
         public CategoriesController(ICategoryService categoryService)
         {
             _categoryService = categoryService;

@@ -11,8 +11,8 @@ namespace ST.WebUI.Controllers
     [Authorize(Roles = SecurityRoles.Developer)]
     public class DevelopersController : Controller
     {
-        private IDeveloperService _devService;
-        private ICategoryService _categoryService;
+        private readonly IDeveloperService _devService;
+        private readonly ICategoryService _categoryService;
 
         public DevelopersController(IDeveloperService devService, 
                                     ICategoryService categoryService)

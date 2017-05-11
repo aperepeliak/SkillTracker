@@ -9,7 +9,7 @@ namespace ST.WebUI.Controllers.Api
     [Authorize(Roles = SecurityRoles.Developer)]
     public class SkillRatingsController : ApiController
     {
-        private IDeveloperService _devService;
+        private readonly IDeveloperService _devService;
 
         public SkillRatingsController(IDeveloperService devService)
         {
