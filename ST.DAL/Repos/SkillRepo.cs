@@ -7,7 +7,7 @@ namespace ST.DAL.Repos
 {
     public class SkillRepo : IRepo<Skill>
     {
-        private ApplicationContext _db;
+        private readonly ApplicationContext _db;
 
         public SkillRepo(ApplicationContext db)
         { _db = db; }

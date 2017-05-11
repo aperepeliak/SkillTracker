@@ -7,7 +7,7 @@ namespace ST.DAL.Repos
 {
     public class CategoryRepo : IRepo<Category>
     {
-        private ApplicationContext _db;
+        private readonly ApplicationContext _db;
 
         public CategoryRepo(ApplicationContext db)
         { _db = db; }

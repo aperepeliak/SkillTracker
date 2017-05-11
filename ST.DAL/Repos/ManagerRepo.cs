@@ -5,7 +5,7 @@ namespace ST.DAL.Repos
 {
     public class ManagerRepo : IManagerRepo
     {
-        private ApplicationContext _db;
+        private readonly ApplicationContext _db;
 
         public ManagerRepo(ApplicationContext db)
         { _db = db; }

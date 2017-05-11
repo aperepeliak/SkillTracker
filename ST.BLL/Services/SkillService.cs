@@ -10,7 +10,7 @@ namespace ST.BLL.Services
 {
     public class SkillService : ISkillService
     {
-        ISkillsUnitOfWork _unitOfWork;
+        private readonly ISkillsUnitOfWork _unitOfWork;
 
         public SkillService(ISkillsUnitOfWork unitOfWork)
         { _unitOfWork = unitOfWork; }

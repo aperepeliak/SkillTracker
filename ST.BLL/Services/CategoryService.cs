@@ -10,7 +10,7 @@ namespace ST.BLL.Services
 {
     public class CategoryService : ICategoryService
     {
-        ISkillsUnitOfWork _unitOfWork;
+        private readonly ISkillsUnitOfWork _unitOfWork;
 
         public CategoryService(ISkillsUnitOfWork unitOfWork)
         { _unitOfWork = unitOfWork; }

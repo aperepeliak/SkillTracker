@@ -13,7 +13,7 @@ namespace ST.DAL
 {
     public class UserUnitOfWork : IUserUnitOfWork
     {
-        private ApplicationContext _db;
+        private readonly ApplicationContext _db;
 
         public ApplicationUserManager UserManager   { get; private set; }
         public ApplicationRoleManager RoleManager   { get; private set; }

@@ -6,7 +6,7 @@ namespace ST.DAL
 {
     public class SkillsUnitOfWork : ISkillsUnitOfWork
     {
-        private ApplicationContext _db;
+        private readonly ApplicationContext _db;
       
         public IRepo<Skill>    Skills     { get; private set; }
         public IRepo<Category> Categories { get; private set; }

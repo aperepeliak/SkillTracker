@@ -13,7 +13,8 @@ namespace ST.BLL.Services
 {
     public class UserService : IUserService
     {
-        IUserUnitOfWork _unitOfWork;
+        private readonly IUserUnitOfWork _unitOfWork;
+
         public UserService(IUserUnitOfWork db)
         { _unitOfWork = db; }
 

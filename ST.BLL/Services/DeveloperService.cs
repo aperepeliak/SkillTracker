@@ -13,7 +13,7 @@ namespace ST.BLL.Services
 {
     public class DeveloperService : IDeveloperService
     {
-        IUserUnitOfWork _unitOfWork;
+        private readonly IUserUnitOfWork _unitOfWork;
 
         public DeveloperService(IUserUnitOfWork userUnitOfWork)
         { _unitOfWork = userUnitOfWork; }

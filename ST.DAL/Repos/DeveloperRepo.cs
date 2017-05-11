@@ -10,7 +10,7 @@ namespace ST.DAL.Repos
 {
     public class DeveloperRepo : IDeveloperRepo
     {
-        private ApplicationContext _db;
+        private readonly ApplicationContext _db;
 
         public DeveloperRepo(ApplicationContext db)
         { _db = db; }
