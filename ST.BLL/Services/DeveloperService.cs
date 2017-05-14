@@ -5,8 +5,6 @@ using ST.DAL.Interfaces;
 using System.Collections.Generic;
 using ST.DAL.Models;
 using AutoMapper;
-using System;
-using ST.BLL.Infrastructure.Extensions;
 using LinqKit;
 
 namespace ST.BLL.Services
