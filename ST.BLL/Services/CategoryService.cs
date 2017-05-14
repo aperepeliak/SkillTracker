@@ -34,7 +34,8 @@ namespace ST.BLL.Services
 
         public void Update(CategoryDto categoryDto)
         {
-            var category = _unitOfWork.Categories.GetById(categoryDto.Id);
+            var category = _unitOfWork.Categories
+                                      .GetById(categoryDto.Id);
 
             if (category != null)
             {

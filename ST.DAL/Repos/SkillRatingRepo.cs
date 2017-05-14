@@ -14,15 +14,17 @@ namespace ST.DAL.Repos
         { _db = db; }
 
         public void Add(SkillRating entity)
-            => _db.SkillRatings.Add(entity);
+            => _db.SkillRatings
+                  .Add(entity);
 
         public void Delete(SkillRating entity)
-            => _db.Entry(entity).State = EntityState.Deleted;
+            => _db.Entry(entity)
+                  .State = EntityState.Deleted;
 
         public SkillRating Get(string developerId, int skillId)
             => _db.SkillRatings
                   .SingleOrDefault(s => s.DeveloperId == developerId &&
-                                        s.SkillId == skillId);
+                                        s.SkillId     == skillId);
 
         public IEnumerable<SkillRating> GetForDeveloper(string developerId)
             => _db.SkillRatings

@@ -16,7 +16,8 @@ namespace ST.DAL.Repos
         { _db = db; }
 
         public void Create(Developer entity)
-           => _db.Developers.Add(entity);        
+           => _db.Developers
+                 .Add(entity);        
 
         public Developer GetByEmail(string email)
            => _db.Developers

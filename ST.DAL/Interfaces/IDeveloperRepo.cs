@@ -7,7 +7,7 @@ namespace ST.DAL.Interfaces
 {
     public interface IDeveloperRepo
     {
-        void Create(Developer entity);
+        void      Create(Developer entity);
         Developer GetById(string id);
         Developer GetByEmail(string email);
         IEnumerable<Developer> GetAll();

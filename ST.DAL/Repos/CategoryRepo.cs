@@ -15,18 +15,25 @@ namespace ST.DAL.Repos
         { _db = db; }
 
         public void Add(Category entity)      
-            => _db.Categories.Add(entity);
+            => _db.Categories
+                  .Add(entity);
 
         public void Delete(Category entity)   
-            => _db.Entry(entity).State = EntityState.Deleted;
+            => _db.Entry(entity)
+                  .State = EntityState.Deleted;
 
         public Category GetById(int id)       
-            => _db.Categories.Find(id);
+            => _db.Categories
+                  .Find(id);
 
-        public IEnumerable<Category> GetAll() 
-            => _db.Categories;
+        public IEnumerable<Category> GetAll(Func<Category, bool> predicate = null)
+            => predicate == null
+                ? _db.Categories
+                : _db.Categories.Where(predicate);
 
         public bool IsExists(Func<Category, bool> predicate)
-            => _db.Categories.Where(predicate).Any();           
+            => _db.Categories
+                  .Where(predicate)
+                  .Any();           
     }
 }

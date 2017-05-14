@@ -11,6 +11,7 @@ namespace ST.DAL.Repos
         { _db = db; }
 
         public void Create(Manager entity)
-           => _db.Managers.Add(entity);
+           => _db.Managers
+                 .Add(entity);
     }
 }

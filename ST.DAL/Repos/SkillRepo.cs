@@ -15,18 +15,29 @@ namespace ST.DAL.Repos
         { _db = db; }
 
         public void Add(Skill entity)
-            => _db.Skills.Add(entity);
+            => _db.Skills
+                  .Add(entity);
 
         public void Delete(Skill entity)
-            => _db.Entry(entity).State = EntityState.Deleted;
+            => _db.Entry(entity)
+                  .State = EntityState.Deleted;
 
         public Skill GetById(int id) 
-            => _db.Skills.Find(id);
+            => _db.Skills
+                  .Find(id);
 
-        public IEnumerable<Skill> GetAll() 
-            => _db.Skills.Include(s => s.Category);
+        public IEnumerable<Skill> GetAll(Func<Skill, bool> predicate = null)
+           => predicate == null
+                ? _db.Skills
+                     .Include(s => s.Category)
+
+                : _db.Skills
+                     .Include(s => s.Category)
+                     .Where(predicate);
 
         public bool IsExists(Func<Skill, bool> predicate)
-            => _db.Skills.Where(predicate).Any();
+            => _db.Skills
+                  .Where(predicate)
+                  .Any();
     }
 }

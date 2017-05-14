@@ -49,16 +49,18 @@ namespace ST.BLL.Services
                           .GetAll()
                           .Select(Mapper.Map<Skill, SkillDto>);
 
-        public IEnumerable<SkillDto> GetByCategory(int categoryId = 0)       
+        public IEnumerable<SkillDto> GetByCategory(int categoryId = 0)
             => categoryId == 0
-                ? _unitOfWork.Skills.GetAll()
+                ? _unitOfWork.Skills
+                             .GetAll()
                              .OrderBy(s => s.Name)
                              .Select(Mapper.Map<Skill, SkillDto>)
-                : _unitOfWork.Skills.GetAll()
-                             .Where(s => s.CategoryId == categoryId)
+
+                : _unitOfWork.Skills
+                             .GetAll(s => s.CategoryId == categoryId)
                              .OrderBy(s => s.Name)
                              .Select(Mapper.Map<Skill, SkillDto>);
-        
+
         public SkillDto GetById(int id)
             => Mapper.Map<SkillDto>(_unitOfWork.Skills.GetById(id));
 
