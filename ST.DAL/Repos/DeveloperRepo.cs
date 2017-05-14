@@ -16,12 +16,7 @@ namespace ST.DAL.Repos
         { _db = db; }
 
         public void Create(Developer entity)
-           => _db.Developers.Add(entity);
-
-        public IQueryable<Developer> GetAll()
-           => _db.Developers
-                 .Include(d => d.SkillRatings.Select(s => s.Skill.Category))
-                 .Include(d => d.User);
+           => _db.Developers.Add(entity);        
 
         public Developer GetByEmail(string email)
            => _db.Developers
@@ -35,11 +30,15 @@ namespace ST.DAL.Repos
                  .Include(d => d.User)
                  .SingleOrDefault(d => d.DeveloperId == id);
 
+        public IEnumerable<Developer> GetAll()
+           => _db.Developers
+                 .Include(d => d.SkillRatings.Select(s => s.Skill.Category))
+                 .Include(d => d.User);
+
         public IEnumerable<Developer> FilterBy(Expression<Func<Developer, bool>> predicate)
            => _db.Developers
                  .Include(d => d.SkillRatings.Select(s => s.Skill.Category))
                  .Include(d => d.User)
-                 .Where(predicate)
-                 .ToList();
+                 .Where(predicate);
     }
 }
