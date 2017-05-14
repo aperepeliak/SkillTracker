@@ -75,16 +75,30 @@ namespace ST.BLL.Services
             }
             else
             {
-                selectedDevs = _unitOfWork.Developers.GetAll()
-                .Where(d =>
-                        d.User.Email.Contains
-                            (searchTerm, StringComparison.OrdinalIgnoreCase) ||
-                        d.User.FirstName.Contains
-                            (searchTerm, StringComparison.OrdinalIgnoreCase) ||
-                        d.User.LastName.Contains
-                            (searchTerm, StringComparison.OrdinalIgnoreCase) ||
-                        d.SkillRatings.Any(s => s.Skill.Name.Contains
-                            (searchTerm, StringComparison.OrdinalIgnoreCase)));
+                var predicate = 
+                    PredicateBuilder.New<Developer>()
+                         .Or(d => d.User
+                                   .Email
+                                   .ToLower()
+                                   .Contains(searchTerm.ToLower()))
+
+                         .Or(d => d.User
+                                   .FirstName
+                                   .ToLower()
+                                   .Contains(searchTerm.ToLower()))
+
+                         .Or(d => d.User
+                                   .LastName
+                                   .ToLower()
+                                   .Contains(searchTerm.ToLower()))
+
+                         .Or(d => d.SkillRatings
+                                   .Any(s => s.Skill
+                                              .Name
+                                              .ToLower()
+                                              .Contains(searchTerm.ToLower())));
+
+                selectedDevs = _unitOfWork.Developers.FilterBy(predicate);
             }
 
             return selectedDevs.Select(Mapper.Map<Developer, DeveloperDto>);
@@ -94,27 +108,29 @@ namespace ST.BLL.Services
                         (IEnumerable<ReportFilterDto> filters)
         {
             var predicate = PredicateBuilder.New<Developer>();
-
             foreach (var filter in filters)
             {
                 switch (filter.Comparer)
                 {
                     case ComparerType.GreaterThan:
-                        predicate = predicate.And(d =>
-                        d.SkillRatings.Any(sr => sr.SkillId == filter.SkillId &&
-                                            sr.Rating >= filter.Rating));
+                        predicate = 
+                            predicate.And(d => d.SkillRatings
+                                                .Any(sr => sr.SkillId == filter.SkillId &&
+                                                           sr.Rating  >= filter.Rating));
                         break;
 
                     case ComparerType.LessThan:
-                        predicate = predicate.And(d =>
-                        d.SkillRatings.Any(sr => sr.SkillId == filter.SkillId &&
-                                             sr.Rating <= filter.Rating));
+                        predicate = 
+                            predicate.And(d => d.SkillRatings
+                                                .Any(sr => sr.SkillId == filter.SkillId &&
+                                                           sr.Rating  <= filter.Rating));
                         break;
 
                     case ComparerType.Equals:
-                        predicate = predicate.And(d =>
-                        d.SkillRatings.Any(sr => sr.SkillId == filter.SkillId &&
-                                            filter.Rating == sr.Rating));
+                        predicate = 
+                            predicate.And(d => d.SkillRatings
+                                                .Any(sr => sr.SkillId == filter.SkillId &&
+                                                           sr.Rating  == filter.Rating));
                         break;
                 }
             }

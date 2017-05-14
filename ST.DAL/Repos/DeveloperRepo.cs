@@ -18,7 +18,7 @@ namespace ST.DAL.Repos
         public void Create(Developer entity)
            => _db.Developers.Add(entity);
 
-        public IEnumerable<Developer> GetAll()
+        public IQueryable<Developer> GetAll()
            => _db.Developers
                  .Include(d => d.SkillRatings.Select(s => s.Skill.Category))
                  .Include(d => d.User);
@@ -40,6 +40,6 @@ namespace ST.DAL.Repos
                  .Include(d => d.SkillRatings.Select(s => s.Skill.Category))
                  .Include(d => d.User)
                  .Where(predicate)
-                 .ToArray();
+                 .ToList();
     }
 }
