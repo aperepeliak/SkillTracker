@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTOs\CategoryDto.cs" />
+    <Compile Include="DTOs\ComparerType.cs" />
     <Compile Include="DTOs\DeveloperDto.cs" />
     <Compile Include="DTOs\ReportDto.cs" />
     <Compile Include="DTOs\ReportFilterDto.cs" />

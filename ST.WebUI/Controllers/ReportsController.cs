@@ -18,7 +18,6 @@ namespace ST.WebUI.Controllers
 
         public ActionResult SaveReport(ReportDto reportDto)
         {
-            reportDto.DateTime = DateTime.Now;
             XLWorkbook workbook = _reporting.GenerateExcelReport(reportDto);
 
             string handle = Guid.NewGuid().ToString();

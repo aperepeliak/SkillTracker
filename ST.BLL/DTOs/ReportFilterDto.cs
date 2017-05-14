@@ -7,11 +7,4 @@
         public int          Rating     { get; set; }
         public ComparerType Comparer   { get; set; }
     }
-
-    public enum ComparerType
-    {
-        GreaterThan,
-        LessThan,
-        Equals
-    }
 }
