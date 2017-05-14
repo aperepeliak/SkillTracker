@@ -34,7 +34,8 @@ namespace ST.WebUI.Controllers
                 SelectedCategoryId   = categoryId,
                 SelectedCategoryName = categoryId == 0
                                         ? "Filter By Category"
-                                        : _categoryService.GetById(categoryId).Name
+                                        : _categoryService.GetById(categoryId)
+                                                          .Name
             };
 
             return View(viewModel);

@@ -13,15 +13,11 @@ namespace ST.WebUI.Controllers.Api
         private readonly IDeveloperService _devService;
 
         public ReportsController(IDeveloperService devService)
-        {
-            _devService = devService;
-        }
+        { _devService = devService; }
 
         [HttpPost]
         public IEnumerable<DeveloperViewModel> Search(IEnumerable<ReportFilterDto> filters)
-        {
-            return _devService.SearchByFilters(filters)
-                .Select(Mapper.Map<DeveloperDto, DeveloperViewModel>);
-        }
-    }   
+            => _devService.SearchByFilters(filters)
+                          .Select(Mapper.Map<DeveloperDto, DeveloperViewModel>);
+    }
 }
