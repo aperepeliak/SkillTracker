@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace ST.DAL.Interfaces
 {
@@ -8,7 +9,7 @@ namespace ST.DAL.Interfaces
         void           Add      (T entity);
         void           Delete   (T entity);
         T              GetById  (int id);
-        IEnumerable<T> GetAll   (Func<T, bool> predicate = null);
+        IQueryable<T>  GetAll   (Expression<Func<T, bool>> predicate = null);
         bool           IsExists (Func<T, bool> predicate);
     }
 }

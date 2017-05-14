@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using ST.DAL.Interfaces;
+﻿using ST.DAL.Interfaces;
 using ST.DAL.Models;
 using System.Data.Entity;
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace ST.DAL.Repos
 {
@@ -26,10 +26,10 @@ namespace ST.DAL.Repos
             => _db.Categories
                   .Find(id);
 
-        public IEnumerable<Category> GetAll(Func<Category, bool> predicate = null)
+        public IQueryable<Category> GetAll(Expression<Func<Category, bool>> predicate = null)
             => predicate == null
                 ? _db.Categories
-                : _db.Categories.Where(predicate);
+                : _db.Categories.Where(predicate).AsQueryable();
 
         public bool IsExists(Func<Category, bool> predicate)
             => _db.Categories

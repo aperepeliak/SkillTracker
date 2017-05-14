@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using ST.BLL.DTOs;
+﻿using ST.BLL.DTOs;
 using ST.BLL.Interfaces;
 using ST.DAL.Interfaces;
 using System.Linq;
 using ST.DAL.Models;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 
 namespace ST.BLL.Services
 {
@@ -44,22 +44,17 @@ namespace ST.BLL.Services
             }
         }
 
-        public IEnumerable<SkillDto> GetAll()
-            => _unitOfWork.Skills
-                          .GetAll()
-                          .Select(Mapper.Map<Skill, SkillDto>);
-
-        public IEnumerable<SkillDto> GetByCategory(int categoryId = 0)
+        public IQueryable<SkillDto> GetAll(int categoryId = 0)
             => categoryId == 0
                 ? _unitOfWork.Skills
                              .GetAll()
                              .OrderBy(s => s.Name)
-                             .Select(Mapper.Map<Skill, SkillDto>)
+                             .ProjectTo<SkillDto>()
 
                 : _unitOfWork.Skills
                              .GetAll(s => s.CategoryId == categoryId)
                              .OrderBy(s => s.Name)
-                             .Select(Mapper.Map<Skill, SkillDto>);
+                             .ProjectTo<SkillDto>();
 
         public SkillDto GetById(int id)
             => Mapper.Map<SkillDto>(_unitOfWork.Skills.GetById(id));

@@ -27,11 +27,11 @@ namespace ST.WebUI.Controllers
 
             var viewModel = new SkillsViewModel
             {
-                Skills = _skillService.GetByCategory(categoryId)
+                Skills = _skillService.GetAll(categoryId)
                                       .ToPagedList(page, numberOfItemsPerPage),
 
-                Categories           = _categoryService.GetAll().ToList(),
-                SelectedCategoryId   = categoryId,
+                Categories = _categoryService.GetAll().ToList(),
+                SelectedCategoryId = categoryId,
                 SelectedCategoryName = categoryId == 0
                                         ? "Filter By Category"
                                         : _categoryService.GetById(categoryId)

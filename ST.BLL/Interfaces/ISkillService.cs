@@ -1,5 +1,5 @@
 ﻿using ST.BLL.DTOs;
-using System.Collections.Generic;
+using System.Linq;
 
 namespace ST.BLL.Interfaces
 {
@@ -10,8 +10,7 @@ namespace ST.BLL.Interfaces
         void Remove (SkillDto skillDto);
 
         SkillDto GetById(int id);
-        IEnumerable<SkillDto> GetAll();
-        IEnumerable<SkillDto> GetByCategory(int categoryId = 0);
+        IQueryable<SkillDto> GetAll(int categoryId = 0);
 
         bool IsUnique(string name, int categoryId);
     }

@@ -14,7 +14,7 @@ namespace ST.WebUI.Controllers.Api
 
         [HttpPost]
         public IEnumerable<SkillDto> GetSkillsByCategory(int id)
-            => _skillService.GetByCategory(id);
+            => _skillService.GetAll(id);
 
         [HttpGet]
         public IHttpActionResult ValidateUnique(string name, int categoryId)
