@@ -2,6 +2,8 @@
 using ST.DAL.Interfaces;
 using ST.DAL.Models;
 using System.Data.Entity;
+using System;
+using System.Linq;
 
 namespace ST.DAL.Repos
 {
@@ -23,5 +25,8 @@ namespace ST.DAL.Repos
 
         public IEnumerable<Skill> GetAll() 
             => _db.Skills.Include(s => s.Category);
+
+        public bool IsExists(Func<Skill, bool> predicate)
+            => _db.Skills.Where(predicate).Any();
     }
 }

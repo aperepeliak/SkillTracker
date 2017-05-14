@@ -2,6 +2,8 @@
 using ST.DAL.Interfaces;
 using ST.DAL.Models;
 using System.Data.Entity;
+using System;
+using System.Linq;
 
 namespace ST.DAL.Repos
 {
@@ -23,5 +25,8 @@ namespace ST.DAL.Repos
 
         public IEnumerable<Category> GetAll() 
             => _db.Categories;
+
+        public bool IsExists(Func<Category, bool> predicate)
+            => _db.Categories.Where(predicate).Any();           
     }
 }

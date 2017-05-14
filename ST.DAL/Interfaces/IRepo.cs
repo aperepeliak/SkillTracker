@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ST.DAL.Interfaces
 {
@@ -6,7 +7,9 @@ namespace ST.DAL.Interfaces
     {
         void Add(T entity);
         void Delete(T entity);
-        T GetById(int id);
+        T    GetById(int id);
         IEnumerable<T> GetAll();
+
+        bool IsExists(Func<T, bool> predicate);
     }
 }

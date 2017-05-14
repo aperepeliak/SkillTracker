@@ -54,7 +54,6 @@ namespace ST.BLL.Services
 
         public bool IsUnique(string name)
             => !_unitOfWork.Categories
-                           .GetAll()
-                           .Any(c => c.Name.ToLower() == name.ToLower());
+                           .IsExists(c => c.Name.ToLower() == name.ToLower());
     }
 }

@@ -64,8 +64,7 @@ namespace ST.BLL.Services
 
         public bool IsUnique(string name, int categoryId)
             => !_unitOfWork.Skills
-                           .GetAll()
-                           .Any(s => s.CategoryId == categoryId &&
-                                     s.Name.ToLower() == name.ToLower());
+                           .IsExists(s => s.CategoryId == categoryId &&
+                                          s.Name.ToLower() == name.ToLower());
     }
 }
