@@ -12,11 +12,11 @@ namespace ST.DAL
     {
         private readonly ApplicationContext _db;
 
-        public ApplicationUserManager UserManager   { get; private set; }
-        public ApplicationRoleManager RoleManager   { get; private set; }
-        public IManagerRepo           Managers      { get; private set; }
-        public IDeveloperRepo         Developers    { get; private set; }
-        public ISkillRatingRepo       SkillRatings  { get; private set; }
+        public ApplicationUserManager UserManager   { get; }
+        public ApplicationRoleManager RoleManager   { get; }
+        public IManagerRepo           Managers      { get; }
+        public IDeveloperRepo         Developers    { get; }
+        public ISkillRatingRepo       SkillRatings  { get; }
 
         public UserUnitOfWork(ApplicationContext db)
         {

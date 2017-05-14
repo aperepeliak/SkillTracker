@@ -8,8 +8,8 @@ namespace ST.DAL
     {
         private readonly ApplicationContext _db;
       
-        public IRepo<Skill>    Skills     { get; private set; }
-        public IRepo<Category> Categories { get; private set; }
+        public IRepo<Skill>    Skills     { get; }
+        public IRepo<Category> Categories { get; }
        
         public SkillsUnitOfWork(ApplicationContext db)
         {
