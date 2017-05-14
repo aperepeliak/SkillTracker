@@ -19,7 +19,8 @@ namespace ST.WebUI.ViewModels
 
         public SkillRatingFormViewModel()
         {
-            Skills = new List<SkillDto>();
+            Categories = new List<CategoryDto>();
+            Skills     = new List<SkillDto>();
         }
     }
 }

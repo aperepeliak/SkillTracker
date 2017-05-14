@@ -15,5 +15,12 @@ namespace ST.WebUI.ViewModels
         public IEnumerable<SkillDto> Skills { get; set; }
 
         public IEnumerable<DeveloperDto> SelectedDevelopers { get; set; }
+
+        public ReportFormViewModel()
+        {
+            Categories = new List<CategoryDto>();
+            Skills = new List<SkillDto>();
+            SelectedDevelopers = new List<DeveloperDto>();
+        }
     }
 }

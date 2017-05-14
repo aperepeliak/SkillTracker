@@ -18,5 +18,10 @@ namespace ST.WebUI.ViewModels
 
         public string Heading { get; set; }
         public string Action => Id == 0 ? "Create" : "Update";
+
+        public SkillFormViewModel()
+        {
+            Categories = new List<CategoryDto>();
+        }
     }
 }
