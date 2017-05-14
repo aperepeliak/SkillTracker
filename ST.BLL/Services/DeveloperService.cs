@@ -96,10 +96,10 @@ namespace ST.BLL.Services
                                               .ToLower()
                                               .Contains(searchTerm.ToLower())));
 
-                selectedDevs = _unitOfWork.Developers.FilterBy(predicate);
+                selectedDevs = _unitOfWork.Developers.GetAll(predicate);
             }
 
-            return selectedDevs.Select(Mapper.Map<Developer, DeveloperDto>);
+            return selectedDevs.Select(Mapper.Map<Developer,DeveloperDto>);
         }
 
         public IEnumerable<DeveloperDto> SearchByFilters
@@ -133,8 +133,9 @@ namespace ST.BLL.Services
                 }
             }
 
-            return _unitOfWork.Developers.FilterBy(predicate)
-                .Select(Mapper.Map<Developer, DeveloperDto>);
+            return _unitOfWork.Developers
+                              .GetAll(predicate)
+                              .Select(Mapper.Map<Developer, DeveloperDto>);
         }
 
         public DeveloperDto GetDeveloper(string id)
@@ -145,7 +146,7 @@ namespace ST.BLL.Services
 
         public bool IsSkillRatingUnique(string developerId, int skillId)
             => !_unitOfWork.SkillRatings
-                               .GetForDeveloper(developerId)
-                               .Any(sr => sr.SkillId == skillId);
+                           .GetForDeveloper(developerId)
+                           .Any(sr => sr.SkillId == skillId);
     }
 }

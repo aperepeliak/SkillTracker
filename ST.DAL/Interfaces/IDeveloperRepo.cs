@@ -1,6 +1,6 @@
 ﻿using ST.DAL.Models;
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace ST.DAL.Interfaces
@@ -10,7 +10,6 @@ namespace ST.DAL.Interfaces
         void      Create(Developer entity);
         Developer GetById(string id);
         Developer GetByEmail(string email);
-        IEnumerable<Developer> GetAll();
-        IEnumerable<Developer> FilterBy(Expression<Func<Developer, bool>> predicate);
+        IQueryable<Developer> GetAll(Expression<Func<Developer, bool>> predicate = null);
     }
 }

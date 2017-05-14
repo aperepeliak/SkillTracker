@@ -1,6 +1,5 @@
 ﻿using ST.DAL.Interfaces;
 using ST.DAL.Models;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System;
@@ -31,15 +30,15 @@ namespace ST.DAL.Repos
                  .Include(d => d.User)
                  .SingleOrDefault(d => d.DeveloperId == id);
 
-        public IEnumerable<Developer> GetAll()
-           => _db.Developers
-                 .Include(d => d.SkillRatings.Select(s => s.Skill.Category))
-                 .Include(d => d.User);
+        public IQueryable<Developer> GetAll(Expression<Func<Developer, bool>> predicate = null)
+           => predicate == null
+                ? _db.Developers
+                     .Include(d => d.SkillRatings.Select(s => s.Skill.Category))
+                     .Include(d => d.User)
 
-        public IEnumerable<Developer> FilterBy(Expression<Func<Developer, bool>> predicate)
-           => _db.Developers
-                 .Include(d => d.SkillRatings.Select(s => s.Skill.Category))
-                 .Include(d => d.User)
-                 .Where(predicate);
+                : _db.Developers
+                     .Include(d => d.SkillRatings.Select(s => s.Skill.Category))
+                     .Include(d => d.User)
+                     .Where(predicate);
     }
 }
