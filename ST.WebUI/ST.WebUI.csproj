@@ -289,6 +289,7 @@
     <Content Include="Scripts\app\reportsController.js" />
     <Content Include="Scripts\app\skillRatingsController.js" />
     <Content Include="Scripts\app\skillsController.js" />
+    <Content Include="Scripts\app\usersController.js" />
     <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

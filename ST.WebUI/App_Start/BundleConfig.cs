@@ -19,6 +19,7 @@ namespace ST.WebUI
                         "~/Scripts/app/categoriesController.js",
                         "~/Scripts/app/skillRatingsController.js",
                         "~/Scripts/app/reportsController.js",
+                        "~/Scripts/app/usersController.js",
                         "~/Scripts/app/developersController.js"
                 ));
 
