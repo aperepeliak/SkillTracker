@@ -29,7 +29,7 @@ namespace ST.DAL.Repos
         public IQueryable<Category> GetAll(Expression<Func<Category, bool>> predicate = null)
             => predicate == null
                 ? _db.Categories
-                : _db.Categories.Where(predicate).AsQueryable();
+                : _db.Categories.Where(predicate);
 
         public bool IsExists(Func<Category, bool> predicate)
             => _db.Categories
