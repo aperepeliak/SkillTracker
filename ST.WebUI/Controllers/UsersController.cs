@@ -15,18 +15,17 @@ namespace ST.WebUI.Controllers
             _userService = userService;
         }
 
-        public ActionResult Index(int page = 1)
+        public ActionResult Index(int page = 1, int itemsPerPage = 5)
         {
-            int numberOfItemsPerPage = 10;
-
             var usersViewModel = _userService.GetAll()
                             .Select(u => new UserViewModel
                             {
-                                UserName = u.FullName,
+                                FirstName = u.FirstName,
+                                LastName = u.LastName,
                                 Email = u.Email,
                                 Role = u.Role
                             })
-                            .ToPagedList(page, numberOfItemsPerPage);
+                            .ToPagedList(page, itemsPerPage);
 
             return View(usersViewModel);
         }

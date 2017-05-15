@@ -3,7 +3,7 @@ using ST.BLL.DTOs;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Collections.Generic;
+using System.Linq;
 
 namespace ST.BLL.Interfaces
 {
@@ -13,7 +13,7 @@ namespace ST.BLL.Interfaces
         Task<OperationDetails> Delete       (UserDto userDto);
         Task<ClaimsIdentity>   Authenticate (UserDto userDto);
 
-        IEnumerable<UserDto>   GetAll();
+        IQueryable<UserDto>   GetAll();
         UserDto                GetUserByEmail(string email);
         UserDto                GetUserById(string id);
     }

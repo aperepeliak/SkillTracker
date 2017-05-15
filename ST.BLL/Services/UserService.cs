@@ -120,30 +120,29 @@ namespace ST.BLL.Services
             }
         }
 
-        public IEnumerable<UserDto> GetAll()
+        public IQueryable<UserDto> GetAll()
         {
             var adminRoleId = _unitOfWork.RoleManager.Roles
                 .Where(r => r.Name == SecurityRoles.Admin)
                 .FirstOrDefault()
                 .Id;
 
-            var users = _unitOfWork.UserManager.Users
-                .Where(u => u.Roles.FirstOrDefault().RoleId != adminRoleId)
-                .Select(u => new UserDto
-                {
-                    Id        = u.Id,
-                    Role      = _unitOfWork.RoleManager
-                                    .Roles
-                                    .FirstOrDefault(r => r.Id == u.Roles
-                                                                  .FirstOrDefault()
-                                                                  .RoleId)
-                                    .Name,
-                    Email     = u.Email,
-                    FirstName = u.FirstName,
-                    LastName  = u.LastName
-                });
-
-            return users.ToList();
+            return _unitOfWork.UserManager.Users
+                 .Where(u => u.Roles.FirstOrDefault().RoleId != adminRoleId)
+                 .Select(u => new UserDto
+                 {
+                     Id = u.Id,
+                     Role = _unitOfWork.RoleManager
+                                     .Roles
+                                     .FirstOrDefault(r => r.Id == u.Roles
+                                                                   .FirstOrDefault()
+                                                                   .RoleId)
+                                     .Name,
+                     Email = u.Email,
+                     FirstName = u.FirstName,
+                     LastName = u.LastName
+                 })
+                 .OrderBy(u => u.Email);
         }
 
         public UserDto GetUserByEmail(string email)

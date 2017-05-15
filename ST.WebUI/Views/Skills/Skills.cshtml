@@ -64,7 +64,8 @@
         </table>
     </div>
     @Html.PagedListPager((IPagedList)Model.Skills,
-    page => Url.Action("Skills", new { categoryId = Model.SelectedCategoryId, page }))
+    page => Url.Action("Skills", new { categoryId = Model.SelectedCategoryId, page }), 
+    PagedListRenderOptions.OnlyShowFivePagesAtATime)
 </div>
 
 @section Scripts

@@ -21,16 +21,16 @@ namespace ST.WebUI.Controllers
             _categoryService = categoryService;
         }
 
-        public ActionResult Skills(int categoryId = 0, int page = 1)
+        public ActionResult Skills(int categoryId = 0, 
+                                   int page = 1, 
+                                   int itemsPerPage = 5)
         {
-            int numberOfItemsPerPage = 8;
-
             var viewModel = new SkillsViewModel
             {
                 Skills = _skillService.GetAll(categoryId)
-                                      .ToPagedList(page, numberOfItemsPerPage),
+                                      .ToPagedList(page, itemsPerPage),
 
-                Categories = _categoryService.GetAll().ToList(),
+                Categories = _categoryService.GetAll(),
                 SelectedCategoryId = categoryId,
                 SelectedCategoryName = categoryId == 0
                                         ? "Filter By Category"
