@@ -178,9 +178,7 @@
                         window.location = '/Reports/Download?fileGuid=' + response.FileGuid
                             + '&filename=' + response.FileName;
                     })
-                    .fail(function () {
-                        alert('error');
-                    });
+                    .fail(fail);
 
             } else {
                 alert('Please enter report name.');
