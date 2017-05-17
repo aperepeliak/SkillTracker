@@ -40,6 +40,5 @@ namespace ST.WebUI.Controllers.Api
         public IHttpActionResult ValidateUnique(int skillId)
             => Ok(_devService.IsSkillRatingUnique(User.Identity.GetUserId(), 
                                                   skillId));
-        
     }
 }

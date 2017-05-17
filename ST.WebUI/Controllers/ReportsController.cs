@@ -34,18 +34,15 @@ namespace ST.WebUI.Controllers
             };
         }
 
-        [HttpGet]
-        public virtual ActionResult Download(string fileGuid, string fileName)
+        public ActionResult Download(string fileGuid, string fileName)
         {
             if (TempData[fileGuid] != null)
             {
                 byte[] data = TempData[fileGuid] as byte[];
                 return File(data, "application/vnd.ms-excel", fileName);
             }
-            else
-            {
-                return new EmptyResult();
-            }
+            
+            return new EmptyResult();         
         }
     }
 }
