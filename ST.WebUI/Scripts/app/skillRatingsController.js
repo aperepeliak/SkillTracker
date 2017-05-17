@@ -34,8 +34,9 @@
 
         e.preventDefault();
         var skillId = $('.skills').val();
+        var rating = $('.rating').val();
 
-        if (!skillId) return;
+        if (!skillId || (rating <= 0 || rating > 5)) return;
 
         $.ajax({
             url: `/api/skillratings/validateUnique?skillId=${skillId}`,
