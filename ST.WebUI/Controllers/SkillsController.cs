@@ -23,7 +23,7 @@ namespace ST.WebUI.Controllers
 
         public ActionResult Skills(int categoryId = 0, 
                                    int page = 1, 
-                                   int itemsPerPage = 5)
+                                   int itemsPerPage = 10)
         {
             var viewModel = new SkillsViewModel
             {
